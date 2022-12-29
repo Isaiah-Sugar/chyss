@@ -11,20 +11,18 @@ var hoveredObj = null
 onready var board = get_node("chyss table bits/board")
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 func _input(event):
+	#if left mouse press down
 	if event is InputEventMouseButton && event.button_index == 1 && event.pressed:
-		if hoveredObj:
+		if hoveredObj:  # clicked on hovered object 
 			hoveredObj.getClicked()
-		else:
+		else:  # unselect if clicked on no object
 			board.unselect()
 	elif event is InputEventMouseMotion:
-		var from = camera.project_ray_origin(event.position)
+		#set raycast destination
 		rayCastObj.cast_to = rayCastObj.global_translation + camera.project_local_ray_normal(event.position) * ray_length
-		if rayCastObj.get_collider() != hoveredObj:
-			hoveredObj = rayCastObj.get_collider()
-			print(hoveredObj)
+		if rayCastObj.get_collider() != hoveredObj: #hovering over a different object
+			hoveredObj = rayCastObj.get_collider() #update hovered object

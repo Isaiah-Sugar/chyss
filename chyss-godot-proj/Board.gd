@@ -21,12 +21,12 @@ func _ready():
 	randomize()
 	var piece = newBishop.instance()
 	piece.boardPosition = Vector2(3, 4)
-	piece.team = "white"
 	pieceParent.add_child(piece)
+	piece.team = "white"
 	piece = newBishop.instance()
 	piece.boardPosition = Vector2(2, 7)
-	piece.team = "black"
 	pieceParent.add_child(piece)
+	piece.team = "black"
 
 #function to return contents of a board position
 func positionContents(target):

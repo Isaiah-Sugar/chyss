@@ -2,8 +2,14 @@ extends Spatial
 
 var newHighlight = preload("res://highlight.tscn")
 onready var highlightParent = get_node("HighlightParent")
+onready var mesh = get_child(0)
 
-var team = null
+onready var whiteTeamMaterial = load("res://white-team.material")
+onready var blackTeamMaterial = load("res://black-team.material")
+
+
+#setget allows a function to be called whenever team is modified
+var team = null setget setTeam
 var boardPosition = Vector2(0, 0)
 var moveVectors = []
 onready var board = get_parent().get_parent()
@@ -61,3 +67,14 @@ func getCaptured():
 func updatePosition():
 	var tmp = (boardPosition * 1/8)
 	translation = Vector3(tmp.x, 0, tmp.y)
+
+
+
+#i am isaiah adding these functions:
+func setTeam(newTeam):
+	team = newTeam #value gets set
+	#set material based on team
+	if team == "white":
+		mesh.material_override = whiteTeamMaterial 
+	elif team == "black":
+		mesh.material_override = blackTeamMaterial

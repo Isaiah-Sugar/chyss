@@ -1,0 +1,63 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://opponent.glb" type="PackedScene" id=1]
+[ext_resource path="res://opponentAnimationTree.gd" type="Script" id=2]
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "hand-rest-on-table"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "hand-tapping"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "short-think"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+switch_mode = 2
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+switch_mode = 2
+xfade_time = 1.5
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+switch_mode = 2
+xfade_time = 0.31
+
+[sub_resource type="AnimationNodeStateMachine" id=13]
+states/hand-rest-on-table/node = SubResource( 6 )
+states/hand-rest-on-table/position = Vector2( 395, 152 )
+states/hand-tapping/node = SubResource( 7 )
+states/hand-tapping/position = Vector2( 150, 101 )
+states/short-think/node = SubResource( 8 )
+states/short-think/position = Vector2( 150, 189 )
+transitions = [ "hand-rest-on-table", "hand-tapping", SubResource( 9 ), "hand-tapping", "hand-rest-on-table", SubResource( 10 ), "short-think", "hand-rest-on-table", SubResource( 11 ), "hand-rest-on-table", "short-think", SubResource( 12 ) ]
+start_node = "hand-rest-on-table"
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+graph_offset = Vector2( -269, 98 )
+nodes/StateMachine/node = SubResource( 13 )
+nodes/StateMachine/position = Vector2( -80, 160 )
+nodes/output/position = Vector2( 300, 160 )
+node_connections = [ "output", 0, "StateMachine" ]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[node name="opponent" instance=ExtResource( 1 )]
+
+[node name="shirt" parent="rig/Skeleton" index="1"]
+cast_shadow = 0
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="1"]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/StateMachine/playback = SubResource( 5 )
+script = ExtResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="." index="3"]
+transform = Transform( 0.602359, 0.515848, -0.609151, 0, 0.763131, 0.646244, 0.798226, -0.389271, 0.459678, -3.73146, 0, -1.02328 )
+editor_only = true

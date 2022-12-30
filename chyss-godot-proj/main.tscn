@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://chyss table bits.glb" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://lowpoly bg.glb" type="PackedScene" id=3]
 [ext_resource path="res://Board.gd" type="Script" id=4]
+[ext_resource path="res://opponent.tscn" type="PackedScene" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.2, 0.2, 0.2 )
@@ -22,8 +23,16 @@ enabled = true
 cast_to = Vector3( 14, 58, -966 )
 collide_with_areas = true
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.774841, -0.510645, -0.372644, 0.513199, 0.163922, 0.84247, -0.369119, -0.844021, 0.389076, -2.591, 1.211, -0.809 )
+[node name="DirectionalLight" type="SpotLight" parent="."]
+transform = Transform( 0.797533, -0.382977, 0.466122, -0.489959, 0.0395901, 0.870846, -0.351968, -0.922909, -0.156069, 1.16667, 2.26239, -0.32317 )
+light_energy = 3.256
+light_indirect_energy = 0.0
+light_specular = 1.068
+shadow_enabled = true
+spot_range = 3.059
+spot_attenuation = 1.31951
+spot_angle = 67.56
+spot_angle_attenuation = 0.757858
 
 [node name="chyss table bits" parent="." instance=ExtResource( 1 )]
 
@@ -38,3 +47,5 @@ transform = Transform( 2.654, 0, 0, 0, 0.04, 0, 0, 0, 2.654, 0.441, -0.00912166,
 shape = SubResource( 1 )
 
 [node name="lowpoly bg" parent="." instance=ExtResource( 3 )]
+
+[node name="opponent" parent="." instance=ExtResource( 5 )]

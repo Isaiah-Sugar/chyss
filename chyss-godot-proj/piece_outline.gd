@@ -1,5 +1,6 @@
 extends Spatial
 
+var changelingChild = false
 var newHighlight = preload("res://highlight.tscn")
 onready var highlightParent = get_node("HighlightParent")
 onready var mesh = get_child(0)

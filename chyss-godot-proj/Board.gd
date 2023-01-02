@@ -4,8 +4,11 @@ var newHat = preload("res://pieces-scenes/hat.tscn")
 var newFrog = preload("res://pieces-scenes/frog.tscn")
 var newBishop = preload("res://pieces-scenes/bishop.tscn")
 var newRock = preload("res://pieces-scenes/rock.tscn")
+var newSorcerer = preload("res://pieces-scenes/sorcerer.tscn")
+var newChangeling = preload("res://pieces-scenes/changeling.tscn")
 
 var newHighlight = preload("res://highlight.tscn")
+
 
 onready var pieceParent = get_node("PieceParent")
 
@@ -26,7 +29,8 @@ func _ready():
 	instancePiece(newHat, Vector2(7,6), "white")
 	instancePiece(newFrog, Vector2(3,4), "black")
 	instancePiece(newRock, Vector2(3,2), "white")
-
+	instancePiece(newSorcerer, Vector2(7,7), "white")
+	instancePiece(newChangeling, Vector2(5,5), "black")
 
 
 func instancePiece(type, boardPosition, team):

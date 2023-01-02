@@ -2,7 +2,7 @@ extends Spatial
 
 var changelingChild = false
 var newHighlight = preload("res://highlight.tscn")
-onready var highlightParent = get_node("HighlightParent")
+var highlightParent
 onready var mesh = get_child(0)
 
 onready var whiteTeamMaterial = load("res://white-team.material")
@@ -12,10 +12,20 @@ onready var blackTeamMaterial = load("res://black-team.material")
 #setget allows a function to be called whenever team is modified
 var team = null setget setTeam
 var boardPosition = Vector2(0, 0)
-onready var board = get_parent().get_parent()
+var board
 
 func _ready():
 	updatePosition()
+	getOtherNodes()
+
+#function to get other nodes on ready
+func getOtherNodes():
+	if changelingChild:
+		board = get_parent().get_parent().get_parent()
+	else:
+		board = get_parent().get_parent()
+		highlightParent = get_node("HighlightParent")
+
 #function for when the piece is clicked
 func _on_TextureButton_button_down():
 	getClicked()

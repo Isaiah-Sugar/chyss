@@ -3,10 +3,13 @@ extends "res://piece outline.gd"
 var moveVector = Vector2(0, 0)
 
 func _ready():
-	reroll()
+	getOtherNodes()
+	nextTurn()
+	updatePosition()
 
 func nextTurn():
-	reroll()
+	if board.currentTurn == team:
+		reroll()
 
 func reroll():
 	#roll a random position that doesnt point to a spot occupied by your team

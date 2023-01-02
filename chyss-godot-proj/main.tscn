@@ -24,7 +24,7 @@ cast_to = Vector3( 14, 58, -966 )
 collide_with_areas = true
 
 [node name="DirectionalLight" type="SpotLight" parent="."]
-transform = Transform( 0.797533, -0.382977, 0.466122, -0.489959, 0.0395901, 0.870846, -0.351968, -0.922909, -0.156069, 1.16667, 2.26239, -0.32317 )
+transform = Transform( 0.797533, -0.382977, 0.466122, -0.489959, 0.0395902, 0.870846, -0.351968, -0.922909, -0.156069, 1.16667, 2.26239, -0.32317 )
 light_energy = 3.256
 light_indirect_energy = 0.0
 light_specular = 1.068

@@ -1,7 +1,5 @@
-extends "res://piece_outline.gd"
-
-func _ready():
-	moveVectors = [Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)]
+extends "res://piece outline.gd"
+var moveVectors = [Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)]
 
 func findMoves():
 	var validMoves = []

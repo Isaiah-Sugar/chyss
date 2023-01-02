@@ -23,6 +23,7 @@ func _input(event):
 			board.unselect()
 	elif event is InputEventMouseMotion:
 		#set raycast destination
-		rayCastObj.cast_to = rayCastObj.global_translation + camera.project_local_ray_normal(event.position) * ray_length
+		var castDir = camera.project_local_ray_normal(event.position)
+		rayCastObj.cast_to = rayCastObj.global_translation + castDir * ray_length
 		if rayCastObj.get_collider() != hoveredObj: #hovering over a different object
 			hoveredObj = rayCastObj.get_collider() #update hovered object

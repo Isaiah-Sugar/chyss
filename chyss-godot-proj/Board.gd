@@ -1,9 +1,11 @@
 extends Area
 
 var newHat = preload("res://pieces-scenes/hat.tscn")
-var newHighlight = preload("res://highlight.tscn")
 var newFrog = preload("res://pieces-scenes/frog.tscn")
 var newBishop = preload("res://pieces-scenes/bishop.tscn")
+var newRock = preload("res://pieces-scenes/rock.tscn")
+
+var newHighlight = preload("res://highlight.tscn")
 
 onready var pieceParent = get_node("PieceParent")
 
@@ -19,14 +21,20 @@ var selectedPiece = null
 
 func _ready():
 	randomize()
-	var piece = newBishop.instance()
-	piece.boardPosition = Vector2(3, 4)
+	instancePiece(newBishop, Vector2(1,1), "white")
+	instancePiece(newBishop, Vector2(5,3), "black")
+	instancePiece(newHat, Vector2(7,6), "white")
+	instancePiece(newFrog, Vector2(3,4), "black")
+	instancePiece(newRock, Vector2(3,2), "white")
+
+
+
+func instancePiece(type, boardPosition, team):
+	var piece = type.instance()
+	piece.boardPosition = boardPosition
 	pieceParent.add_child(piece)
-	piece.team = "white"
-	piece = newBishop.instance()
-	piece.boardPosition = Vector2(2, 7)
-	pieceParent.add_child(piece)
-	piece.team = "black"
+	piece.team = team
+
 
 #function to return contents of a board position
 func positionContents(target):
@@ -73,8 +81,11 @@ func nextTurn():
 	if teamIndex == teams.size():
 		teamIndex = 0
 	currentTurn = teams[teamIndex]
+	for piece in pieceParent.get_children():
+		piece.nextTurn()
 
 
 
 func getClicked():
 	unselect()
+

@@ -13,7 +13,6 @@ onready var board = get_node("chyss table bits/board")
 
 func _ready():
 	pass
-	pass
 
 func _input(event):
 	#if left mouse press down

@@ -17,22 +17,22 @@ var moveVectors = [
 					Vector2(1, -2)
 									]
 
-func findMoves():
+func find_moves():
 	var validMoves = []
 	for vector in moveVectors:
-		if canMove(vector) || canTake(vector):
+		if can_move(vector) || can_take(vector):
 			validMoves.append(vector)
 	return validMoves
 
-func getCaptured():
-	spawnFrog()
+func get_captured():
+	spawn_frog()
 	queue_free()
 
 #spawn a frog on the position where hat is killed
-func spawnFrog():
+func spawn_frog():
 	var frog = newFrog.instance()
 	frog.boardPosition = boardPosition
 	get_parent().add_child(frog)
 	frog.team = team
-	frog.randomMove()
+	frog.random_move()
 

@@ -21,9 +21,9 @@ var moveVectors = [
 									]
 	
 
-func findMoves():
+func find_moves():
 	var validMoves = []
 	for vector in moveVectors:
-		if canMove(vector) || canTake(vector):
+		if can_move(vector) || can_take(vector):
 			validMoves.append(vector)
 	return validMoves

@@ -11,7 +11,7 @@ const camMinRot = Vector3(-16.9810,0,0)
 const camMaxRot = Vector3(-90,0,0)
 
 func _ready():
-	camPath(camPathFac)
+	cam_path(camPathFac)
 
 func _input(event):
 	#i do not like how this reads but it seems to work fine:
@@ -31,8 +31,8 @@ func _process(delta):
 	if camMoveInput != 0:
 		camPathFac += (camMoveInput * camMoveSpeed * delta )
 		camPathFac = max(min(camPathFac,1),0) #clamp to a 0-1 range
-		camPath(camPathFac)
+		cam_path(camPathFac)
 
-func camPath(factor: float) -> void:
+func cam_path(factor: float) -> void:
 	translation = lerp(camMinPos, camMaxPos, factor)
 	rotation_degrees = lerp(camMinRot, camMaxRot, factor)

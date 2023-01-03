@@ -11,18 +11,15 @@ onready var highlightCaptureMat = load("res://capturable.material")
 onready var highlightNormalMat = load("res://highlight.material")
 
 func _ready():
-	updatePosition()
-	if board.findPiece(piece.boardPosition + boardPosition):
+	update_position()
+	if board.find_piece(piece.boardPosition + boardPosition):
 		mesh.set_surface_material(0, highlightCaptureMat)
 	else:
 		mesh.set_surface_material(0, highlightNormalMat)
 
-func _on_TextureButton_button_up():
+func get_clicked():
 	piece.move(boardPosition, true)
 
-func getClicked():
-	piece.move(boardPosition, true)
-
-func updatePosition():
+func update_position():
 	var tmp = (boardPosition * 1/8)
 	translation = Vector3(tmp.x, 0, tmp.y)

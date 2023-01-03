@@ -32,8 +32,8 @@ func _ready():
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()
 	piece.boardPosition = boardPosition
-	pieceParent.add_child(piece)
 	piece.team = team
+	pieceParent.add_child(piece)
 
 #bool functions to return if a position is out of bounds
 func out_of_bounds(target):

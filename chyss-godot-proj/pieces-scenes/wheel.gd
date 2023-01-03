@@ -35,9 +35,9 @@ func move(moveVector, nextTurn):
 
 #on next turn wheel rolls according to velocity
 func next_turn():
-	stop_check()
 	if currentVelocity != Vector2(0, 0):
 		roll()
+		stop_check()
 
 #function for the wheel to roll
 func roll():

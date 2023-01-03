@@ -1,21 +1,20 @@
 extends Spatial
 
-var changelingChild = false
-var newHighlight = preload("res://Highlight.tscn")
+
+var board
 var highlightParent
 onready var mesh = get_child(0)
 
+var newHighlight = preload("res://Highlight.tscn")
 onready var whiteTeamMaterial = load("res://white-team.material")
 onready var blackTeamMaterial = load("res://black-team.material")
 
-
-#setget allows a function to be called whenever team is modified
+#setget allows a function to be called whenever team is modified (include self.)
+var boardPosition = null setget update_position
 var team = null setget set_team
-var boardPosition = Vector2(0, 0)
-var board
+var changelingChild = false
 
 func _ready():
-	update_position()
 	get_other_nodes()
 
 #function to get other nodes on ready
@@ -79,10 +78,8 @@ func move(moveVector, nextTurn):
 		if capturePiece != self:
 			capturePiece.get_captured()
 	
-	#move self
-	boardPosition += moveVector
-	update_position()
-	
+	#must say self for setget to work
+	self.boardPosition += moveVector
 	#change turn
 	if nextTurn:
 		board.next_turn()
@@ -96,7 +93,13 @@ func random_move():
 func get_captured():
 	queue_free()
 #function to update piece position
-func update_position():
+func update_position(newPosition):
+	boardPosition = newPosition
+	
+	#fancy saves the rest for entering scene tree
+	if not is_inside_tree():
+		yield(self, "ready")
+	
 	var tmp = (boardPosition * 1/8)
 	translation = Vector3(tmp.x, 0, tmp.y)
 
@@ -109,6 +112,11 @@ func next_turn():
 #function to change the piece's material to match its team
 func set_team(newTeam):
 	team = newTeam #value gets set
+	
+	#fancy saves the rest for entering scene tree
+	if not is_inside_tree():
+		yield(self, "ready")
+	
 	#set material based on team
 	if team == "white":
 		mesh.material_override = whiteTeamMaterial 

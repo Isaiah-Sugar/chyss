@@ -44,8 +44,8 @@ func roll():
 	var capturePiece = board.find_piece(boardPosition+currentVelocity)
 	if capturePiece:
 		capturePiece.get_captured()
-	boardPosition += currentVelocity
-	update_position()
+	#must say self for setget to work
+	self.boardPosition += currentVelocity
 
 #function to stop the wheel's motion if it hits the edge of the board
 func stop_check():

@@ -4,9 +4,7 @@ var moveVector = Vector2(0, 0)
 
 func _ready():
 	get_other_nodes()
-	next_turn()
 	reroll()
-	update_position()
 
 func next_turn():
 	if board.currentTurn == team:

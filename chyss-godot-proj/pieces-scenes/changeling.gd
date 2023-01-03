@@ -18,21 +18,21 @@ var childPiece = null
 
 #on ready get a new child
 func _ready():
-	newChildPiece()
+	new_child_piece()
 
 #on next turn if its your turn get a new child
-func nextTurn():
+func next_turn():
 	if board.currentTurn == team:
-		newChildPiece()
+		new_child_piece()
 
 #find moves as the child piece
-func findMoves():
-	var validMoves = childPiece.findMoves()
+func find_moves():
+	var validMoves = childPiece.find_moves()
 	return validMoves
 
 
 #function to get a new child piece
-func newChildPiece():
+func new_child_piece():
 	if childPiece:
 		remove_child(childPiece)
 	
@@ -43,6 +43,7 @@ func newChildPiece():
 	#set properties and add it
 	piece.boardPosition = self.boardPosition
 	piece.changelingChild = true
+	piece.visible = false
 	add_child(piece)
 	piece.team = self.team
 	childPiece = piece

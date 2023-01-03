@@ -8,7 +8,7 @@ var newFrog = preload("res://pieces-scenes/frog.tscn")
 var newBishop = preload("res://pieces-scenes/bishop.tscn")
 #var newPawn = preload("res://Pawn.tscn")
 #var newWheel = preload("res://Wheel.tscn")
-var newSorcerer = preload("res://pieces-scenes/Sorcerer.tscn")
+var newSorcerer = preload("res://pieces-scenes/sorcerer.tscn")
 var newRock = preload("res://pieces-scenes/rock.tscn")
 
 #list of the pieces to pick a random one from

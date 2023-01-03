@@ -12,7 +12,7 @@ onready var highlightNormalMat = load("res://highlight.material")
 
 func _ready():
 	updatePosition()
-	if board.positionContents(piece.boardPosition + boardPosition) != "empty":
+	if board.findPiece(piece.boardPosition + boardPosition):
 		mesh.set_surface_material(0, highlightCaptureMat)
 	else:
 		mesh.set_surface_material(0, highlightNormalMat)

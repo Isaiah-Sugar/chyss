@@ -4,7 +4,6 @@ var moveVector = Vector2(0, 0)
 
 func findMoves():
 	var validMoves = [moveVector]
-	print(validMoves)
 	return validMoves
 
 

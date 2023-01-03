@@ -35,10 +35,10 @@ func getClicked():
 		var validMoves = findMoves()
 		spawnHighlights(validMoves)
 		board.selectedPiece = self
+	
+	#weird check if there's a highlight under me
 	elif board.selectedPiece:
-		
 		for highlight in board.selectedPiece.highlightParent.get_children():
-			print(boardPosition)
 			if (board.selectedPiece.boardPosition + highlight.boardPosition) == boardPosition:
 				highlight.getClicked()
 				return
@@ -47,6 +47,23 @@ func getClicked():
 func findMoves():
 	var validMoves = []
 	return validMoves
+
+#return true if a space is valid and empty
+func canMove(target):
+	if board.outOfBounds(boardPosition + target):
+		return false
+	if board.findPiece(boardPosition + target):
+		return false
+	return true
+
+#return true if a space is valid and has an enemy
+func canTake(target):
+	if board.outOfBounds(boardPosition + target):
+		return false
+	var targetPiece = board.findPiece(boardPosition + target)
+	if targetPiece:
+		if targetPiece.team != team:
+			return true
 
 #function to show highlights at each valid move
 func spawnHighlights(validMoves):
@@ -58,12 +75,17 @@ func spawnHighlights(validMoves):
 
 #function to move when a highlight is clicked
 func move(moveVector, nextTurn):
-	var positionContents = board.positionContents(boardPosition+moveVector)
-	if positionContents != "empty" && positionContents != team:
-		var capture = board.findPiece(boardPosition+moveVector)
-		capture.getCaptured()
+	#look for a piece to capture
+	var capturePiece = board.findPiece(boardPosition+moveVector)
+	if capturePiece:
+		if capturePiece != self:
+			capturePiece.getCaptured()
+	
+	#move self
 	boardPosition += moveVector
 	updatePosition()
+	
+	#change turn
 	if nextTurn:
 		board.nextTurn()
 
@@ -85,6 +107,8 @@ func nextTurn():
 
 
 #i am isaiah adding these functions:
+
+#function to change the piece's material to match its team
 func setTeam(newTeam):
 	team = newTeam #value gets set
 	#set material based on team

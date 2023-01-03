@@ -39,35 +39,17 @@ func instancePiece(type, boardPosition, team):
 	pieceParent.add_child(piece)
 	piece.team = team
 
-
-#function to return contents of a board position
-func positionContents(target):
-	if outOfBounds(target):
-		return("out")
-	if isWhite(target):
-		return("white")
-	if isBlack(target):
-		return("black")
-	return("empty")
-
-#bool functions for positionContents
+#bool functions to return if a position is out of bounds
 func outOfBounds(target):
 	if target.y > 7 || target.y < 0 || target.x > 7 || target.x < 0:
 		return true
-func isWhite(target):
-	for piece in pieceParent.get_children():
-		if piece.boardPosition == target && piece.team == "white":
-			return true
-func isBlack(target):
-	for piece in pieceParent.get_children():
-		if piece.boardPosition == target && piece.team == "black":
-			return true
 
 #function to find a piece at a given position
 func findPiece(target):
 	for piece in pieceParent.get_children():
 		if piece.boardPosition == target:
 			return piece
+	return null
 
 #function to unselect the current piece (remove all highlights)
 func unselect():

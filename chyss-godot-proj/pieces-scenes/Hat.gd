@@ -20,8 +20,7 @@ var moveVectors = [
 func findMoves():
 	var validMoves = []
 	for vector in moveVectors:
-		var positionContents = board.positionContents(boardPosition+vector)
-		if  positionContents != "out" && positionContents != team:
+		if canMove(vector) || canTake(vector):
 			validMoves.append(vector)
 	return validMoves
 

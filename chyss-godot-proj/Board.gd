@@ -24,14 +24,14 @@ var selectedPiece = null
 
 func _ready():
 	randomize()
-	instancePiece(newBishop, Vector2(1,1), "white")
-	instancePiece(newBishop, Vector2(5,3), "black")
-	instancePiece(newHat, Vector2(7,6), "white")
-	instancePiece(newFrog, Vector2(3,4), "black")
-	instancePiece(newRock, Vector2(3,2), "white")
-	instancePiece(newSorcerer, Vector2(7,7), "white")
-	instancePiece(newChangeling, Vector2(5,5), "black")
-
+	
+	instancePiece(newBishop, Vector2(1,1), teams[0])
+	instancePiece(newBishop, Vector2(5,3), teams[1])
+	instancePiece(newHat, Vector2(7,6), teams[0])
+	instancePiece(newFrog, Vector2(3,4), teams[1])
+	instancePiece(newRock, Vector2(3,2), teams[0])
+	instancePiece(newSorcerer, Vector2(4,6), teams[1])
+	instancePiece(newChangeling, Vector2(5,5), teams[1])
 
 func instancePiece(type, boardPosition, team):
 	var piece = type.instance()

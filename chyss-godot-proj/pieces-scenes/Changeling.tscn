@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://pieces-scenes/Changeling.gd" type="Script" id=1]
+[ext_resource path="res://pieces-scenes/changeling.gd" type="Script" id=1]
 [ext_resource path="res://black-team.material" type="Material" id=2]
 
 [sub_resource type="ArrayMesh" id=1]

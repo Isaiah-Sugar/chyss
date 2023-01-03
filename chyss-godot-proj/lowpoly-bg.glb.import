@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/lowpoly bg.glb-945d4f2a2fe2596541c4ee6f85e7613d.scn"
+path="res://.import/lowpoly-bg.glb-e14cf7a4e22dda9459ac82d76320952b.scn"
 
 [deps]
 
-source_file="res://lowpoly bg.glb"
-dest_files=[ "res://.import/lowpoly bg.glb-945d4f2a2fe2596541c4ee6f85e7613d.scn" ]
+source_file="res://lowpoly-bg.glb"
+dest_files=[ "res://.import/lowpoly-bg.glb-e14cf7a4e22dda9459ac82d76320952b.scn" ]
 
 [params]
 

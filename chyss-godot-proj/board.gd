@@ -1,13 +1,13 @@
 extends Area
 
-var newHat = preload("res://pieces-scenes/hat.tscn")
-var newFrog = preload("res://pieces-scenes/frog.tscn")
-var newBishop = preload("res://pieces-scenes/bishop.tscn")
-var newRock = preload("res://pieces-scenes/rock.tscn")
-var newSorcerer = preload("res://pieces-scenes/sorcerer.tscn")
-var newChangeling = preload("res://pieces-scenes/changeling.tscn")
+var newHat = preload("res://pieces-scenes/Hat.tscn")
+var newFrog = preload("res://pieces-scenes/Frog.tscn")
+var newBishop = preload("res://pieces-scenes/Bishop.tscn")
+var newRock = preload("res://pieces-scenes/Rock.tscn")
+var newSorcerer = preload("res://pieces-scenes/Sorcerer.tscn")
+var newChangeling = preload("res://pieces-scenes/Changeling.tscn")
 
-var newHighlight = preload("res://highlight.tscn")
+var newHighlight = preload("res://Highlight.tscn")
 
 
 onready var pieceParent = get_node("PieceParent")

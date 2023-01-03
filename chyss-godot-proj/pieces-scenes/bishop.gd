@@ -1,4 +1,4 @@
-extends "res://piece outline.gd"
+extends "res://piece-outline.gd"
 var moveVectors = [Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)]
 
 func findMoves():

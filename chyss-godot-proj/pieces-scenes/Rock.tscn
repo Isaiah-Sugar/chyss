@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Rock.material" type="Material" id=1]
-[ext_resource path="res://pieces-scenes/Rock_from_rock_paper_scissors.gd" type="Script" id=2]
+[ext_resource path="res://rock.material" type="Material" id=1]
+[ext_resource path="res://pieces-scenes/rock.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "pieces_Vert001"

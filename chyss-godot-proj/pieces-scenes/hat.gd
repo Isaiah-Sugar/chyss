@@ -1,6 +1,6 @@
-extends "res://piece outline.gd"
+extends "res://piece-outline.gd"
 
-var newFrog = preload("res://pieces-scenes/frog.tscn")
+var newFrog = preload("res://pieces-scenes/Frog.tscn")
 
 var moveVectors = [
 					Vector2(2, -1), 

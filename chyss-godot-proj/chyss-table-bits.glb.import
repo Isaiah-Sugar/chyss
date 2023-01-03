@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/chyss camera pos test.glb-4a01d1759a6b48c261ab3aa6a67dbd48.scn"
+path="res://.import/chyss-table-bits.glb-9b922bdff81673330ab72b0bae397a1b.scn"
 
 [deps]
 
-source_file="res://chyss camera pos test.glb"
-dest_files=[ "res://.import/chyss camera pos test.glb-4a01d1759a6b48c261ab3aa6a67dbd48.scn" ]
+source_file="res://chyss-table-bits.glb"
+dest_files=[ "res://.import/chyss-table-bits.glb-9b922bdff81673330ab72b0bae397a1b.scn" ]
 
 [params]
 

@@ -14,7 +14,6 @@ var hoveredObj = null
 
 onready var board = get_node("chyss table bits/board")
 
-
 func _ready():
 	pass
 

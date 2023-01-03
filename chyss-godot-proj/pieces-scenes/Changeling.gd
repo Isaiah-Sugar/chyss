@@ -38,7 +38,7 @@ func newChildPiece():
 	
 	#get random piece
 	var piece = piecesArray[randi() % piecesArray.size()].instance()
-	piece.visible = false
+#	piece.visible = false
 	
 	#set properties and add it
 	piece.boardPosition = self.boardPosition

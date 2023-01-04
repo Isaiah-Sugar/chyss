@@ -49,6 +49,10 @@ func new_child_piece():
 	#the child piece will try positioning itself relative to changeling, 
 	#so we force its real translation to 0 without changing its boardPosition:
 	piece.translation = Vector3(0,0,0) #has to be after add_child()
-	mesh = piece.mesh
+#	mesh = piece.mesh
 	childPiece = piece
 
+func set_team(newTeam):
+	team = newTeam
+	if childPiece:
+		childPiece.set_team(newTeam)

@@ -1,7 +1,7 @@
 extends Spatial
 
 
-var board
+var board = null
 var highlightParent
 onready var mesh = get_child(0)
 
@@ -12,18 +12,15 @@ onready var blackTeamMaterial = load("res://black-team.material")
 #setget allows a function to be called whenever team is modified (include self.)
 var boardPosition = null setget update_position
 var team = null setget set_team
-var changelingChild = false
 
 func _ready():
-	get_other_nodes()
+	if !board:
+		get_other_nodes()
 
 #function to get other nodes on ready
 func get_other_nodes():
-	if changelingChild:
-		board = get_parent().get_parent().get_parent()
-	else:
-		board = get_parent().get_parent()
-		highlightParent = get_node("HighlightParent")
+	board = get_parent().get_parent()
+	highlightParent = get_node("HighlightParent")
 
 #function for when the piece is clicked
 func get_clicked():

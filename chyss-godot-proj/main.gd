@@ -1,8 +1,15 @@
 #bg objects to add
-#plant, dice, game controller, card game deck box, book
+#dice, game controller, book
 
-#todo
-#isaiah add sorcerer model to sorcerer.tscn, its a hat rn
+#isaiah todo
+#rock must click highlight bug, pieces moving animations, cat model
+#abby todo
+#cat, decide pawn movement
+
+#long term
+#dialogue, opponent ai
+#more/better guy animations, lighter guy rig
+#lock to specitic camera angles?
 
 
 extends Spatial

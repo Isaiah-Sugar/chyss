@@ -38,12 +38,17 @@ func new_child_piece():
 	
 	#get random piece
 	var piece = piecesArray[randi() % piecesArray.size()].instance()
-#	piece.visible = false
 	
 	#set properties and add it
 	piece.boardPosition = self.boardPosition
-	piece.changelingChild = true
-	piece.visible = false
-	add_child(piece)
 	piece.team = self.team
+	piece.board = board
+	piece.highlightParent = highlightParent
+	
+	add_child(piece)
+	#the child piece will try positioning itself relative to changeling, 
+	#so we force its real translation to 0 without changing its boardPosition:
+	piece.translation = Vector3(0,0,0) #has to be after add_child()
+	mesh = piece.mesh
 	childPiece = piece
+

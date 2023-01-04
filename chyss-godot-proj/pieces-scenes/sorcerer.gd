@@ -3,7 +3,7 @@ extends "res://piece-outline.gd"
 var moveVector = Vector2(0, 0)
 
 func _ready():
-	get_other_nodes()
+#	get_other_nodes()
 	reroll()
 
 func next_turn():

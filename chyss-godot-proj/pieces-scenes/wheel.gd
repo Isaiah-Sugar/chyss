@@ -23,7 +23,7 @@ func get_clicked():
 func find_moves():
 	var validMoves = []
 	for vector in moveVectors:
-		if  can_move(vector):
+		if  !board.out_of_bounds(boardPosition+vector):
 			validMoves.append(vector)
 	return validMoves
 

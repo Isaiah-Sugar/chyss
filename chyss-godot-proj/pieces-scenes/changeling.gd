@@ -17,7 +17,7 @@ var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock]
 var childPiece = null
 
 #on ready get a new child
-func _ready():
+func individual_ready():
 	new_child_piece()
 
 #on next turn if its your turn get a new child

@@ -15,7 +15,11 @@ var team = null setget set_team
 
 func _ready():
 	if !board:
-		get_other_nodes()
+	  get_other_nodes()
+	individual_ready()
+#function for when a piece needs to do things on ready
+func individual_ready():
+	pass
 
 #function to get other nodes on ready
 func get_other_nodes():
@@ -119,3 +123,7 @@ func set_team(newTeam):
 		mesh.material_override = whiteTeamMaterial 
 	elif team == "black":
 		mesh.material_override = blackTeamMaterial
+	individual_set_team()
+#function for individual pieces to react to their team being set
+func individual_set_team():
+	pass

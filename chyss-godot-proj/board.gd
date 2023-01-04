@@ -7,6 +7,7 @@ var newRock = preload("res://pieces-scenes/Rock.tscn")
 var newSorcerer = preload("res://pieces-scenes/Sorcerer.tscn")
 var newChangeling = preload("res://pieces-scenes/Changeling.tscn")
 var newWheel = preload("res://pieces-scenes/Wheel.tscn")
+var newPawn = preload("res://pieces-scenes/Pawn.tscn")
 
 var newHighlight = preload("res://Highlight.tscn")
 
@@ -29,6 +30,9 @@ func _ready():
 	instance_piece(newSorcerer, Vector2(4,6), teams[1])
 	instance_piece(newChangeling, Vector2(5,5), teams[1])
 	instance_piece(newWheel, Vector2(4,7), teams[0])
+	instance_piece(newPawn, Vector2(7, 7), teams[0])
+	instance_piece(newPawn, Vector2(7, 3), teams[1])
+
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()
 	piece.boardPosition = boardPosition

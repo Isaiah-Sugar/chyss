@@ -6,13 +6,13 @@ extends "res://piece-outline.gd"
 var newHat = preload("res://pieces-scenes/Hat.tscn")
 var newFrog = preload("res://pieces-scenes/Frog.tscn")
 var newBishop = preload("res://pieces-scenes/Bishop.tscn")
-#var newPawn = preload("res://Pawn.tscn")
+var newPawn = preload("res://pieces-scenes/Pawn.tscn")
 #var newWheel = preload("res://Wheel.tscn")
 var newSorcerer = preload("res://pieces-scenes/Sorcerer.tscn")
 var newRock = preload("res://pieces-scenes/Rock.tscn")
 
 #list of the pieces to pick a random one from
-var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock]
+var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock, newPawn]
 
 var childPiece = null
 

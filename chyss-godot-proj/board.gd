@@ -21,23 +21,40 @@ var selectedPiece = null
 
 func _ready():
 	randomize()
-	
-	instance_piece(newBishop, Vector2(1,1), teams[0])
-	instance_piece(newBishop, Vector2(5,3), teams[1])
-	instance_piece(newHat, Vector2(7,6), teams[0])
-	instance_piece(newFrog, Vector2(3,4), teams[1])
-	instance_piece(newRock, Vector2(3,2), teams[0])
-	instance_piece(newSorcerer, Vector2(4,6), teams[1])
-	instance_piece(newChangeling, Vector2(5,5), teams[1])
-	instance_piece(newWheel, Vector2(4,7), teams[0])
-	instance_piece(newPawn, Vector2(7, 7), teams[0])
-	instance_piece(newPawn, Vector2(7, 3), teams[1])
+	setup_pieces()
 
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()
 	piece.boardPosition = boardPosition
 	piece.team = team
 	pieceParent.add_child(piece)
+
+#function to give each team a set of pieces
+func setup_pieces():
+	for piece in pieceParent.get_children():
+		piece.queue_free()
+	
+	for n in 8:
+		instance_piece(newPawn, Vector2(n, 1), teams[1])
+		instance_piece(newPawn, Vector2(n, 6), teams[0])
+	
+	instance_piece(newSorcerer, Vector2(0, 0), teams[1])
+	instance_piece(newHat, Vector2(1, 0), teams[1])
+	instance_piece(newBishop, Vector2(2, 0), teams[1])
+	instance_piece(newWheel, Vector2(3, 0), teams[1])
+	instance_piece(newRock, Vector2(4, 0), teams[1])
+	instance_piece(newBishop, Vector2(5, 0), teams[1])
+	instance_piece(newHat, Vector2(6, 0), teams[1])
+	instance_piece(newChangeling, Vector2(7, 0), teams[1])
+	
+	instance_piece(newSorcerer, Vector2(7, 7), teams[0])
+	instance_piece(newHat, Vector2(6, 7), teams[0])
+	instance_piece(newBishop, Vector2(5, 7), teams[0])
+	instance_piece(newWheel, Vector2(4, 7), teams[0])
+	instance_piece(newRock, Vector2(3, 7), teams[0])
+	instance_piece(newBishop, Vector2(2, 7), teams[0])
+	instance_piece(newHat, Vector2(1, 7), teams[0])
+	instance_piece(newChangeling, Vector2(0, 7), teams[0])
 
 #bool functions to return if a position is out of bounds
 func out_of_bounds(target):

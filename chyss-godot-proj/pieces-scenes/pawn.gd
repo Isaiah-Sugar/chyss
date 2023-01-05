@@ -13,6 +13,8 @@ func find_moves():
 	#check space ahead
 	if  can_move(moveVector):
 		validMoves.append(moveVector)
+	elif !board.out_of_bounds(boardPosition + moveVector*2):
+		validMoves.append(moveVector*2)
 	
 	#find first obstructed space on vector
 	var targetVector = captureVector

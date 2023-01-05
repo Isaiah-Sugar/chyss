@@ -4,7 +4,7 @@ var captureColor = Color(0.929688, 0.374054, 0.374054)
 onready var mesh = get_node("MeshInstance")
 
 onready var piece = get_parent().get_parent()
-onready var board = piece.get_parent().get_parent()
+onready var board = piece.board
 var boardPosition = Vector2(0, 0)
 
 onready var highlightCaptureMat = load("res://capturable.material")

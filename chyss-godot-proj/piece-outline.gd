@@ -96,13 +96,19 @@ func get_captured():
 #function to update piece position
 func update_position(newPosition):
 	boardPosition = newPosition
+	var tmp = (boardPosition * 1/8)
 	
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
+		translation = Vector3(tmp.x, 0, tmp.y)
 	
-	var tmp = (boardPosition * 1/8)
-	translation = Vector3(tmp.x, 0, tmp.y)
+	translate_tweened(Vector3(tmp.x, 0, tmp.y))
+
+func translate_tweened(newPosition):
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "translation", newPosition, 1)
+
 
 func next_turn():
 	pass

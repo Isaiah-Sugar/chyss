@@ -46,13 +46,22 @@ func new_child_piece():
 	piece.highlightParent = highlightParent
 	
 	add_child(piece)
-	#the child piece will try positioning itself relative to changeling, 
-	#so we force its real translation to 0 without changing its boardPosition:
-	piece.translation = Vector3(0,0,0) #has to be after add_child()
-#	mesh = piece.mesh
+
 	childPiece = piece
 
 func set_team(newTeam):
 	team = newTeam
 	if childPiece:
 		childPiece.set_team(newTeam)
+
+func update_position(newPosition):
+	boardPosition = newPosition
+	var tmp = (boardPosition * 1/8)
+	
+	#fancy saves the rest for entering scene tree
+	if not is_inside_tree():
+		yield(self, "ready")
+	
+	highlightParent.translation = Vector3(tmp.x, 0, tmp.y)
+	if childPiece:
+		childPiece.boardPosition = newPosition

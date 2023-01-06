@@ -6,6 +6,7 @@
 script = ExtResource( 1 )
 
 [node name="ThinkTimer" type="Timer" parent="."]
+wait_time = 2.5
 one_shot = true
 
 [connection signal="timeout" from="ThinkTimer" to="." method="_on_ThinkTimer_timeout"]

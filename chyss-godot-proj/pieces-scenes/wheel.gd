@@ -19,7 +19,6 @@ func get_clicked():
 		selfHighlight.get_clicked()
 		return
 	#if its my turn, and im not moving
-	if currentVelocity == Vector2(0, 0):
 		if team == board.currentTurn:
 			#do the things that mean getting clicked
 			board.unselect()
@@ -30,9 +29,10 @@ func get_clicked():
 #basic find moves by list of vectors
 func find_moves():
 	var validMoves = []
-	for vector in moveVectors:
-		if  !board.out_of_bounds(boardPosition+vector):
-			validMoves.append(vector)
+	if currentVelocity == Vector2(0, 0):
+		for vector in moveVectors:
+			if  !board.out_of_bounds(boardPosition+vector):
+				validMoves.append(vector)
 	return validMoves
 
 #on move sets wheel's 'velocity'

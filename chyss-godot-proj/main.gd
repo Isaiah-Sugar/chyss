@@ -22,7 +22,7 @@ var hoveredObj = null
 onready var board = get_node("chyss table bits/board")
 
 func _ready():
-	pass
+	randomize()
 
 func _input(event):
 	#if left mouse press down

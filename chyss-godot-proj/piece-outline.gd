@@ -28,18 +28,26 @@ func get_other_nodes():
 
 #function for when the piece is clicked
 func get_clicked():
+	#if im highlighted clicking me should click that
+	var selfHighlight = find_self_highlighted()
+	if selfHighlight:
+		selfHighlight.get_clicked()
+		return
+	#if its my turn
 	if team == board.currentTurn:
+		#do the things that mean getting clicked
 		board.unselect()
 		var validMoves = find_moves()
 		spawn_highlights(validMoves)
 		board.selectedPiece = self
-	
-	#weird check if there's a highlight under me
-	elif board.selectedPiece:
+
+func find_self_highlighted():
+	if board.selectedPiece:
 		for highlight in board.selectedPiece.highlightParent.get_children():
 			if (board.selectedPiece.boardPosition + highlight.boardPosition) == boardPosition:
-				highlight.get_clicked()
-				return
+				return highlight
+
+
 
 #function to find the pieces movess
 func find_moves():

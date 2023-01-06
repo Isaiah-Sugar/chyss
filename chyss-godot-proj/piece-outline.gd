@@ -24,6 +24,7 @@ var scoreArray = [
 					{type = "Wheel", score = 10},
 														]
 
+
 func _ready():
 	if !board:
 	  get_other_nodes()
@@ -129,8 +130,9 @@ func update_position(newPosition):
 	if not is_inside_tree():
 		yield(self, "ready")
 		translation = Vector3(tmp.x, 0, tmp.y)
-	
-	translate_tweened(Vector3(tmp.x, 0, tmp.y))
+	else:
+		translate_tweened(Vector3(tmp.x, 0, tmp.y))
+		
 
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()

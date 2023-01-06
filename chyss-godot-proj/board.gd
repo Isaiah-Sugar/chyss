@@ -14,6 +14,7 @@ var newAI = preload("res://EnemyAI.tscn")
 
 onready var pieceParent = get_node("PieceParent")
 var enemy
+var otherEnemy
 
 var currentTurn
 var teams = ["white", "black"]
@@ -28,6 +29,11 @@ func _ready():
 	enemy.team = "black"
 	enemy.enemyDirection = 1
 	add_child(enemy)
+	
+	otherEnemy = newAI.instance()
+	otherEnemy.team = "white"
+	otherEnemy.enemyDirection = -1
+	add_child(otherEnemy)
 	
 	next_turn()
 
@@ -103,6 +109,7 @@ func next_turn():
 		piece.next_turn()
 	
 	enemy.next_turn()
+	otherEnemy.next_turn()
 
 
 

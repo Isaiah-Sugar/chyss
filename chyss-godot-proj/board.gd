@@ -10,17 +10,26 @@ var newWheel = preload("res://pieces-scenes/Wheel.tscn")
 var newPawn = preload("res://pieces-scenes/Pawn.tscn")
 
 var newHighlight = preload("res://Highlight.tscn")
-
+var newAI = preload("res://EnemyAI.tscn")
 
 onready var pieceParent = get_node("PieceParent")
+var enemy
 
-var currentTurn = "white"
+var currentTurn
 var teams = ["white", "black"]
 
 var selectedPiece = null
 
 func _ready():
 	setup_pieces()
+	
+	#instance an ai for black team
+	enemy = newAI.instance()
+	enemy.team = "black"
+	enemy.enemyDirection = 1
+	add_child(enemy)
+	
+	next_turn()
 
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()
@@ -78,22 +87,22 @@ func unselect():
 #function to progress to the next turn
 func next_turn():
 	unselect()
-	var teamIndex = teams.find(currentTurn)
-	teamIndex += 1
-	if teamIndex == teams.size():
-		teamIndex = 0
-	currentTurn = teams[teamIndex]
+	if !currentTurn:
+		#set it to the first team
+		currentTurn = teams[0]
+	else:
+		#change the team
+		var teamIndex = teams.find(currentTurn)
+		teamIndex += 1
+		if teamIndex == teams.size():
+			teamIndex = 0
+		currentTurn = teams[teamIndex]
+	
+	#tell all the pieces its the next turn
 	for piece in pieceParent.get_children():
 		piece.next_turn()
 	
-	var movesArray = []
-	#find all the moves
-	for piece in pieceParent.get_children():
-		for move in piece.find_moves():
-			var storeMove = {piece = piece, move = move}
-			movesArray.append(storeMove)
-	#print(movesArray)
-	print(movesArray.size())
+	enemy.next_turn()
 
 
 

@@ -8,8 +8,8 @@ var moveVectors = [Vector2(0, 1),
 					Vector2(-1, 1),
 					Vector2(1, -1),
 					Vector2(-1, -1)]
-
 var currentVelocity = Vector2(0, 0)
+var type = "Wheel"
 
 #needs to not get clikced if it has a velocity
 func get_clicked():

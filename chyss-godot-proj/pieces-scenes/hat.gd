@@ -16,6 +16,7 @@ var moveVectors = [
 					Vector2(0, -2),
 					Vector2(1, -2)
 									]
+var type = "Hat"
 
 func find_moves():
 	var validMoves = []

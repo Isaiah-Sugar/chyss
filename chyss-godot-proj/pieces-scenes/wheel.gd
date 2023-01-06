@@ -1,4 +1,4 @@
-extends "res://piece-outline.gd"
+extends piece
 
 var moveVectors = [Vector2(0, 1),
 					Vector2(0, -1),

@@ -86,6 +86,15 @@ func next_turn():
 	currentTurn = teams[teamIndex]
 	for piece in pieceParent.get_children():
 		piece.next_turn()
+	
+	var movesArray = []
+	#find all the moves
+	for piece in pieceParent.get_children():
+		for move in piece.find_moves():
+			var storeMove = {piece = piece, move = move}
+			movesArray.append(storeMove)
+	#print(movesArray)
+	print(movesArray.size())
 
 
 

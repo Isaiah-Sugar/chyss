@@ -1,4 +1,4 @@
-extends "res://piece-outline.gd"
+extends piece
 
 #transforms into a random piece at the start of its turn
 #only inherits findMoves, no other properties translate

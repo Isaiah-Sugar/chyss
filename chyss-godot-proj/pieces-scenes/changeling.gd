@@ -64,4 +64,5 @@ func update_position(newPosition):
 	
 	highlightParent.translation = Vector3(tmp.x, 0, tmp.y)
 	if childPiece:
+		childPiece.dontTweenOnce = true
 		childPiece.boardPosition = newPosition

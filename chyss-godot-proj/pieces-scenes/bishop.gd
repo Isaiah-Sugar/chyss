@@ -1,5 +1,6 @@
 extends piece
 var moveVectors = [Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)]
+var type = "Bishop"
 
 func find_moves():
 	var validMoves = []

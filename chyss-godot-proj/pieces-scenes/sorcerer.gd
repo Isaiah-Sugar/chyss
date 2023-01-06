@@ -1,6 +1,7 @@
 extends piece
 
 var moveVector = Vector2(0, 0)
+var type = "Sorcerer"
 
 func individual_ready():
 	reroll()

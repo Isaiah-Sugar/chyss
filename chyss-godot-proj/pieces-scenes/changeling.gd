@@ -13,8 +13,9 @@ var newRock = preload("res://pieces-scenes/Rock.tscn")
 
 #list of the pieces to pick a random one from
 var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock, newPawn]
-
 var childPiece = null
+
+var type = "Changeling"
 
 #on ready get a new child
 func individual_ready():

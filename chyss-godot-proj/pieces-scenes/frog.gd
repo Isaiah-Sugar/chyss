@@ -19,7 +19,7 @@ var moveVectors = [
 					Vector2(-2, 2),
 					Vector2(-2, -2)
 									]
-	
+var type = "Frog"
 
 func find_moves():
 	var validMoves = []

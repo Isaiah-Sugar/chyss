@@ -107,8 +107,13 @@ func update_position(newPosition):
 
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "translation", newPosition, 1)
-
+	tween.tween_property(self, "translation:y", .1, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "translation:y", 0.0, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween = get_tree().create_tween()
+	tween.tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	tween = get_tree().create_tween()
+	tween.tween_property(self, "translation:z", newPosition.z, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	
 
 func next_turn():
 	pass

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://enemyAI.gd" type="Script" id=1]
+
+[node name="EnemyAI" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="ThinkTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ThinkTimer" to="." method="_on_ThinkTimer_timeout"]

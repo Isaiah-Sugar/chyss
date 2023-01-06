@@ -12,13 +12,32 @@ onready var blackTeamMaterial = load("res://black-team.material")
 #setget allows a function to be called whenever team is modified (include self.)
 var boardPosition = null setget update_position
 var team = null setget set_team
+var scoreValue = 0
+var scoreArray = [
+					{type = "Bishop", score = 5},
+					{type = "Changeling", score = 5},
+					{type = "Frog", score = 10},
+					{type = "Hat", score = 7},
+					{type = "Pawn", score = 3},
+					{type = "Rock", score = 1000},
+					{type = "Sorcerer", score = 5},
+					{type = "Wheel", score = 10},
+														]
 
 var dontTweenOnce = false
 
 func _ready():
 	if !board:
 	  get_other_nodes()
+	get_score()
 	individual_ready()
+
+#function to get piece's score value
+func get_score():
+	for pieceScore in scoreArray:
+		if pieceScore.type == self.type:
+			scoreValue = pieceScore.score
+
 #function for when a piece needs to do things on ready
 func individual_ready():
 	pass
@@ -42,7 +61,7 @@ func get_clicked():
 		var validMoves = find_moves()
 		spawn_highlights(validMoves)
 		board.selectedPiece = self
-
+#function to find a highlight under self
 func find_self_highlighted():
 	if board.selectedPiece:
 		for highlight in board.selectedPiece.highlightParent.get_children():
@@ -130,9 +149,6 @@ func translate_tweened(newPosition):
 
 func next_turn():
 	pass
-
-
-#i am isaiah adding these functions:
 
 #function to change the piece's material to match its team
 func set_team(newTeam):

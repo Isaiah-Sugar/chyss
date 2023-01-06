@@ -6,6 +6,7 @@ extends piece
 
 var moveVector
 var captureVector
+var type = "Pawn"
 
 func find_moves():
 	var validMoves = []

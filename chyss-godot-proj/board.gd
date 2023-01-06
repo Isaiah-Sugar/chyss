@@ -20,7 +20,6 @@ var teams = ["white", "black"]
 var selectedPiece = null
 
 func _ready():
-	randomize()
 	setup_pieces()
 
 func instance_piece(type, boardPosition, team):

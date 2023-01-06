@@ -13,11 +13,19 @@ var currentVelocity = Vector2(0, 0)
 
 #needs to not get clikced if it has a velocity
 func get_clicked():
+	#if im highlighted clicking me should click that
+	var selfHighlight = find_self_highlighted()
+	if selfHighlight:
+		selfHighlight.get_clicked()
+		return
+	#if its my turn, and im not moving
 	if currentVelocity == Vector2(0, 0):
 		if team == board.currentTurn:
+			#do the things that mean getting clicked
 			board.unselect()
 			var validMoves = find_moves()
 			spawn_highlights(validMoves)
+			board.selectedPiece = self
 
 #basic find moves by list of vectors
 func find_moves():

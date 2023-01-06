@@ -19,12 +19,12 @@ func get_clicked():
 		selfHighlight.get_clicked()
 		return
 	#if its my turn, and im not moving
-		if team == board.currentTurn:
-			#do the things that mean getting clicked
-			board.unselect()
-			var validMoves = find_moves()
-			spawn_highlights(validMoves)
-			board.selectedPiece = self
+	if team == board.currentTurn:
+		#do the things that mean getting clicked
+		board.unselect()
+		var validMoves = find_moves()
+		spawn_highlights(validMoves)
+		board.selectedPiece = self
 
 #basic find moves by list of vectors
 func find_moves():

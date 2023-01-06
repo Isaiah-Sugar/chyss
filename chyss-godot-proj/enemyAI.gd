@@ -83,7 +83,7 @@ func score_moves(movesArray, dangerArray):
 		#add score if move out of danger
 		if dangerArray.find(move.piece.boardPosition) != -1 && dangerArray.find(movePosition) == -1:
 			move.score += move.piece.scoreValue
-			
+
 #function to pick a move from the array
 func pick_move(movesArray):
 	#sort

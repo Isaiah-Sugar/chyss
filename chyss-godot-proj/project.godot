@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "piece",
+"language": "GDScript",
+"path": "res://piece-outline.gd"
+} ]
+_global_script_class_icons={
+"piece": ""
+}
+
 [application]
 
 config/name="CHYSS"

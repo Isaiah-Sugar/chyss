@@ -1,4 +1,4 @@
-extends "res://piece-outline.gd"
+extends piece
 
 #basic pawn piece
 #moves forward one space, cannot capture
@@ -13,7 +13,7 @@ func find_moves():
 	#check space ahead
 	if  can_move(moveVector):
 		validMoves.append(moveVector)
-	elif !board.out_of_bounds(boardPosition + moveVector*2):
+	elif can_move(moveVector*2):
 		validMoves.append(moveVector*2)
 	
 	#find first obstructed space on vector

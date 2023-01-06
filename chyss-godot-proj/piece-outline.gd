@@ -1,4 +1,4 @@
-extends Spatial
+class_name piece extends Spatial
 
 
 var board = null

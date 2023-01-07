@@ -11,10 +11,11 @@ var newPawn = preload("res://pieces-scenes/Pawn.tscn")
 
 var newHighlight = preload("res://Highlight.tscn")
 var newAI = preload("res://EnemyAI.tscn")
+var newPlayer = preload("res://Player.tscn")
 
 onready var pieceParent = get_node("PieceParent")
 var enemy
-var otherEnemy
+var player
 
 var currentTurn
 var teams = ["white", "black"]
@@ -30,10 +31,9 @@ func _ready():
 	enemy.enemyDirection = 1
 	add_child(enemy)
 	
-	otherEnemy = newAI.instance()
-	otherEnemy.team = "white"
-	otherEnemy.enemyDirection = -1
-	add_child(otherEnemy)
+	player = newPlayer.instance()
+	player.team = "white"
+	add_child(player)
 	
 	next_turn()
 
@@ -109,9 +109,6 @@ func next_turn():
 		piece.next_turn()
 	
 	enemy.next_turn()
-	otherEnemy.next_turn()
-
-
 
 func get_clicked():
 	unselect()

@@ -93,7 +93,7 @@ func pick_move(movesArray):
 	var i = movesArray.size()
 	while i > 0:
 		i -= 1
-		if movesArray[-1].score - movesArray[i].score >= 3:
+		if movesArray[-1].score - movesArray[i].score >= 2:
 			movesArray.pop_at(i)
 	
 	print("New turn:")

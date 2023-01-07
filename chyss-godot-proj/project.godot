@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "piece",
 "language": "GDScript",
-"path": "res://piece-outline.gd"
+"path": "res://scripts/piece-outline.gd"
 } ]
 _global_script_class_icons={
 "piece": ""
@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="CHYSS"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [gui]

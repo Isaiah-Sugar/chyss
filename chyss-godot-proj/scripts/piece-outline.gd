@@ -68,14 +68,6 @@ func can_take(target):
 		if targetPiece.team != team:
 			return true
 
-#function to show highlights at each valid move
-func spawn_highlights(validMoves):
-	if validMoves:
-		for move in validMoves:
-			var highlight = newHighlight.instance()
-			highlight.boardPosition = move
-			highlightParent.add_child(highlight)
-
 #function to move to a given position
 func move(movePosition, nextTurn):
 	#look for a piece to capture

@@ -17,25 +17,23 @@ func find_moves():
 	var validMoves = []
 	if currentVelocity == Vector2(0, 0):
 		for vector in moveVectors:
-			if  !board.out_of_bounds(boardPosition+vector):
+			if  !pieceParent.out_of_bounds(boardPosition+vector):
 				validMoves.append(vector)
 	return validMoves
 
 #on move sets wheel's 'velocity'
-func move(moveVector, nextTurn):
-	currentVelocity = moveVector
-	if nextTurn:
-		board.next_turn()
+func move(movePosition):
+	currentVelocity = movePosition - boardPosition
 
 #on next turn wheel rolls according to velocity
-func next_turn():
+func next_turn(_currentTurn):
 	if currentVelocity != Vector2(0, 0):
 		roll()
 		stop_check()
 
 #function for the wheel to roll
 func roll():
-	var capturePiece = board.find_piece(boardPosition+currentVelocity)
+	var capturePiece = pieceParent.find_piece(boardPosition+currentVelocity)
 	if capturePiece:
 		capturePiece.get_captured()
 	#must say self for setget to work
@@ -43,5 +41,5 @@ func roll():
 
 #function to stop the wheel's motion if it hits the edge of the board
 func stop_check():
-	if board.out_of_bounds(boardPosition+currentVelocity):
+	if pieceParent.out_of_bounds(boardPosition+currentVelocity):
 		currentVelocity = Vector2(0, 0)

@@ -6,8 +6,8 @@ var type = "Sorcerer"
 func individual_ready():
 	reroll()
 
-func next_turn():
-	if board.currentTurn == team:
+func next_turn(currentTurn):
+	if currentTurn == team:
 		reroll()
 
 func reroll():

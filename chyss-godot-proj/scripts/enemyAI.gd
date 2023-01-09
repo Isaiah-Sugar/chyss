@@ -29,7 +29,9 @@ func play_turn():
 	score_moves(movesArray, dangerArray)
 	var move = pick_move(movesArray)
 	#move the piece
-	move.piece.move(move.vector+move.piece.boardPosition, true)
+	move.piece.move(move.vector+move.piece.boardPosition)
+	board.next_turn()
+
 #function to find all the moves a team can make
 func find_moves(findingTeam):
 	var movesArray = []
@@ -70,7 +72,7 @@ func score_moves(movesArray, dangerArray):
 		move.score += (move.vector.y * enemyDirection)/8
 		
 		#score based on if capture
-		var capture = board.find_piece(movePosition)
+		var capture = pieceParent.find_piece(movePosition)
 		if capture:
 			if capture.team != self.team:
 				move.score += capture.scoreValue

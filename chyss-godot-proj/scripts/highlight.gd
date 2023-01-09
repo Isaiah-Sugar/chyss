@@ -3,8 +3,7 @@ extends Spatial
 var captureColor = Color(0.929688, 0.374054, 0.374054)
 onready var mesh = get_node("MeshInstance")
 
-onready var piece = get_parent().get_parent()
-onready var board = piece.board
+onready var board = get_parent().board
 var boardPosition = Vector2(0, 0)
 
 onready var highlightCaptureMat = load("res://materials/capturable.material")
@@ -12,13 +11,10 @@ onready var highlightNormalMat = load("res://materials/highlight.material")
 
 func _ready():
 	update_position()
-	if board.find_piece(piece.boardPosition + boardPosition):
+	if board.find_piece(boardPosition):
 		mesh.set_surface_material(0, highlightCaptureMat)
 	else:
 		mesh.set_surface_material(0, highlightNormalMat)
-
-func get_clicked():
-	piece.move(boardPosition, true)
 
 func update_position():
 	var tmp = (boardPosition * 1/8)

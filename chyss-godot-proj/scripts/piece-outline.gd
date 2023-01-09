@@ -46,29 +46,6 @@ func get_other_nodes():
 	board = get_parent().get_parent()
 	highlightParent = get_node("HighlightParent")
 
-#function for when the piece is clicked
-func get_clicked():
-	#if im highlighted clicking me should click that
-	var selfHighlight = find_self_highlighted()
-	if selfHighlight:
-		selfHighlight.get_clicked()
-		return
-	#if its my turn
-	if team == board.currentTurn:
-		#do the things that mean getting clicked
-		board.unselect()
-		var validMoves = find_moves()
-		spawn_highlights(validMoves)
-		board.selectedPiece = self
-#function to find a highlight under self
-func find_self_highlighted():
-	if board.selectedPiece:
-		for highlight in board.selectedPiece.highlightParent.get_children():
-			if (board.selectedPiece.boardPosition + highlight.boardPosition) == boardPosition:
-				return highlight
-
-
-
 #function to find the pieces movess
 func find_moves():
 	var validMoves = []
@@ -99,16 +76,16 @@ func spawn_highlights(validMoves):
 			highlight.boardPosition = move
 			highlightParent.add_child(highlight)
 
-#function to move when a highlight is clicked
-func move(moveVector, nextTurn):
+#function to move to a given position
+func move(movePosition, nextTurn):
 	#look for a piece to capture
-	var capturePiece = board.find_piece(boardPosition+moveVector)
+	var capturePiece = board.find_piece(movePosition)
 	if capturePiece:
 		if capturePiece != self:
 			capturePiece.get_captured()
 	
 	#must say self for setget to work
-	self.boardPosition += moveVector
+	self.boardPosition = movePosition
 	#change turn
 	if nextTurn:
 		board.next_turn()

@@ -1,4 +1,4 @@
-extends Area
+extends Position3D
 
 var newHat = preload("res://pieces/scenes/Hat.tscn")
 var newFrog = preload("res://pieces/scenes/Frog.tscn")
@@ -82,17 +82,8 @@ func find_piece(target):
 			return piece
 	return null
 
-#function to unselect the current piece (remove all highlights)
-func unselect():
-	selectedPiece = null
-	for piece in pieceParent.get_children():
-		for highlight in piece.highlightParent.get_children():
-			piece.highlightParent.remove_child(highlight)
-			highlight.queue_free()
-
 #function to progress to the next turn
 func next_turn():
-	unselect()
 	if !currentTurn:
 		#set it to the first team
 		currentTurn = teams[0]
@@ -109,7 +100,3 @@ func next_turn():
 		piece.next_turn()
 	
 	enemy.next_turn()
-
-func get_clicked():
-	unselect()
-

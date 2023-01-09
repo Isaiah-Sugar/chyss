@@ -14,11 +14,12 @@ var newAI = preload("res://scenes/EnemyAI.tscn")
 var newPlayer = preload("res://scenes/Player.tscn")
 
 onready var pieceParent = get_node("PieceParent")
-var enemy
-var player
+
 
 var currentTurn
 var teams = ["white", "black"]
+var whitePlayer
+var blackPlayer
 
 var selectedPiece = null
 
@@ -26,14 +27,14 @@ func _ready():
 	setup_pieces()
 	
 	#instance an ai for black team
-	enemy = newAI.instance()
-	enemy.team = "black"
-	enemy.enemyDirection = 1
-	add_child(enemy)
+	whitePlayer = newPlayer.instance()
+	whitePlayer.team = "white"
+	add_child(whitePlayer)
 	
-	player = newPlayer.instance()
-	player.team = "white"
-	add_child(player)
+	blackPlayer = newAI.instance()
+	blackPlayer.team = "black"
+	blackPlayer.enemyDirection = 1
+	add_child(blackPlayer)
 	
 	next_turn()
 
@@ -70,18 +71,6 @@ func setup_pieces():
 	instance_piece(newHat, Vector2(1, 7), teams[0])
 	instance_piece(newChangeling, Vector2(0, 7), teams[0])
 
-#bool functions to return if a position is out of bounds
-func out_of_bounds(target):
-	if target.y > 7 || target.y < 0 || target.x > 7 || target.x < 0:
-		return true
-
-#function to find a piece at a given position
-func find_piece(target):
-	for piece in pieceParent.get_children():
-		if piece.boardPosition == target:
-			return piece
-	return null
-
 #function to progress to the next turn
 func next_turn():
 	if !currentTurn:
@@ -97,6 +86,7 @@ func next_turn():
 	
 	#tell all the pieces its the next turn
 	for piece in pieceParent.get_children():
-		piece.next_turn()
+		piece.next_turn(currentTurn)
 	
-	enemy.next_turn()
+	whitePlayer.next_turn()
+	blackPlayer.next_turn()

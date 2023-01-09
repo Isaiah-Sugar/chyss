@@ -30,8 +30,9 @@ func click(clickTarget):
 	#check if click location is highlighted
 	for highlight in get_children():
 		if highlight.boardPosition == clickLocation:
-			selectedPiece.move(clickLocation, true)
+			selectedPiece.move(clickLocation)
 			unselect()
+			board.next_turn()
 			return
 	
 	#if a highlight wasnt clicked unselect
@@ -40,7 +41,7 @@ func click(clickTarget):
 	
 	#find piece clicked on
 	for piece in pieceParent.get_children():
-		if piece.boardPosition == clickLocation:
+		if piece.boardPosition == clickLocation && piece.team == team:
 			select_piece(piece)
 
 
@@ -58,9 +59,9 @@ func select_piece(piece):
 		var highlight = newHighlight.instance()
 		highlight.boardPosition = piece.boardPosition + move
 		add_child(highlight)
-	
-	
 
+func next_turn():
+	pass
 
 
 

@@ -55,6 +55,8 @@ func unselect():
 func select_piece(piece):
 	selectedPiece = piece
 	var moves = piece.find_moves()
+	if !moves:
+		return
 	for move in moves:
 		var highlight = newHighlight.instance()
 		highlight.boardPosition = piece.boardPosition + move

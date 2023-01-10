@@ -65,6 +65,14 @@ func can_take(target):
 		if targetPiece.team != team:
 			return true
 
+#returns true if a space is valid and has any piece
+func can_take_teamless(target):
+	if pieceParent.out_of_bounds(boardPosition + target):
+		return false
+	var targetPiece = pieceParent.find_piece(boardPosition + target)
+	if targetPiece:
+		return true
+
 #function to move to a given position
 func move(movePosition):
 	#look for a piece to capture

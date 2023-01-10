@@ -86,4 +86,5 @@ func stop_check():
 		velocity = Vector2(0, 0)
 
 func get_captured():
+	velocity = Vector2(0, 0)
 	queue_free()

@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "DialogueResource",
+"language": "GDScript",
+"path": "res://addons/dialogue_manager/dialogue_resource.gd"
+}, {
 "base": "Spatial",
 "class": "piece",
 "language": "GDScript",
 "path": "res://scripts/piece-outline.gd"
 } ]
 _global_script_class_icons={
+"DialogueResource": "",
 "piece": ""
 }
 
@@ -22,6 +28,14 @@ _global_script_class_icons={
 
 config/name="CHYSS"
 run/main_scene="res://scenes/Main.tscn"
+
+[autoload]
+
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg" )
 
 [gui]
 

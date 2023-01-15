@@ -1,24 +1,21 @@
 extends Spatial
 
 var dialogue = preload("res://dialogue/test dialogue.tres")
-var frogFlag = false
+var oppenentTeam = "black"
 
-#to add a dialogue case make a bool function for its execution, the name of its dialogue node, if you want it to repeat, set alreadyHappened to null 
-var caseArray = [
-					{function = "opening_dialogue(move, turnNumber)", dialogueNode = "opening_dialogue", alreadyHappened = false},
-					{function = "frog_reveal(move, turnNumber)", dialogueNode = "frog_reveal", alreadyHappened = false}
-																																]
-
+#function to determine dialogue event
 func determine_dialogue(move, turnNumber):
+	
+	#evaluates each special dialogue case 
 	for case in caseArray:
 		if case.alreadyHappened:
 			continue
-		
 		if evaluate(case.function, ["move", "turnNumber"], [move, turnNumber]):
-			DialogueManager.show_example_dialogue_balloon(case.dialogueNode, dialogue)
+			DialogueManager.show_example_dialogue_balloon(case.dialogueNode, dialogue)	
 			if case.alreadyHappened && case.alredyHappened == false:
 				case.alreadyHappened = true
 
+#function to evaluate dialogue "function strings"
 func evaluate(command, variable_names = [], variable_values = []):
 	var expression = Expression.new()
 	var error = expression.parse(command, variable_names)
@@ -31,6 +28,16 @@ func evaluate(command, variable_names = [], variable_values = []):
 	if not expression.has_execute_failed():
 		return result
 
+
+#special dialgue case stuff:
+
+#to add a dialogue case make a bool function for its execution, the name of its dialogue node, if you want it to repeat, set alreadyHappened to null 
+var caseArray = [
+					{function = "opening_dialogue(move, turnNumber)", dialogueNode = "opening_dialogue", alreadyHappened = false},
+					{function = "frog_reveal(move, turnNumber)", dialogueNode = "frog_reveal", alreadyHappened = false},
+					{function = "good_move(move, turnNumber)", dialogueNode = "good_move", alreadyHappened = null}
+																																]
+#special case bool functions
 func opening_dialogue(_move, turnNumber : int) -> bool:
 	if turnNumber == 0:
 		return true
@@ -38,5 +45,10 @@ func opening_dialogue(_move, turnNumber : int) -> bool:
 
 func frog_reveal(move, _turnNumber : int) -> bool:
 	if move && move.capture && move.capture.type == "Hat":
+		return true
+	return false
+
+func good_move(move, _turnNumber : int) -> bool:
+	if move && move.team == oppenentTeam && move.score > 15:
 		return true
 	return false

@@ -32,7 +32,7 @@ func click(clickTarget):
 		if highlight.boardPosition == clickLocation:
 			selectedPiece.move(clickLocation)
 			unselect()
-			board.next_turn()
+			board.next_turn(null)
 			return
 	
 	#if a highlight wasnt clicked unselect

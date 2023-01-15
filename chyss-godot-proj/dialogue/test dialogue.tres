@@ -1,0 +1,117 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/dialogue_manager/dialogue_resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+resource_version = 5
+syntax_version = 2
+raw_text = "~ opening_dialogue
+Guy: Ready to play some Chyss?
+Guy: I promise I won't cheat this time
+- I don't know the rules.
+	Guy: Good.
+- Okay! Good thing I know how to play.
+	Guy: I might cheat.
+
+~ frog_reveal
+Guy: From beneath the Hat emerges a Frog.
+
+~ good_move
+Guy: How do you like them apples!"
+errors = [  ]
+titles = {
+"frog_reveal": "9",
+"good_move": "12",
+"opening_dialogue": "1"
+}
+lines = {
+"0": {
+"next_id": "1",
+"text": "opening_dialogue",
+"type": "title"
+},
+"1": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "2",
+"replacements": [  ],
+"text": "Ready to play some Chyss?",
+"translation_key": "Ready to play some Chyss?",
+"type": "dialogue"
+},
+"11": {
+"next_id": "12",
+"text": "good_move",
+"type": "title"
+},
+"12": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "How do you like them apples!",
+"translation_key": "How do you like them apples!",
+"type": "dialogue"
+},
+"2": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "3",
+"replacements": [  ],
+"text": "I promise I won't cheat this time",
+"translation_key": "I promise I won't cheat this time",
+"type": "dialogue"
+},
+"3": {
+"next_id": "4",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "3", "5" ),
+"text": "I don't know the rules.",
+"translation_key": "I don't know the rules.",
+"type": "response"
+},
+"4": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "3",
+"replacements": [  ],
+"text": "Good.",
+"translation_key": "Good.",
+"type": "dialogue"
+},
+"5": {
+"next_id": "6",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "Okay! Good thing I know how to play.",
+"translation_key": "Okay! Good thing I know how to play.",
+"type": "response"
+},
+"6": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "5",
+"replacements": [  ],
+"text": "I might cheat.",
+"translation_key": "I might cheat.",
+"type": "dialogue"
+},
+"8": {
+"next_id": "9",
+"text": "frog_reveal",
+"type": "title"
+},
+"9": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "From beneath the Hat emerges a Frog.",
+"translation_key": "From beneath the Hat emerges a Frog.",
+"type": "dialogue"
+}
+}

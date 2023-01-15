@@ -13,9 +13,13 @@ var newHighlight = preload("res://scenes/Highlight.tscn")
 var newAI = preload("res://scenes/EnemyAI.tscn")
 var newPlayer = preload("res://scenes/Player.tscn")
 
+
+
+
 onready var pieceParent = get_node("PieceParent")
+onready var dialogue = get_node("/root/Main/opponent")
 
-
+var turnNumber = 0
 var currentTurn
 var teams = ["white", "black"]
 var whitePlayer
@@ -36,7 +40,7 @@ func _ready():
 	blackPlayer.enemyDirection = 1
 	add_child(blackPlayer)
 	
-	next_turn()
+	next_turn(null)
 
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()
@@ -72,21 +76,19 @@ func setup_pieces():
 	instance_piece(newChangeling, Vector2(0, 7), teams[0])
 
 #function to progress to the next turn
-func next_turn():
-	if !currentTurn:
-		#set it to the first team
-		currentTurn = teams[0]
+func next_turn(move):
+	if currentTurn == "white":
+		currentTurn = "black"
 	else:
-		#change the team
-		var teamIndex = teams.find(currentTurn)
-		teamIndex += 1
-		if teamIndex == teams.size():
-			teamIndex = 0
-		currentTurn = teams[teamIndex]
+		currentTurn = "white"
 	
-	#tell all the pieces its the next turn
 	for piece in pieceParent.get_children():
 		piece.next_turn(currentTurn)
 	
-	whitePlayer.next_turn()
-	blackPlayer.next_turn()
+	dialogue.determine_dialogue(move, turnNumber)
+	turnNumber += 1
+	
+	if currentTurn == "white":
+		whitePlayer.next_turn()
+	else:
+		blackPlayer.next_turn()

@@ -7,6 +7,7 @@ var team
 var enemyDirection
 #enemies to ignore in danger finding (have spaces they dont capture, or movement cannot be predicted)
 var ignoredEnemies = ["Pawn", "Sorcerer", "Changeling"]
+onready var dialogue = get_node("/root/Main/opponent")
 
 #fancy custom sorter
 class ScoreSorter:
@@ -28,9 +29,10 @@ func play_turn():
 	var dangerArray = find_danger()
 	score_moves(movesArray, dangerArray)
 	var move = pick_move(movesArray)
+	make_move(move)
 	#move the piece
-	move.piece.move(move.vector+move.piece.boardPosition)
-	board.next_turn()
+	
+
 
 #function to find all the moves a team can make
 func find_moves(findingTeam):
@@ -47,7 +49,7 @@ func find_moves(findingTeam):
 		
 		#store the piece's moves
 		for move in piece.find_moves():
-			var storeMove = {piece = piece, vector = move, score = 0}
+			var storeMove = {team = team, piece = piece, vector = move, capture = null, score = 0}
 			movesArray.append(storeMove)
 	
 	return movesArray
@@ -74,6 +76,7 @@ func score_moves(movesArray, dangerArray):
 		#score based on if capture
 		var capture = pieceParent.find_piece(movePosition)
 		if capture:
+			move.capture = capture
 			if capture.team != self.team:
 				move.score += capture.scoreValue
 			else:
@@ -98,11 +101,11 @@ func pick_move(movesArray):
 		if movesArray[-1].score - movesArray[i].score >= 3:
 			movesArray.pop_at(i)
 	
-	print("New turn:")
-	for move in movesArray:
-		print(move, move.piece.boardPosition)
-	
 	var move = movesArray[randi() % movesArray.size()]
 	return move
 
-
+#function to make a move and tell it to the opponents dialogue script
+#and to tell the board its the next turn
+func make_move(move):
+	move.piece.move(move.vector+move.piece.boardPosition)
+	board.next_turn(move)

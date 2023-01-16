@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 5
+resource_version = 6
 syntax_version = 2
 raw_text = "~ opening_dialogue
 Guy: Ready to play some Chyss?
@@ -18,12 +18,16 @@ Guy: I promise I won't cheat this time
 Guy: From beneath the Hat emerges a Frog.
 
 ~ good_move
-Guy: How do you like them apples!"
+Guy: How do you like them apples!
+
+~ ur_mom
+Guy: I funced ur mom last night!"
 errors = [  ]
 titles = {
 "frog_reveal": "9",
 "good_move": "12",
-"opening_dialogue": "1"
+"opening_dialogue": "1",
+"ur_mom": "15"
 }
 lines = {
 "0": {
@@ -52,6 +56,20 @@ lines = {
 "replacements": [  ],
 "text": "How do you like them apples!",
 "translation_key": "How do you like them apples!",
+"type": "dialogue"
+},
+"14": {
+"next_id": "15",
+"text": "ur_mom",
+"type": "title"
+},
+"15": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "I funced ur mom last night!",
+"translation_key": "I funced ur mom last night!",
 "type": "dialogue"
 },
 "2": {

@@ -11,8 +11,8 @@ func determine_dialogue(move, turnNumber):
 		if case.alreadyHappened:
 			continue
 		if evaluate(case.function, ["move", "turnNumber"], [move, turnNumber]):
-			DialogueManager.show_example_dialogue_balloon(case.dialogueNode, dialogue)	
-			if case.alreadyHappened && case.alredyHappened == false:
+			DialogueManager.show_example_dialogue_balloon(case.dialogueNode, dialogue)
+			if case.alreadyHappened != null:
 				case.alreadyHappened = true
 
 #function to evaluate dialogue "function strings"
@@ -35,7 +35,8 @@ func evaluate(command, variable_names = [], variable_values = []):
 var caseArray = [
 					{function = "opening_dialogue(move, turnNumber)", dialogueNode = "opening_dialogue", alreadyHappened = false},
 					{function = "frog_reveal(move, turnNumber)", dialogueNode = "frog_reveal", alreadyHappened = false},
-					{function = "good_move(move, turnNumber)", dialogueNode = "good_move", alreadyHappened = null}
+					{function = "good_move(move, turnNumber)", dialogueNode = "good_move", alreadyHappened = null},
+					{function = "ur_mom(move, turnNumber)", dialogueNode = "ur_mom", alreadyHappened = false}
 																																]
 #special case bool functions
 func opening_dialogue(_move, turnNumber : int) -> bool:
@@ -50,5 +51,10 @@ func frog_reveal(move, _turnNumber : int) -> bool:
 
 func good_move(move, _turnNumber : int) -> bool:
 	if move && move.team == oppenentTeam && move.score > 15:
+		return true
+	return false
+
+func ur_mom(_move, turnNumber : int) -> bool:
+	if turnNumber == 1:
 		return true
 	return false

@@ -1,16 +1,17 @@
-extends Spatial
+extends Player
 
-onready var board = get_parent()
-onready var pieceParent = board.get_node("PieceParent")
 onready var camera = get_node("/root/Main/Camera")
 onready var rayCast = camera.get_node("RayCast")
 var hoveredObj = null
 
 var newHighlight = preload("res://scenes/Highlight.tscn")
 
-var selectedPiece
-var team
+var validMoves
+var selectedMoves = []
 
+func next_turn():
+	if board.currentTurn == self.team:
+		validMoves = find_moves("friendly")
 #function to handle player mouse input
 func _input(event):
 	#if its my turn
@@ -30,9 +31,9 @@ func click(clickTarget):
 	#check if click location is highlighted
 	for highlight in get_children():
 		if highlight.boardPosition == clickLocation:
-			selectedPiece.move(clickLocation)
+			#selectedPiece.move(clickLocation)
+			make_move(highlight.move)
 			unselect()
-			board.next_turn(null)
 			return
 	
 	#if a highlight wasnt clicked unselect
@@ -47,24 +48,15 @@ func click(clickTarget):
 
 #function to unselect current piece
 func unselect():
-	selectedPiece = null
 	for highlight in get_children():
 		highlight.queue_free()
 
 #function to select a piece
 func select_piece(piece):
-	selectedPiece = piece
-	var moves = piece.find_moves()
-	if !moves:
-		return
-	for move in moves:
-		var highlight = newHighlight.instance()
-		highlight.boardPosition = piece.boardPosition + move
-		add_child(highlight)
-
-func next_turn():
-	pass
-
-
+	for move in validMoves:
+		if move.piece == piece:
+			var highlight = newHighlight.instance()
+			highlight.move = move
+			add_child(highlight)
 
 

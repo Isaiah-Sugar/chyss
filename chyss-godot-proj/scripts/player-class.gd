@@ -68,5 +68,6 @@ func score_move(move, dangerArray):
 #function to make a move
 #and to tell the board its the next turn
 func make_move(move):
+	emit_signal("move_made")
 	move.piece.move(move.vector+move.piece.boardPosition)
 	board.next_turn(move)

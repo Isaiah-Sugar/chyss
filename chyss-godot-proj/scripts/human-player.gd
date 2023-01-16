@@ -9,6 +9,7 @@ var newHighlight = preload("res://scenes/Highlight.tscn")
 var validMoves
 var selectedMoves = []
 
+#function to find a list of moves at the start of turn
 func next_turn():
 	if board.currentTurn == self.team:
 		validMoves = find_moves("friendly")
@@ -24,7 +25,9 @@ func _input(event):
 			else:  # unselect if clicked on no object
 				unselect()
 
-#function to find object clicked on
+#function to execute a click
+#if a highlight was clicked, make the highlight's move
+#if a pieces was clicked, show its moves as highlights
 func click(clickTarget):
 	var clickLocation = clickTarget.boardPosition
 	

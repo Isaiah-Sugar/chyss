@@ -27,6 +27,7 @@ func find_moves():
 
 func get_captured():
 	spawn_frog()
+	boardPosition = Vector2(-1, -1)
 	queue_free()
 
 #spawn a frog on the position where hat is killed

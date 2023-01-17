@@ -91,6 +91,8 @@ func random_move():
 	move(validMoves[randomChoice] + boardPosition)
 #function to get captured
 func get_captured():
+	#get it out of the way
+	boardPosition = Vector2(-1, -1)
 	queue_free()
 #function to update piece position
 func update_position(newPosition):

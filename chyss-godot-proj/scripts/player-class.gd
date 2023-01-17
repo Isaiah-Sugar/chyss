@@ -1,28 +1,27 @@
 class_name Player extends Spatial
 
-signal move_made
+signal move_made(move)
+
 
 var enemyDirection
 var team
 #enemies to ignore in danger finding (have spaces they dont capture, or movement cannot be predicted)
 var ignoredEnemies = ["Pawn", "Sorcerer", "Changeling"]
 
+var opponent
 onready var board = get_parent()
 onready var pieceParent = board.get_node("PieceParent")
 
 #function to find all the moves a team can make
-func find_moves(findingTeam):
+func find_moves():
 	var movesArray = []
 	#find all the moves
 	for piece in pieceParent.get_children():
-		#if they're not on our team and we're looking for friendly moves
-		if piece.team != self.team && findingTeam == "friendly":
-			continue
 		
-		#if they are on our team and we're looking for enemy moves
-		if piece.team == self.team && findingTeam == "enemy":
+		#if they're not on our team continue
+		if piece.team != self.team:
 			continue
-		
+	
 		#store the piece's moves
 		var pieceMoves = piece.find_moves()
 		if pieceMoves.size() > 0:
@@ -34,7 +33,7 @@ func find_moves(findingTeam):
 #function to find dangerous tiles
 func find_danger():
 	var dangerArray = []
-	for move in find_moves("enemy"):
+	for move in opponent.find_moves():
 		#ignore pawns because cant capture forward, ignore changeling because cant know
 		if ignoredEnemies.find(move.piece.type) == -1:
 			dangerArray.append(move.vector + move.piece.boardPosition)
@@ -68,6 +67,5 @@ func score_move(move, dangerArray):
 #function to make a move
 #and to tell the board its the next turn
 func make_move(move):
-	emit_signal("move_made")
 	move.piece.move(move.vector+move.piece.boardPosition)
-	board.next_turn(move)
+	emit_signal("move_made", move)

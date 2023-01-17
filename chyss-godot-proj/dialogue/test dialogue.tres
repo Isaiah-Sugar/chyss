@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 6
+resource_version = 36
 syntax_version = 2
 raw_text = "~ opening_dialogue
-Guy: Ready to play some Chyss?
-Guy: I promise I won't cheat this time
+Guy: Ready to play some [shake rate=10 level=15]Chyss[/shake]?
+Guy: I promise I won't cheat this time.
 - I don't know the rules.
 	Guy: Good.
 - Okay! Good thing I know how to play.
@@ -21,7 +21,8 @@ Guy: From beneath the Hat emerges a Frog.
 Guy: How do you like them apples!
 
 ~ ur_mom
-Guy: I funced ur mom last night!"
+Guy: I funced ur mom last night!
+"
 errors = [  ]
 titles = {
 "frog_reveal": "9",
@@ -40,8 +41,8 @@ lines = {
 "character_replacements": [  ],
 "next_id": "2",
 "replacements": [  ],
-"text": "Ready to play some Chyss?",
-"translation_key": "Ready to play some Chyss?",
+"text": "Ready to play some [shake rate=10 level=15]Chyss[/shake]?",
+"translation_key": "Ready to play some [shake rate=10 level=15]Chyss[/shake]?",
 "type": "dialogue"
 },
 "11": {
@@ -77,8 +78,8 @@ lines = {
 "character_replacements": [  ],
 "next_id": "3",
 "replacements": [  ],
-"text": "I promise I won't cheat this time",
-"translation_key": "I promise I won't cheat this time",
+"text": "I promise I won't cheat this time.",
+"translation_key": "I promise I won't cheat this time.",
 "type": "dialogue"
 },
 "3": {

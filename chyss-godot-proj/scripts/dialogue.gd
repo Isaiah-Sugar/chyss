@@ -1,19 +1,33 @@
 extends Spatial
 
+signal dialogue_finished
+
 var dialogue = preload("res://dialogue/test dialogue.tres")
+
+var dialogueQueue = []
 var oppenentTeam = "black"
 
 #function to determine dialogue event
-func determine_dialogue(move, turnNumber):
+func queue_dialogue(move, turnNumber):
 	
 	#evaluates each special dialogue case 
 	for case in caseArray:
 		if case.alreadyHappened:
 			continue
 		if evaluate(case.function, ["move", "turnNumber"], [move, turnNumber]):
-			DialogueManager.show_example_dialogue_balloon(case.dialogueNode, dialogue)
+			dialogueQueue.append(case.dialogueNode)
 			if case.alreadyHappened != null:
 				case.alreadyHappened = true
+		
+	play_queue()
+
+func play_queue():
+	if dialogueQueue.size() > 0:
+		for node in dialogueQueue:
+			DialogueManager.show_example_dialogue_balloon(node, dialogue)
+			yield(DialogueManager, "dialogue_finished")
+	dialogueQueue.clear()
+	emit_signal("dialogue_finished")
 
 #function to evaluate dialogue "function strings"
 func evaluate(command, variable_names = [], variable_values = []):
@@ -22,9 +36,9 @@ func evaluate(command, variable_names = [], variable_values = []):
 	if error != OK:
 		push_error(expression.get_error_text())
 		return
-	
+
 	var result = expression.execute(variable_values, self)
-	
+
 	if not expression.has_execute_failed():
 		return result
 

@@ -38,6 +38,7 @@ run/main_scene="res://scenes/Main.tscn"
 [autoload]
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Dialogue="*res://scripts/dialogue.gd"
 
 [editor_plugins]
 

@@ -15,7 +15,7 @@ func play_turn():
 	
 	yield(thinkTimer, "timeout")
 	
-	var movesArray = find_moves("friendly")
+	var movesArray = find_moves()
 	var dangerArray = find_danger()
 	for move in movesArray:
 		score_move(move, dangerArray)

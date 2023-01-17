@@ -6,6 +6,7 @@ var hoveredObj = null
 
 var newHighlight = preload("res://scenes/Highlight.tscn")
 
+
 var playing
 var validMoves = []
 var selectedMoves = []
@@ -13,7 +14,7 @@ var selectedMoves = []
 #function to find a list of moves at the start of turn
 func play_turn():
 	playing = true
-	validMoves = find_moves("friendly")
+	validMoves = find_moves()
 
 #function to handle player mouse input
 func _input(event):

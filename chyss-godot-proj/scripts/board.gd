@@ -42,6 +42,9 @@ func setup_game():
 	blackPlayer.enemyDirection = 1
 	add_child(blackPlayer)
 	
+	blackPlayer.opponent = whitePlayer
+	whitePlayer.opponent = blackPlayer
+	
 	emit_signal("game_setup")
 
 func instance_piece(type, boardPosition, team):

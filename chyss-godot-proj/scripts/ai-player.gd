@@ -9,15 +9,12 @@ class ScoreSorter:
 			return true
 		return false
 
-#called by board, starts turn if its AI's turn
-func next_turn():
-	if board.currentTurn == self.team:
-		thinkTimer.start()
-
-func _on_ThinkTimer_timeout():
-	play_turn()
 #function to play the ai's turn
 func play_turn():
+	thinkTimer.start()
+	
+	yield(thinkTimer, "timeout")
+	
 	var movesArray = find_moves("friendly")
 	var dangerArray = find_danger()
 	for move in movesArray:
@@ -25,7 +22,6 @@ func play_turn():
 	var move = pick_move(movesArray)
 	make_move(move)
 	#move the piece
-	
 
 
 

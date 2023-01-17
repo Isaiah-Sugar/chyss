@@ -6,17 +6,19 @@ var hoveredObj = null
 
 var newHighlight = preload("res://scenes/Highlight.tscn")
 
-var validMoves
+var playing
+var validMoves = []
 var selectedMoves = []
 
 #function to find a list of moves at the start of turn
-func next_turn():
-	if board.currentTurn == self.team:
-		validMoves = find_moves("friendly")
+func play_turn():
+	playing = true
+	validMoves = find_moves("friendly")
+
 #function to handle player mouse input
 func _input(event):
 	#if its my turn
-	if board.currentTurn == team:
+	if playing:
 		#if left mouse press down
 		if event is InputEventMouseButton && event.button_index == 1 && event.pressed:
 			var clickTarget = rayCast.cast_ray()
@@ -36,6 +38,7 @@ func click(clickTarget):
 		if highlight.boardPosition == clickLocation:
 			#selectedPiece.move(clickLocation)
 			make_move(highlight.move)
+			playing = false
 			unselect()
 			return
 	

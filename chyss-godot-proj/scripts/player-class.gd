@@ -1,6 +1,6 @@
 class_name Player extends Spatial
 
-signal move_made
+signal move_made(move)
 
 var enemyDirection
 var team
@@ -68,6 +68,5 @@ func score_move(move, dangerArray):
 #function to make a move
 #and to tell the board its the next turn
 func make_move(move):
-	emit_signal("move_made")
 	move.piece.move(move.vector+move.piece.boardPosition)
-	board.next_turn(move)
+	emit_signal("move_made", move)

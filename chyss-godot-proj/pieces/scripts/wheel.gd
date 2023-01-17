@@ -87,4 +87,5 @@ func stop_check():
 
 func get_captured():
 	velocity = Vector2(0, 0)
+	boardPosition = Vector2(-1, -1)
 	queue_free()

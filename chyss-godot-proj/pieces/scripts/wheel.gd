@@ -21,7 +21,7 @@ var type = "Wheel"
 func find_moves():
 	#no valid moves if rolling
 	if velocity != Vector2(0, 0):
-		return
+		return []
 	
 	var validMoves = []
 	#standing find moves

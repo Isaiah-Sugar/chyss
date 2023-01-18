@@ -25,7 +25,8 @@ func _ready():
 func _on_game_setup():
 	connect_signals()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(null, turnNumber)
+	Dialogue.queue_dialogue(["turnNumber"], [turnNumber])
+	Dialogue.play_queue()
 
 func connect_signals():
 	Dialogue.connect("dialogue_finished", self, "_on_dialogue_finished")
@@ -43,7 +44,8 @@ func _on_move_made(move):
 	turnNumber += 1
 	toggle_turn()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(move, turnNumber)
+	Dialogue.queue_dialogue(["move", "turnNumber"], [move, turnNumber])
+	Dialogue.play_queue()
 	
 func toggle_turn():
 	if turn == "white":

@@ -65,15 +65,8 @@ func move(movePosition):
 	else: #standing -> laying
 		facingVector = Vector2(0, 0)
 		animFlag = animFlags.FALL
-		#look for a piece to capture
-	var capturePiece = pieceParent.find_piece(movePosition)
 	#must say self for setget to work
 	self.boardPosition = movePosition
-	#capture piece after moving, so that it knows your position when this runs
-	if capturePiece:
-		if capturePiece != self:
-			capturePiece.get_captured()
-	
 
 #on next turn wheel rolls according to velocity
 func next_turn(_currentTurn):
@@ -99,14 +92,10 @@ func stop_check():
 	if pieceParent.out_of_bounds(boardPosition + velocity):
 		velocity = Vector2(0, 0)
 
-func get_captured():
+func individual_get_captured():
 	velocity = Vector2(0, 0)
-	boardPosition = Vector2(-1, -1)
-	queue_free()
-
 
 #animation functions:
-
 func anim_fall(oldPosition: Vector3, newPosition: Vector3) -> void:
 	newPosition.y = side_y_offset
 	

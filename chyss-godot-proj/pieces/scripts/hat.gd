@@ -26,10 +26,8 @@ func find_moves():
 			validMoves.append({team = team, piece = self, vector = vector, capture = capture, score = 0})
 	return validMoves
 
-func get_captured():
+func individual_get_captured():
 	spawn_frog()
-	boardPosition = Vector2(-1, -1)
-	queue_free()
 
 #spawn a frog on the position where hat is killed
 func spawn_frog():

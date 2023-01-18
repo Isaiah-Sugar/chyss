@@ -42,7 +42,9 @@ Dialogue="*res://scripts/dialogue.gd"
 
 [editor_plugins]
 
+
 enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg" )
+
 
 [gui]
 

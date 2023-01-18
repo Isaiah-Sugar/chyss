@@ -45,6 +45,6 @@ script = ExtResource( 4 )
 [node name="PieceParent" type="Spatial" parent="chyss table bits/Board"]
 script = ExtResource( 8 )
 
-[node name="lowpoly bg" parent="." instance=ExtResource( 3 )]
-
 [node name="opponent" parent="." instance=ExtResource( 5 )]
+
+[node name="lowpoly-bg" parent="." instance=ExtResource( 3 )]

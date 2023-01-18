@@ -106,6 +106,7 @@ func get_captured():
 
 
 #animation functions:
+
 func anim_fall(oldPosition: Vector3, newPosition: Vector3) -> void:
 	newPosition.y = side_y_offset
 	
@@ -114,31 +115,21 @@ func anim_fall(oldPosition: Vector3, newPosition: Vector3) -> void:
 	
 	rotation.y = _min_angle(-moveVector2d.angle() - (PI/2))
 	
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "translation", newPosition, 1)
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "rotation:x", rotation.x -((PI/2)), 1)
-
-
-func _min_angle(inAngle : float) -> float:
-	if inAngle < -PI:
-		return inAngle + (2*PI)
-	if inAngle > PI:
-		return inAngle - (2*PI)
-	return inAngle
-
-
-func anim_stand(oldPosition: Vector3, newPosition: Vector3) -> void:
-	var delta = newPosition - oldPosition
-#	newPosition -= (delta*.5) # compensate for rotation origin
+	var slide_percentage = .7
 	
-#
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "translation", newPosition, 1)
-	tween = get_tree().create_tween()
-	
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.parallel().tween_property(self, "translation:x", lerp(oldPosition.x, newPosition.x, slide_percentage), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "translation:y", newPosition.y, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "translation:z", lerp(oldPosition.z, newPosition.z, slide_percentage), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "rotation:x", rotation.x -(PI/2), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.chain().tween_property(self, "translation", newPosition,1.52).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func anim_stand(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	rotation.y = _min_angle(-facingVector.angle())
-	tween.tween_property(self, "rotation:x", rotation.x - (PI/2), 1)
+	
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.parallel().tween_property(self, "translation", newPosition, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(self, "rotation:x", rotation.x - (PI/2), 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func anim_roll_start(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	#the . at the beginning tells it to use the base class's version
@@ -148,9 +139,14 @@ func anim_roll(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation", newPosition, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 
-
 func translate_tweened(newPosition):
 	newPosition += model_offset 
 	call(animations[animFlag], self.translation, newPosition)
 
 
+func _min_angle(inAngle : float) -> float:
+	if inAngle < -PI:
+		return inAngle + (2*PI)
+	if inAngle > PI:
+		return inAngle - (2*PI)
+	return inAngle

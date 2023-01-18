@@ -1,11 +1,9 @@
 class_name piece extends Spatial
 
 
-var board = null
-var highlightParent
+var pieceParent = null
 onready var mesh = get_child(0)
 
-var newHighlight = preload("res://scenes/Highlight.tscn")
 onready var whiteTeamMaterial = load("res://materials/white-team.material")
 onready var blackTeamMaterial = load("res://materials/black-team.material")
 
@@ -18,15 +16,16 @@ var scoreArray = [
 					{type = "Changeling", score = 5},
 					{type = "Frog", score = 10},
 					{type = "Hat", score = 7},
-					{type = "Pawn", score = 3},
+					{type = "Pawn", score = 2},
 					{type = "Rock", score = 1000},
 					{type = "Sorcerer", score = 5},
-					{type = "Wheel", score = 10},
+					{type = "Wheel", score = 7},
 														]
 
+var model_offset = Vector3(0,0,0)
 
 func _ready():
-	if !board:
+	if !pieceParent:
 	  get_other_nodes()
 	get_score()
 	individual_ready()
@@ -43,31 +42,7 @@ func individual_ready():
 
 #function to get other nodes on ready
 func get_other_nodes():
-	board = get_parent().get_parent()
-	highlightParent = get_node("HighlightParent")
-
-#function for when the piece is clicked
-func get_clicked():
-	#if im highlighted clicking me should click that
-	var selfHighlight = find_self_highlighted()
-	if selfHighlight:
-		selfHighlight.get_clicked()
-		return
-	#if its my turn
-	if team == board.currentTurn:
-		#do the things that mean getting clicked
-		board.unselect()
-		var validMoves = find_moves()
-		spawn_highlights(validMoves)
-		board.selectedPiece = self
-#function to find a highlight under self
-func find_self_highlighted():
-	if board.selectedPiece:
-		for highlight in board.selectedPiece.highlightParent.get_children():
-			if (board.selectedPiece.boardPosition + highlight.boardPosition) == boardPosition:
-				return highlight
-
-
+	pieceParent = get_parent()
 
 #function to find the pieces movess
 func find_moves():
@@ -76,50 +51,49 @@ func find_moves():
 
 #return true if a space is valid and empty
 func can_move(target):
-	if board.out_of_bounds(boardPosition + target):
+	if pieceParent.out_of_bounds(boardPosition + target):
 		return false
-	if board.find_piece(boardPosition + target):
+	if pieceParent.find_piece(boardPosition + target):
 		return false
 	return true
 
 #return true if a space is valid and has an enemy
 func can_take(target):
-	if board.out_of_bounds(boardPosition + target):
+	if pieceParent.out_of_bounds(boardPosition + target):
 		return false
-	var targetPiece = board.find_piece(boardPosition + target)
+	var targetPiece = pieceParent.find_piece(boardPosition + target)
 	if targetPiece:
 		if targetPiece.team != team:
 			return true
 
-#function to show highlights at each valid move
-func spawn_highlights(validMoves):
-	if validMoves:
-		for move in validMoves:
-			var highlight = newHighlight.instance()
-			highlight.boardPosition = move
-			highlightParent.add_child(highlight)
+#returns true if a space is valid and has any piece
+func can_take_teamless(target):
+	if pieceParent.out_of_bounds(boardPosition + target):
+		return false
+	var targetPiece = pieceParent.find_piece(boardPosition + target)
+	if targetPiece:
+		return true
 
-#function to move when a highlight is clicked
-func move(moveVector, nextTurn):
+#function to move to a given position
+func move(movePosition):
 	#look for a piece to capture
-	var capturePiece = board.find_piece(boardPosition+moveVector)
+	var capturePiece = pieceParent.find_piece(movePosition)
+	#must say self for setget to work
+	self.boardPosition = movePosition
+	#capture piece after moving, so that it knows your position when this runs
 	if capturePiece:
 		if capturePiece != self:
 			capturePiece.get_captured()
-	
-	#must say self for setget to work
-	self.boardPosition += moveVector
-	#change turn
-	if nextTurn:
-		board.next_turn()
 
 #function to make a random move
 func random_move():
 	var validMoves = find_moves()
 	var randomChoice = randi() % validMoves.size()
-	move(validMoves[randomChoice], false)
+	move(validMoves[randomChoice] + boardPosition)
 #function to get captured
 func get_captured():
+	#get it out of the way
+	boardPosition = Vector2(-1, -1)
 	queue_free()
 #function to update piece position
 func update_position(newPosition):
@@ -129,7 +103,8 @@ func update_position(newPosition):
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
-		translation = Vector3(tmp.x, 0, tmp.y)
+		print(str(self) + str(model_offset))
+		translation = Vector3(tmp.x, 0, tmp.y) + model_offset
 	else:
 		translate_tweened(Vector3(tmp.x, 0, tmp.y))
 		
@@ -137,14 +112,13 @@ func update_position(newPosition):
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:y", .1, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "translation:y", 0.0, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "translation:z", newPosition.z, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "translation:y", newPosition.y, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween = get_tree().create_tween().set_parallel(true)
+	tween.parallel().tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	tween.parallel().tween_property(self, "translation:z", newPosition.z, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	
 
-func next_turn():
+func next_turn(_currentTurn):
 	pass
 
 #function to change the piece's material to match its team

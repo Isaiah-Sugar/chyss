@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "DialogueResource",
+"language": "GDScript",
+"path": "res://addons/dialogue_manager/dialogue_resource.gd"
+}, {
+"base": "Spatial",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/player-class.gd"
+}, {
 "base": "Spatial",
 "class": "piece",
 "language": "GDScript",
 "path": "res://scripts/piece-outline.gd"
 } ]
 _global_script_class_icons={
+"DialogueResource": "",
+"Player": "",
 "piece": ""
 }
 
@@ -30,7 +42,9 @@ Dialogue="*res://scripts/dialogue.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+
+enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg" )
+
 
 [gui]
 

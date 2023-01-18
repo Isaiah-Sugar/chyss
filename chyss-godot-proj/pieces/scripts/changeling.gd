@@ -22,8 +22,8 @@ func individual_ready():
 	new_child_piece()
 
 #on next turn if its your turn get a new child
-func next_turn():
-	if board.currentTurn == team:
+func next_turn(currentTurn):
+	if currentTurn == team:
 		new_child_piece()
 
 #find moves as the child piece
@@ -43,8 +43,7 @@ func new_child_piece():
 	#set properties and add it
 	piece.boardPosition = self.boardPosition
 	piece.team = self.team
-	piece.board = board
-	piece.highlightParent = highlightParent
+	piece.pieceParent = pieceParent
 	
 	add_child(piece)
 
@@ -57,12 +56,11 @@ func set_team(newTeam):
 
 func update_position(newPosition):
 	boardPosition = newPosition
-	var tmp = (boardPosition * 1/8)
 	
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
 	
-	highlightParent.translation = Vector3(tmp.x, 0, tmp.y)
+	#set the visual position of the child piece, own visual position never moves
 	if childPiece:
 		childPiece.boardPosition = newPosition

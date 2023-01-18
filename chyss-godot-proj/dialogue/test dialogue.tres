@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 46
+resource_version = 48
 syntax_version = 2
 raw_text = "~ opening_dialogue
 Guy: Ready to play some [wait=.3][speed=0.1][shake rate=10 level=15]Chyss[/shake]?
@@ -22,7 +22,7 @@ Guy: I promise I won't cheat this time.
 	- No
 		Guy: Good.
 	- Yeah, I think so.
-		Guy: Ur mom
+		Guy: I might cheat.
 - Okay! Good thing I know how to play.
 	Guy: I might cheat.
 
@@ -34,13 +34,16 @@ Guy: How do you like them apples!
 
 ~ ur_mom
 Guy: I [wave amp=50 freq=5]funced ur mom[/wave] last night!
-"
+
+~ uses_both
+Guy: You moved your hat on turn 3."
 errors = [  ]
 titles = {
 "frog_reveal": "21",
 "good_move": "24",
 "opening_dialogue": "1",
-"ur_mom": "27"
+"ur_mom": "27",
+"uses_both": "30"
 }
 lines = {
 "0": {
@@ -122,8 +125,8 @@ lines = {
 "next_id": "end!",
 "parent_id": "15",
 "replacements": [  ],
-"text": "Ur mom",
-"translation_key": "Ur mom",
+"text": "I might cheat.",
+"translation_key": "I might cheat.",
 "type": "dialogue"
 },
 "17": {
@@ -195,6 +198,11 @@ lines = {
 "translation_key": "I [wave amp=50 freq=5]funced ur mom[/wave] last night!",
 "type": "dialogue"
 },
+"29": {
+"next_id": "30",
+"text": "uses_both",
+"type": "title"
+},
 "3": {
 "next_id": "4",
 "next_id_after": "end!",
@@ -203,6 +211,15 @@ lines = {
 "text": "I don't know the rules.",
 "translation_key": "I don't know the rules.",
 "type": "response"
+},
+"30": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "You moved your hat on turn 3.",
+"translation_key": "You moved your hat on turn 3.",
+"type": "dialogue"
 },
 "4": {
 "character": "Guy",

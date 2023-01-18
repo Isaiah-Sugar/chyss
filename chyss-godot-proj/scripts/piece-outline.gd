@@ -22,6 +22,7 @@ var scoreArray = [
 					{type = "Wheel", score = 7},
 														]
 
+var model_offset = Vector3(0,0,0)
 
 func _ready():
 	if !pieceParent:
@@ -100,7 +101,8 @@ func update_position(newPosition):
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
-		translation = Vector3(tmp.x, 0, tmp.y)
+		print(str(self) + str(model_offset))
+		translation = Vector3(tmp.x, 0, tmp.y) + model_offset
 	else:
 		translate_tweened(Vector3(tmp.x, 0, tmp.y))
 		
@@ -108,7 +110,7 @@ func update_position(newPosition):
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:y", .1, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "translation:y", 0.0, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "translation:y", newPosition.y, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	tween = get_tree().create_tween()

@@ -642,7 +642,7 @@ func extract_mutation(line: String) -> Dictionary:
 		return { "error": "Incomplete expression" }
 	
 	if found.names.has("mutation"):
-		var expression = tokenise(found.strings[found.names.get("mutation")])
+		var expression = tokenise(found.strings[found.names.get("mutation")], DialogueConstants.TYPE_MUTATION)
 		if expression[0].get("type") == DialogueConstants.TYPE_ERROR:
 			return { "error": "Invalid expression for value" }
 		else:
@@ -662,7 +662,7 @@ func extract_condition(raw_line: String, is_wrapped: bool = false) -> Dictionary
 		return { "error": "Incomplete condition" }
 	
 	var raw_condition = found.strings[found.names.get("condition")]
-	var expression = tokenise(raw_condition)
+	var expression = tokenise(raw_condition, DialogueConstants.TYPE_CONDITION)
 	
 	if expression[0].get("type") == DialogueConstants.TYPE_ERROR:
 		return { "error": expression[0].get("value") }
@@ -680,7 +680,7 @@ func extract_dialogue_replacements(text: String) -> Array:
 	for found in founds:
 		var replacement: Dictionary = {}
 		var value_in_text = found.strings[1]
-		var expression = tokenise(value_in_text)
+		var expression = tokenise(value_in_text, DialogueConstants.TYPE_DIALOGUE)
 		if expression[0].get("type") == DialogueConstants.TYPE_ERROR:
 			replacement = { "error": expression[0].get("value") }
 		else:
@@ -848,7 +848,7 @@ func find_bbcode_positions_in_string(string: String, find_all: bool = true) -> A
 	return positions
 
 
-func tokenise(text: String) -> Array:
+func tokenise(text: String, line_type_hint: String) -> Array:
 	var tokens = []
 	var limit = 0
 	while text.strip_edges() != "" and limit < 1000:
@@ -865,27 +865,27 @@ func tokenise(text: String) -> Array:
 		else:
 			return [{ "type": "error", "value": "Invalid expression" }]
 	
-	return build_token_tree(tokens)[0]
+	return build_token_tree(tokens, line_type_hint, "")[0]
 	
 
 func build_token_tree_error(message: String) -> Array:
 	return [{ "type": DialogueConstants.TOKEN_ERROR, "value": message}]
 
 
-func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array:
+func build_token_tree(tokens: Array, line_type_hint: String, expected_close_token: String) -> Array:
 	var tree = []
 	var limit = 0
 	while tokens.size() > 0 and limit < 1000:
 		limit += 1
 		var token = tokens.pop_front()
 		
-		var error = check_next_token(token, tokens)
+		var error = check_next_token(token, tokens, line_type_hint)
 		if error != "":
 			return [build_token_tree_error(error), tokens]
 		
 		match token.type:
 			DialogueConstants.TOKEN_FUNCTION:
-				var sub_tree = build_token_tree(tokens, DialogueConstants.TOKEN_PARENS_CLOSE)
+				var sub_tree = build_token_tree(tokens, line_type_hint, DialogueConstants.TOKEN_PARENS_CLOSE)
 				
 				if sub_tree[0].size() > 0 and sub_tree[0][0].get("type") == DialogueConstants.TOKEN_ERROR:
 					return [build_token_tree_error(sub_tree[0][0].get("value")), tokens]
@@ -899,7 +899,7 @@ func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array
 				tokens = sub_tree[1]
 			
 			DialogueConstants.TOKEN_DICTIONARY_REFERENCE:
-				var sub_tree = build_token_tree(tokens, DialogueConstants.TOKEN_BRACKET_CLOSE)
+				var sub_tree = build_token_tree(tokens, line_type_hint, DialogueConstants.TOKEN_BRACKET_CLOSE)
 				
 				if sub_tree[0].size() > 0 and sub_tree[0][0].get("type") == DialogueConstants.TOKEN_ERROR:
 					return [build_token_tree_error(sub_tree[0][0].get("value")), tokens]
@@ -917,7 +917,7 @@ func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array
 				tokens = sub_tree[1]
 			
 			DialogueConstants.TOKEN_BRACE_OPEN:
-				var sub_tree = build_token_tree(tokens, DialogueConstants.TOKEN_BRACE_CLOSE)
+				var sub_tree = build_token_tree(tokens, line_type_hint, DialogueConstants.TOKEN_BRACE_CLOSE)
 				
 				if sub_tree[0].size() > 0 and sub_tree[0][0].get("type") == DialogueConstants.TOKEN_ERROR:
 					return [build_token_tree_error(sub_tree[0][0].get("value")), tokens]
@@ -929,7 +929,7 @@ func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array
 				tokens = sub_tree[1]
 			
 			DialogueConstants.TOKEN_BRACKET_OPEN:
-				var sub_tree = build_token_tree(tokens, DialogueConstants.TOKEN_BRACKET_CLOSE)
+				var sub_tree = build_token_tree(tokens, line_type_hint, DialogueConstants.TOKEN_BRACKET_CLOSE)
 				
 				if sub_tree[0].size() > 0 and sub_tree[0][0].get("type") == DialogueConstants.TOKEN_ERROR:
 					return [build_token_tree_error(sub_tree[0][0].get("value")), tokens]
@@ -951,7 +951,7 @@ func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array
 				tokens = sub_tree[1]
 
 			DialogueConstants.TOKEN_PARENS_OPEN:
-				var sub_tree = build_token_tree(tokens, DialogueConstants.TOKEN_PARENS_CLOSE)
+				var sub_tree = build_token_tree(tokens, line_type_hint, DialogueConstants.TOKEN_PARENS_CLOSE)
 				
 				if sub_tree[0][0].get("type") == DialogueConstants.TOKEN_ERROR:
 					return [build_token_tree_error(sub_tree[0][0].get("value")), tokens]
@@ -1020,10 +1020,13 @@ func build_token_tree(tokens: Array, expected_close_token: String = "") -> Array
 	return [tree, tokens]
 
 
-func check_next_token(token: Dictionary, next_tokens: Array) -> String:
+func check_next_token(token: Dictionary, next_tokens: Array, line_type_hint: String) -> String:
 	var next_token_type = null
 	if next_tokens.size() > 0:
 		next_token_type = next_tokens.front().get("type")
+	
+	if line_type_hint == DialogueConstants.TYPE_CONDITION and token.get("type") == DialogueConstants.TOKEN_ASSIGNMENT:
+		return "Unexpected assignment"
  
 	var unexpected_token_types = []
 	match token.get("type"):

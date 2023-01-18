@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "piece",
 "language": "GDScript",
-"path": "res://scripts/piece-outline.gd"
+"path": "res://scripts/piece-class.gd"
 } ]
 _global_script_class_icons={
 "DialogueResource": "",

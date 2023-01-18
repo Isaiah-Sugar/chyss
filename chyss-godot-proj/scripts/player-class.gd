@@ -23,11 +23,7 @@ func find_moves():
 			continue
 	
 		#store the piece's moves
-		var pieceMoves = piece.find_moves()
-		if pieceMoves.size() > 0:
-			for move in piece.find_moves():
-				var storeMove = {team = team, piece = piece, vector = move, capture = null, score = 0}
-				movesArray.append(storeMove)
+		movesArray.append_array(piece.find_moves())
 	
 	return movesArray
 #function to find dangerous tiles
@@ -68,4 +64,6 @@ func score_move(move, dangerArray):
 #and to tell the board its the next turn
 func make_move(move):
 	move.piece.move(move.vector+move.piece.boardPosition)
+	if move.capture:
+		move.capture.get_captured()
 	emit_signal("move_made", move)

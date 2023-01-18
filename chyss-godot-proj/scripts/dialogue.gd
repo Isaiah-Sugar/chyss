@@ -64,7 +64,7 @@ var caseArray = [
 					{function = "opening_dialogue(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "opening_dialogue", alreadyHappened = false},
 					{function = "frog_reveal(move)", variableNames = ["move"], dialogueNode = "frog_reveal", alreadyHappened = false},
 					{function = "good_move(move)", variableNames = ["move"], dialogueNode = "good_move", alreadyHappened = null},
-					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
+#					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
 					{function = "uses_both(move, turnNumber)", variableNames = ["move", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
 																																]
 #special case bool functions

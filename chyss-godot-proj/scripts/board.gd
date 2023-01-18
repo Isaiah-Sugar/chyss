@@ -10,6 +10,7 @@ var newSorcerer = preload("res://pieces/scenes/Sorcerer.tscn")
 var newChangeling = preload("res://pieces/scenes/Changeling.tscn")
 var newWheel = preload("res://pieces/scenes/Wheel.tscn")
 var newPawn = preload("res://pieces/scenes/Pawn.tscn")
+var newChecker = preload("res://pieces/scenes/Checker.tscn")
 
 var newHighlight = preload("res://scenes/Highlight.tscn")
 var newAI = preload("res://scenes/EnemyAI.tscn")
@@ -30,7 +31,9 @@ var blackPlayer
 var selectedPiece = null
 
 func setup_game():
-	setup_pieces()
+	#setup_pieces()
+	instance_piece(newBishop, Vector2(0, 0), teams[0])
+	instance_piece(newBishop, Vector2(3, 4), teams[1])
 	
 	#instance an ai for black team
 	whitePlayer = newPlayer.instance()
@@ -75,7 +78,7 @@ func setup_pieces():
 	instance_piece(newHat, Vector2(6, 7), teams[0])
 	instance_piece(newBishop, Vector2(5, 7), teams[0])
 	instance_piece(newWheel, Vector2(4, 7), teams[0])
-	instance_piece(newRock, Vector2(3, 7), teams[0])
+	instance_piece(newChecker, Vector2(3, 7), teams[0])
 	instance_piece(newBishop, Vector2(2, 7), teams[0])
 	instance_piece(newHat, Vector2(1, 7), teams[0])
 	instance_piece(newChangeling, Vector2(0, 7), teams[0])

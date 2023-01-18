@@ -26,3 +26,9 @@ func individual_set_team():
 		moveVectors = [Vector2(-1, -1), Vector2(1, -1)]
 	else:
 		moveVectors = [Vector2(-1, 1), Vector2(1, 1)]
+
+func individual_set_position():
+	if team == "white" && boardPosition.y == 0:
+		kinged = true
+	elif team == "black" && boardPosition.y == 7:
+		kinged = true

@@ -86,14 +86,16 @@ func random_move():
 	move(validMoves[randomChoice].vector + boardPosition)
 #function to get captured
 func get_captured():
-	#get it out of the way
-	boardPosition = Vector2(-1, -1)
+	individual_get_captured()
+	pieceParent.remove_child(self)
 	queue_free()
+func individual_get_captured():
+	pass
 #function to update piece position
 func update_position(newPosition):
 	boardPosition = newPosition
 	var tmp = (boardPosition * 1/8)
-	
+	individual_set_position()
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
@@ -101,7 +103,8 @@ func update_position(newPosition):
 		translation = Vector3(tmp.x, 0, tmp.y) + model_offset
 	else:
 		translate_tweened(Vector3(tmp.x, 0, tmp.y))
-		
+func individual_set_position():
+	pass
 
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()

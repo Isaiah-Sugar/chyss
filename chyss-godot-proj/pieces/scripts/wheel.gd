@@ -108,23 +108,16 @@ func get_captured():
 func anim_fall(oldPosition: Vector3, newPosition: Vector3) -> void:
 	newPosition.y = side_y_offset
 	
+	var moveVector = newPosition - oldPosition
+	var moveVector2d = Vector2(moveVector.x, moveVector.z)
 	
+	rotation.y = _min_angle(-moveVector2d.angle() - (PI/2))
 	
-#	var moveVector = newPosition - oldPosition
-#	var moveVector2d = Vector2(moveVector.x, moveVector.z)
-#	rotation.y = min_angle(moveVector2d.angle() + (PI/2))
-
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation", newPosition, 1)
 	tween = get_tree().create_tween()
 	tween.tween_property(self, "rotation:x", rotation.x -((PI/2)), 1)
 
-
-#remove these 2 functions later if they're not needed
-
-func _vec2_angle(inVector : Vector2) -> float:
-	var inAngle = inVector.angle()
-	return _min_angle(inAngle)
 
 func _min_angle(inAngle : float) -> float:
 	if inAngle < -PI:
@@ -143,9 +136,8 @@ func anim_stand(oldPosition: Vector3, newPosition: Vector3) -> void:
 	tween.tween_property(self, "translation", newPosition, 1)
 	tween = get_tree().create_tween()
 	
-	rotation.y = -facingVector.angle()
-	rotation.y = fmod(rotation.y+(PI/2), PI)-PI/2
-	tween.tween_property(self, "rotation:x", 0.0, 1)
+	rotation.y = _min_angle(-facingVector.angle())
+	tween.tween_property(self, "rotation:x", rotation.x - (PI/2), 1)
 
 func anim_roll_start(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	#the . at the beginning tells it to use the base class's version

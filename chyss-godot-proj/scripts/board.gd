@@ -31,9 +31,7 @@ var blackPlayer
 var selectedPiece = null
 
 func setup_game():
-	#setup_pieces()
-	instance_piece(newBishop, Vector2(0, 0), teams[0])
-	instance_piece(newBishop, Vector2(3, 4), teams[1])
+	setup_pieces()
 	
 	#instance an ai for black team
 	whitePlayer = newPlayer.instance()

@@ -13,16 +13,17 @@ func find_moves():
 	
 	#check space ahead
 	if  can_move(moveVector):
-		validMoves.append(moveVector)
+		validMoves.append({team = team, piece = self, vector = moveVector, capture = null, score = 0})
 	elif can_move(moveVector*2):
-		validMoves.append(moveVector*2)
+		validMoves.append({team = team, piece = self, vector = moveVector*2, capture = null, score = 0})
 	
 	#find first obstructed space on vector
 	var targetVector = captureVector
 	while(can_move(targetVector)):
 		targetVector += captureVector
 	if  can_take(targetVector):
-		validMoves.append(targetVector)
+		var capture = pieceParent.find_piece(targetVector+boardPosition)
+		validMoves.append({team = team, piece = self, vector = targetVector, capture = capture, score = 0})
 	return validMoves
 
 #invert move vectors depending on team

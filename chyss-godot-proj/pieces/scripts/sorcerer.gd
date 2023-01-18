@@ -18,5 +18,6 @@ func reroll():
 	moveVector = randomPosition - boardPosition
 
 func find_moves():
-	var validMoves = [moveVector]
+	var capture = pieceParent.find_piece(moveVector+boardPosition)
+	var validMoves = [{team = team, piece = self, vector = moveVector, capture = capture, score = 0}]
 	return validMoves

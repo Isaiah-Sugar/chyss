@@ -20,6 +20,7 @@ var scoreArray = [
 					{type = "Rock", score = 1000},
 					{type = "Sorcerer", score = 5},
 					{type = "Wheel", score = 7},
+					{type = "Checker", score = 5}
 														]
 
 var model_offset = Vector3(0,0,0)
@@ -76,20 +77,13 @@ func can_take_teamless(target):
 
 #function to move to a given position
 func move(movePosition):
-	#look for a piece to capture
-	var capturePiece = pieceParent.find_piece(movePosition)
-	#must say self for setget to work
 	self.boardPosition = movePosition
-	#capture piece after moving, so that it knows your position when this runs
-	if capturePiece:
-		if capturePiece != self:
-			capturePiece.get_captured()
 
 #function to make a random move
 func random_move():
 	var validMoves = find_moves()
 	var randomChoice = randi() % validMoves.size()
-	move(validMoves[randomChoice] + boardPosition)
+	move(validMoves[randomChoice].vector + boardPosition)
 #function to get captured
 func get_captured():
 	#get it out of the way

@@ -14,9 +14,10 @@ func find_moves():
 	#check space ahead
 	for vector in moveVectors:
 		if  can_move(vector):
-			validMoves.append(vector)
+			validMoves.append({team = team, piece = self, vector = vector, capture = null, score = 0})
 		elif can_move(vector*2) && can_take(vector):
-			validMoves.append(vector*2)
+			var capture = pieceParent.find_piece(vector + boardPosition)
+			validMoves.append({team = team, piece = self, vector = vector*2, capture = capture, score = 0})
 	return validMoves
 
 #invert move vectors depending on team

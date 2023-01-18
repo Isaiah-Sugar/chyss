@@ -11,7 +11,7 @@ extends Spatial
 
 #team stores whose turn it is
 var turn = "white"
-var turnCount = 0
+var turnNumber = 0
 
 onready var board = get_node("chyss table bits/Board")
 
@@ -25,7 +25,7 @@ func _ready():
 func _on_game_setup():
 	connect_signals()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(null, turnCount)
+	Dialogue.queue_dialogue(null, turnNumber)
 
 func connect_signals():
 	Dialogue.connect("dialogue_finished", self, "_on_dialogue_finished")
@@ -40,9 +40,10 @@ func _on_dialogue_finished():
 		board.blackPlayer.play_turn()
 
 func _on_move_made(move):
+	turnNumber += 1
 	toggle_turn()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(move, turnCount)
+	Dialogue.queue_dialogue(move, turnNumber)
 	
 func toggle_turn():
 	if turn == "white":

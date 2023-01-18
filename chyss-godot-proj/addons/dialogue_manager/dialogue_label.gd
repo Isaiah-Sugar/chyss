@@ -125,6 +125,7 @@ func type_out() -> void:
 		# Run any inline mutations
 		for i in range(index, get_total_character_count()):
 			mutate_inline_mutations(i)
+		emit_signal("finished")
 	else:
 		percent_per_index = 100.0 / float(get_total_character_count()) / 100.0
 		is_typing = true
@@ -138,10 +139,10 @@ func get_pause(at_index: int) -> float:
 # Get the speed for the current typing position
 func get_speed(at_index: int) -> float:
 	var speed: float = 1
-	for index in dialogue_line.speeds:
-		if index > at_index:
+	for data in dialogue_line.speeds:
+		if data[0] > at_index:
 			return speed
-		speed = dialogue_line.speeds[index]
+		speed = data[1]
 	return speed
 
 
@@ -153,4 +154,4 @@ func mutate_inline_mutations(index: int) -> void:
 			return
 		if inline_mutation[0] == index:
 			# The DialogueManager can't be referenced directly here so we need to get it by its path
-			get_node("/root/DialogueManager").mutate(inline_mutation[1])
+			get_node("/root/DialogueManager").mutate(inline_mutation[1], dialogue_line.extra_game_states)

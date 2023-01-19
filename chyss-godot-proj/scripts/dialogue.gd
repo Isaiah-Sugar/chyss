@@ -73,7 +73,7 @@ func evaluate(command, variableNames = [], variableValues = []):
 #to add a dialogue case make a bool function for its execution, the name of its dialogue node, if you want it to repeat, set alreadyHappened to null 
 var caseArray = [
 					{function = "opening_dialogue(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "opening_dialogue", alreadyHappened = false},
-					{function = "frog_reveal(moveCapture)", variableNames = ["moveCapture"], dialogueNode = "frog_reveal", alreadyHappened = false},
+					{function = "frog_reveal(moveCaptures)", variableNames = ["moveCaptures"], dialogueNode = "frog_reveal", alreadyHappened = false},
 					{function = "good_move(moveTeam, moveScore)", variableNames = ["moveTeam", "moveScore"], dialogueNode = "good_move", alreadyHappened = null},
 					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
 					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
@@ -83,9 +83,11 @@ func opening_dialogue(turnNumber : int) -> bool:
 	if turnNumber == 0:
 		return true
 	return false
-func frog_reveal(moveCapture) -> bool:
-	if moveCapture && moveCapture.type == "Hat":
-		return true
+func frog_reveal(moveCaptures) -> bool:
+	if moveCaptures && moveCaptures[0] != null:
+		for capture in moveCaptures:
+			if capture.type == "Hat":
+				return true
 	return false
 func good_move(moveTeam, moveScore) -> bool:
 	if moveTeam == oppenentTeam && moveScore > 15:

@@ -16,10 +16,10 @@ func find_moves():
 	#check space ahead
 	for vector in moveVectors:
 		if  can_move(vector):
-			validMoves.append({team = team, piece = self, vector = vector, capture = null, captures = null, score = 0})
+			validMoves.append({team = team, piece = self, vector = vector, captures = null, score = 0})
 		elif can_move(vector*2) && can_take(vector):
 			var capture = pieceParent.find_piece(vector + boardPosition)
-			validMoves.append({team = team, piece = self, vector = vector*2, capture = null, captures = [capture], score = 0})
+			validMoves.append({team = team, piece = self, vector = vector*2, captures = [capture], score = 0})
 			#append chain moves to validMoves
 			validMoves.append_array(find_chains(validMoves[-1]))
 	return validMoves
@@ -42,6 +42,8 @@ func find_chains(move):
 			chainMove.vector += move.vector
 			chainMove.piece = self
 	
+	remove_child(chainPiece)
+	chainPiece.queue_free()
 	return chainMoves
 
 #invert move vectors depending on team

@@ -27,13 +27,14 @@ func play_turn():
 func pick_move(movesArray):
 	#sort
 	movesArray.sort_custom(ScoreSorter, "sort_by_score")
-
+	
 	#remove moves that score too low (5 less than the highest score)
 	var i = movesArray.size()
 	while i > 0:
 		i -= 1
 		if movesArray[-1].score - movesArray[i].score >= 3:
 			movesArray.pop_at(i)
-
+	
 	var move = movesArray[randi() % movesArray.size()]
+	
 	return move

@@ -40,12 +40,12 @@ func find_moves():
 			vector = vector.snapped(Vector2(1, 1))
 			if can_move(vector) || can_take_teamless(vector):
 				var capture = pieceParent.find_piece(vector+boardPosition)
-				validMoves.append({team = team, piece = self, vector = vector, capture = capture, score = 0})
+				validMoves.append({team = team, piece = self, vector = vector, captures = [capture], score = 0})
 	#flat find moves
 	else:
 		for vector in flatMoveVectors:
 			if can_move(vector):
-				validMoves.append({team = team, piece = self, vector = vector, capture = null, score = 0})
+				validMoves.append({team = team, piece = self, vector = vector, captures = [], score = 0})
 	return validMoves
 	
 

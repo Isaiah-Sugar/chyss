@@ -76,7 +76,7 @@ func setup_pieces():
 	instance_piece(newHat, Vector2(6, 7), teams[0])
 	instance_piece(newBishop, Vector2(5, 7), teams[0])
 	instance_piece(newWheel, Vector2(4, 7), teams[0])
-	instance_piece(newChecker, Vector2(3, 7), teams[0])
+	instance_piece(newRock, Vector2(3, 7), teams[0])
 	instance_piece(newBishop, Vector2(2, 7), teams[0])
 	instance_piece(newHat, Vector2(1, 7), teams[0])
 	instance_piece(newChangeling, Vector2(0, 7), teams[0])

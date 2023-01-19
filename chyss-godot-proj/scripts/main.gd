@@ -1,11 +1,8 @@
 #long term
 #more/better guy animations, lighter guy rig
 #lock to specitic camera angles?
-
-#scripts to update
-	#board
-	#players
-	#dialogue
+#checker animation
+#more dialogue
 
 extends Spatial
 
@@ -25,7 +22,8 @@ func _ready():
 func _on_game_setup():
 	connect_signals()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(["turnNumber"], [turnNumber])
+	Dialogue.append_queue(["turnNumber"], [turnNumber])
+	Dialogue.queue_dialogue()
 	Dialogue.play_queue()
 
 func connect_signals():
@@ -44,7 +42,8 @@ func _on_move_made(move):
 	turnNumber += 1
 	toggle_turn()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.queue_dialogue(["move", "turnNumber"], [move, turnNumber])
+	Dialogue.append_queue(["move", "turnNumber"], [move, turnNumber])
+	Dialogue.queue_dialogue()
 	Dialogue.play_queue()
 	
 func toggle_turn():

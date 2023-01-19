@@ -53,6 +53,16 @@ func individual_set_team():
 
 func individual_set_position():
 	if team == "white" && boardPosition.y == 0:
-		kinged = true
+		get_kinged()
 	elif team == "black" && boardPosition.y == 7:
-		kinged = true
+		get_kinged()
+
+func get_kinged():
+	kinged = true
+	get_node("checker").visible = false
+	get_node("collision-checker").visible = false
+	get_node("checker-kinged").visible = true
+	get_node("collision-kinged").visible = true
+
+
+

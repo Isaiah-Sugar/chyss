@@ -83,7 +83,11 @@ func move(movePosition):
 func random_move():
 	var validMoves = find_moves()
 	var randomChoice = randi() % validMoves.size()
-	move(validMoves[randomChoice].vector + boardPosition)
+	var move = validMoves[randomChoice]
+	move(move.vector + boardPosition)
+	if move.captures && move.captures[0] != null:
+		for capture in move.captures:
+			capture.get_captured()
 #function to get captured
 func get_captured():
 	individual_get_captured()

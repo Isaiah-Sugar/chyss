@@ -42,14 +42,13 @@ func score_move(move, dangerArray):
 	#+1 for each move towards enemy (positive y)
 	move.score += (move.vector.y * enemyDirection)/8
 	
-	#score based on if capture
-	var capture = pieceParent.find_piece(movePosition)
-	if capture:
-		move.capture = capture
-		if capture.team != self.team:
-			move.score += capture.scoreValue
-		else:
-			move.score -= capture.scoreValue
+
+	if move.captures && move.captures[0] != null:
+		for capture in move.captures:
+			if capture.team != self.team:
+				move.score += capture.scoreValue
+			else:
+				move.score -= capture.scoreValue
 	
 	#subtract score if dangerous
 	if dangerArray.find(movePosition) != -1:
@@ -61,10 +60,11 @@ func score_move(move, dangerArray):
 #and to tell the board its the next turn
 func make_move(move):
 	move.piece.move(move.vector+move.piece.boardPosition)
-	if move.capture:
-		move.capture.get_captured()
+	if move.captures && move.captures[0] != null:
+		for capture in move.captures:
+			capture.get_captured()
 	
-	Dialogue.append_queue(["movePiece", "moveCapture", "moveScore", "moveTeam"], [move.piece, move.capture, move.score, move.team])
+	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
 	
 	
 	board.emit_signal("move_made", move)

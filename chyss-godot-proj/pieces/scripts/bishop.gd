@@ -9,11 +9,11 @@ func find_moves():
 		var target = vector
 		#iterate along vector until a space isnt clear
 		while can_move(target):
-			validMoves.append({team = team, piece = self, vector = target, capture = null, score = 0})
+			validMoves.append({team = team, piece = self, vector = target, captures = [], score = 0})
 			target += vector
 		#check if unclear space is takeable
 		if can_take(target):
 			var capture = pieceParent.find_piece(target+boardPosition)
-			validMoves.append({team = team, piece = self, vector = target, capture = boardPosition, score = 0})
+			validMoves.append({team = team, piece = self, vector = target, captures = [capture], score = 0})
 	return validMoves 
 

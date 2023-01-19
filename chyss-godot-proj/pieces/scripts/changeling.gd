@@ -28,7 +28,10 @@ func next_turn(currentTurn):
 
 #find moves as the child piece
 func find_moves():
-	var validMoves = childPiece.find_moves()
+	var validMoves = []
+	for move in childPiece.find_moves():
+		move.piece = self
+		validMoves.append(move)
 	return validMoves
 
 

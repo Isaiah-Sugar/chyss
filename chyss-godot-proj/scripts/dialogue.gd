@@ -73,29 +73,29 @@ func evaluate(command, variableNames = [], variableValues = []):
 #to add a dialogue case make a bool function for its execution, the name of its dialogue node, if you want it to repeat, set alreadyHappened to null 
 var caseArray = [
 					{function = "opening_dialogue(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "opening_dialogue", alreadyHappened = false},
-					{function = "frog_reveal(move)", variableNames = ["move"], dialogueNode = "frog_reveal", alreadyHappened = false},
-					{function = "good_move(move)", variableNames = ["move"], dialogueNode = "good_move", alreadyHappened = null},
+					{function = "frog_reveal(moveCapture)", variableNames = ["moveCapture"], dialogueNode = "frog_reveal", alreadyHappened = false},
+					{function = "good_move(moveTeam, moveScore)", variableNames = ["moveTeam", "moveScore"], dialogueNode = "good_move", alreadyHappened = null},
 					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
-					{function = "uses_both(move, turnNumber)", variableNames = ["move", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
+					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
 																																]
 #special case bool functions
 func opening_dialogue(turnNumber : int) -> bool:
 	if turnNumber == 0:
 		return true
 	return false
-func frog_reveal(move) -> bool:
-	if move.capture && move.capture.type == "Hat":
+func frog_reveal(moveCapture) -> bool:
+	if moveCapture && moveCapture.type == "Hat":
 		return true
 	return false
-func good_move(move) -> bool:
-	if move.team == oppenentTeam && move.score > 15:
+func good_move(moveTeam, moveScore) -> bool:
+	if moveTeam == oppenentTeam && moveScore > 15:
 		return true
 	return false
 func ur_mom(turnNumber : int) -> bool:
 	if turnNumber == 1:
 		return true
 	return false
-func uses_both(move, turnNumber):
-	if move.piece.type == "Hat" && turnNumber == 3:
+func uses_both(movePiece, turnNumber):
+	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false

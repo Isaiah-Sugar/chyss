@@ -42,7 +42,7 @@ func _on_move_made(move):
 	turnNumber += 1
 	toggle_turn()
 	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.append_queue(["move", "turnNumber"], [move, turnNumber])
+	Dialogue.append_queue(["turnNumber"], [turnNumber])
 	Dialogue.queue_dialogue()
 	Dialogue.play_queue()
 	

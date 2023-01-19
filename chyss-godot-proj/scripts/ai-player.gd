@@ -23,11 +23,6 @@ func play_turn():
 	make_move(move)
 	#move the piece
 
-
-
-
-
-
 #function to pick a move from the array
 func pick_move(movesArray):
 	#sort

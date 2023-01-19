@@ -63,20 +63,11 @@ func score_move(move, dangerArray):
 #function to make a move
 #and to tell the board its the next turn
 func make_move(move):
-	if move.piece.type == "Checker":
-		make_checker_move(move)
-		return
 	move.piece.move(move.vector+move.piece.boardPosition)
 	if move.capture:
 		move.capture.get_captured()
 	
-	emit_signal("move_made", move)
-
-#special function for moving a checker cause they're weird
-func make_checker_move(move):
-	if move.captures:
-		for capture in move.captures:
-			capture.get_captured()
-	move.piece.move(move.vector+move.piece.boardPosition)
+	Dialogue.append_queue(["movePiece", "moveCapture", "moveScore", "moveTeam"], [move.piece, move.capture, move.score, move.team])
+	
 	
 	emit_signal("move_made", move)

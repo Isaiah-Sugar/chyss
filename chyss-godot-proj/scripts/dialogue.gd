@@ -6,9 +6,16 @@ var dialogue = preload("res://dialogue/test dialogue.tres")
 
 var dialogueQueue = []
 var oppenentTeam = "black"
-
+var queuedVariableNames = []
+var queuedVariableValues = []
+func append_queue(variableNames, variableValues):
+	for name in variableNames:
+		queuedVariableNames.append(name)
+	for value in variableValues:
+		queuedVariableValues.append(value)
+	
 #function to determine dialogue event
-func queue_dialogue(variableNames, variableValues):
+func queue_dialogue():
 	
 	#evaluates each special dialogue case 
 	for case in caseArray:
@@ -19,7 +26,7 @@ func queue_dialogue(variableNames, variableValues):
 		#continue if its variables are not among passed in variables
 		var continueFlag = false
 		for caseVariableName in case.variableNames:
-			if variableNames.find(caseVariableName) == -1:
+			if queuedVariableNames.find(caseVariableName) == -1:
 				continueFlag = true
 		if continueFlag == true:
 			continue
@@ -27,13 +34,17 @@ func queue_dialogue(variableNames, variableValues):
 		#get the values of its variables in an array
 		var caseVariableValues = []
 		for caseVariableName in case.variableNames:
-			caseVariableValues.append(variableValues[variableNames.find(caseVariableName)])
+			var index = queuedVariableNames.find(caseVariableName)
+			caseVariableValues.append(queuedVariableValues[index])
 		
 		#evaluate its condition and display it if its condition is true
 		if evaluate(case.function, case.variableNames, caseVariableValues):
 			dialogueQueue.append(case.dialogueNode)
 			if case.alreadyHappened != null:
 				case.alreadyHappened = true
+	
+	queuedVariableNames.clear()
+	queuedVariableValues.clear()
 
 func play_queue():
 	if dialogueQueue.size() > 0:
@@ -64,7 +75,7 @@ var caseArray = [
 					{function = "opening_dialogue(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "opening_dialogue", alreadyHappened = false},
 					{function = "frog_reveal(move)", variableNames = ["move"], dialogueNode = "frog_reveal", alreadyHappened = false},
 					{function = "good_move(move)", variableNames = ["move"], dialogueNode = "good_move", alreadyHappened = null},
-#					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
+					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
 					{function = "uses_both(move, turnNumber)", variableNames = ["move", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
 																																]
 #special case bool functions
@@ -73,11 +84,11 @@ func opening_dialogue(turnNumber : int) -> bool:
 		return true
 	return false
 func frog_reveal(move) -> bool:
-	if move && move.capture && move.capture.type == "Hat":
+	if move.capture && move.capture.type == "Hat":
 		return true
 	return false
 func good_move(move) -> bool:
-	if move && move.team == oppenentTeam && move.score > 15:
+	if move.team == oppenentTeam && move.score > 15:
 		return true
 	return false
 func ur_mom(turnNumber : int) -> bool:

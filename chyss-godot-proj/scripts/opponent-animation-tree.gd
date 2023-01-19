@@ -1,5 +1,7 @@
 extends AnimationTree
 
+#this is an isaiah script, it does animations for the guy
+
 var playback : AnimationNodeStateMachinePlayback
 
 

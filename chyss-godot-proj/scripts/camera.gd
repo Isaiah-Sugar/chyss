@@ -1,5 +1,8 @@
 extends Camera
 
+#this one is nonsense to me what is a lerp
+#lets player move camera i know that much
+
 var camMoveInput = 0
 #factor per second,, the reciprocal of this value is how many seconds it takes the camera to move all the way
 var camMoveSpeed = .4

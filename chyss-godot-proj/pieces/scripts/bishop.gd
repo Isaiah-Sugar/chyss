@@ -1,4 +1,7 @@
 extends piece
+
+#Bishop piece can move diagonally any distance
+
 var moveVectors = [Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)]
 var type = "Bishop"
 

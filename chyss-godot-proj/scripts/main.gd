@@ -9,6 +9,7 @@ extends Spatial
 #team stores whose turn it is
 var turn = "white"
 var turnNumber = 0
+var gameRunning
 
 onready var board = get_node("chyss table bits/Board")
 
@@ -20,32 +21,30 @@ func _ready():
 
 #once the board is set up, queue dialogue
 func _on_game_setup():
-	connect_signals()
-	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.append_queue(["turnNumber"], [turnNumber])
-	Dialogue.queue_dialogue()
-	Dialogue.play_queue()
+	gameRunning = true
+	run_game()
 
-func connect_signals():
-	Dialogue.connect("dialogue_finished", self, "_on_dialogue_finished")
-	board.whitePlayer.connect("move_made", self, "_on_move_made")
-	board.blackPlayer.connect("move_made", self, "_on_move_made")
 
-#when the dialogue is finished, tell the turn player to play their turn
-func _on_dialogue_finished():
-	if turn == "white":
-		board.whitePlayer.play_turn()
-	else:
-		board.blackPlayer.play_turn()
+func run_game():
+	while gameRunning == true:
+		board.pieceParent.tell_pieces_turn(turn)
+		Dialogue.append_queue(["turnNumber"], [turnNumber])
+		Dialogue.queue_dialogue()
+		
+		if Dialogue.dialogueQueue.size() > 0:
+			Dialogue.play_queue()
+			yield (Dialogue, "dialogue_finished")
+		
+		if turn == "white":
+			board.whitePlayer.play_turn()
+		else:
+			board.blackPlayer.play_turn()
+		
+		yield (board, "move_made")
+		
+		turnNumber += 1
+		toggle_turn()
 
-func _on_move_made(move):
-	turnNumber += 1
-	toggle_turn()
-	board.pieceParent.tell_pieces_turn(turn)
-	Dialogue.append_queue(["turnNumber"], [turnNumber])
-	Dialogue.queue_dialogue()
-	Dialogue.play_queue()
-	
 func toggle_turn():
 	if turn == "white":
 		turn = "black"

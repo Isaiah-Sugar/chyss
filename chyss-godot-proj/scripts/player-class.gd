@@ -1,8 +1,5 @@
 class_name Player extends Spatial
 
-signal move_made(move)
-
-
 var enemyDirection
 var team
 #enemies to ignore in danger finding (have spaces they dont capture, or movement cannot be predicted)
@@ -70,4 +67,4 @@ func make_move(move):
 	Dialogue.append_queue(["movePiece", "moveCapture", "moveScore", "moveTeam"], [move.piece, move.capture, move.score, move.team])
 	
 	
-	emit_signal("move_made", move)
+	board.emit_signal("move_made", move)

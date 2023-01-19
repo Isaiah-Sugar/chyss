@@ -1,6 +1,7 @@
 extends Position3D
 
 signal game_setup
+signal move_made(move)
 
 var newHat = preload("res://pieces/scenes/Hat.tscn")
 var newFrog = preload("res://pieces/scenes/Frog.tscn")

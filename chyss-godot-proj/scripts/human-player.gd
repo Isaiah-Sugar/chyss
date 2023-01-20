@@ -1,22 +1,22 @@
 extends Player
 
+#script for a human player to play as one of the teams, instanced by board
+
+#other nodes
 onready var camera = get_node("/root/Main/Camera")
 onready var rayCast = camera.get_node("RayCast")
-var hoveredObj = null
-
+#highlight preload
 var newHighlight = preload("res://scenes/Highlight.tscn")
-
-
+#player parameters
 var playing
 var validMoves = []
-var selectedMoves = []
 
 #function to find a list of moves at the start of turn
 func play_turn():
 	playing = true
 	validMoves = find_moves()
 
-#function to handle player mouse input
+#function to handle player mouse input when playing turn
 func _input(event):
 	#if its my turn
 	if playing:
@@ -33,11 +33,10 @@ func _input(event):
 #if a pieces was clicked, show its moves as highlights
 func click(clickTarget):
 	var clickLocation = clickTarget.boardPosition
-	
 	#check if click location is highlighted
 	for highlight in get_children():
 		if highlight.boardPosition == clickLocation:
-			#selectedPiece.move(clickLocation)
+			#make the highlight's move, end turn, unselect
 			make_move(highlight.move)
 			playing = false
 			unselect()
@@ -47,11 +46,10 @@ func click(clickTarget):
 	unselect()
 	
 	
-	#find piece clicked on
+	#select piece clicked on
 	for piece in pieceParent.get_children():
 		if piece.boardPosition == clickLocation && piece.team == team:
 			select_piece(piece)
-
 
 #function to unselect current piece
 func unselect():

@@ -1,12 +1,15 @@
 class_name piece extends Spatial
 
+#Base class for all pieces
 
+#other nodes
 var pieceParent = null
 onready var mesh = get_child(0)
-
+#material preloads
 onready var whiteTeamMaterial = load("res://materials/white-team.material")
 onready var blackTeamMaterial = load("res://materials/black-team.material")
 
+#piece parameters
 #setget allows a function to be called whenever team is modified (include self.)
 var boardPosition = null setget update_position
 var team = null setget set_team
@@ -22,12 +25,12 @@ var scoreArray = [
 					{type = "Wheel", score = 7},
 					{type = "Checker", score = 5}
 														]
-
 var model_offset = Vector3(0,0,0)
 
 func _ready():
+	#some pieces are passed in pieceParent, so they dont do this
 	if !pieceParent:
-	  get_other_nodes()
+		pieceParent = get_parent()
 	get_score()
 	individual_ready()
 
@@ -41,16 +44,12 @@ func get_score():
 func individual_ready():
 	pass
 
-#function to get other nodes on ready
-func get_other_nodes():
-	pieceParent = get_parent()
-
-#function to find the pieces movess
+#function to find the pieces moves OVERLOAD THIS
 func find_moves():
 	var validMoves = []
 	return validMoves
 
-#return true if a space is valid and empty
+#return true if space a passed in vector away is valid and empty
 func can_move(target):
 	if pieceParent.out_of_bounds(boardPosition + target):
 		return false
@@ -58,7 +57,7 @@ func can_move(target):
 		return false
 	return true
 
-#return true if a space is valid and has an enemy
+#return true if a space a passed in vector away is valid and has an enemy
 func can_take(target):
 	if pieceParent.out_of_bounds(boardPosition + target):
 		return false
@@ -103,13 +102,13 @@ func update_position(newPosition):
 	#fancy saves the rest for entering scene tree
 	if not is_inside_tree():
 		yield(self, "ready")
-		print(str(self) + str(model_offset))
 		translation = Vector3(tmp.x, 0, tmp.y) + model_offset
 	else:
 		translate_tweened(Vector3(tmp.x, 0, tmp.y))
 func individual_set_position():
 	pass
 
+#function to handle tween animation of pieces moving
 func translate_tweened(newPosition):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:y", .1, .5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -117,8 +116,8 @@ func translate_tweened(newPosition):
 	tween = get_tree().create_tween().set_parallel(true)
 	tween.parallel().tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(self, "translation:z", newPosition.z, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-	
 
+#function called at the start of every turn
 func next_turn(_currentTurn):
 	pass
 

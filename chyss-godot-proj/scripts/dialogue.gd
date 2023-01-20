@@ -1,29 +1,38 @@
 extends Spatial
 
-signal dialogue_finished
+#Singleton script to handle dialogue
 
+#signal to main
+signal all_dialogue_finished
+
+#dialogue file
 var dialogue = preload("res://dialogue/test dialogue.tres")
 
-var dialogueQueue = []
-var oppenentTeam = "black"
+#variables to be used for dialogue queueing
 var queuedVariableNames = []
 var queuedVariableValues = []
+
+#queued dialogue nodes
+var dialogueQueue = []
+#opponenets team
+var oppenentTeam = "black"
+
+#append a varibale name and value to the queued variables
 func append_queue(variableNames, variableValues):
 	for name in variableNames:
 		queuedVariableNames.append(name)
 	for value in variableValues:
 		queuedVariableValues.append(value)
 	
-#function to determine dialogue event
+#uses queued variables to queue dialogue nodes
 func queue_dialogue():
-	
 	#evaluates each special dialogue case 
 	for case in caseArray:
 		#continue if its already been shown
 		if case.alreadyHappened:
 			continue
 		
-		#continue if its variables are not among passed in variables
+		#continue if case's variables are not among queued in variables
 		var continueFlag = false
 		for caseVariableName in case.variableNames:
 			if queuedVariableNames.find(caseVariableName) == -1:
@@ -31,28 +40,30 @@ func queue_dialogue():
 		if continueFlag == true:
 			continue
 		
-		#get the values of its variables in an array
+		#get the values of case's variables in an array
 		var caseVariableValues = []
 		for caseVariableName in case.variableNames:
 			var index = queuedVariableNames.find(caseVariableName)
 			caseVariableValues.append(queuedVariableValues[index])
 		
-		#evaluate its condition and display it if its condition is true
+		#evaluate its condition and queue case's node if its condition is true
 		if evaluate(case.function, case.variableNames, caseVariableValues):
 			dialogueQueue.append(case.dialogueNode)
 			if case.alreadyHappened != null:
 				case.alreadyHappened = true
-	
+	#clear the variable queues
 	queuedVariableNames.clear()
 	queuedVariableValues.clear()
 
+#function to play dialogue nodes in queue
 func play_queue():
 	if dialogueQueue.size() > 0:
 		for node in dialogueQueue:
 			DialogueManager.show_example_dialogue_balloon(node, dialogue)
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
-	emit_signal("dialogue_finished")
+	#signal main that dialogue is finished
+	emit_signal("all_dialogue_finished")
 
 #function to evaluate dialogue "function strings"
 func evaluate(command, variableNames = [], variableValues = []):
@@ -83,13 +94,13 @@ func opening_dialogue(turnNumber : int) -> bool:
 	if turnNumber == 0:
 		return true
 	return false
-func frog_reveal(moveCaptures) -> bool:
+func frog_reveal(moveCaptures : Array) -> bool:
 	if moveCaptures && moveCaptures[0] != null:
 		for capture in moveCaptures:
 			if capture.type == "Hat":
 				return true
 	return false
-func good_move(moveTeam, moveScore) -> bool:
+func good_move(moveTeam : String, moveScore : float) -> bool:
 	if moveTeam == oppenentTeam && moveScore > 15:
 		return true
 	return false
@@ -97,7 +108,7 @@ func ur_mom(turnNumber : int) -> bool:
 	if turnNumber == 1:
 		return true
 	return false
-func uses_both(movePiece, turnNumber):
+func uses_both(movePiece : Object, turnNumber : int) -> bool:
 	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false

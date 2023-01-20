@@ -10,9 +10,10 @@ var newPawn = preload("../scenes/Pawn.tscn")
 #var newWheel = preload("res://Wheel.tscn")
 var newSorcerer = preload("../scenes/Sorcerer.tscn")
 var newRock = preload("../scenes/Rock.tscn")
+var newChecker = preload("res://pieces/scenes/Checker.tscn")
 
 #list of the pieces to pick a random one from
-var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock, newPawn]
+var piecesArray = [newHat, newFrog, newBishop, newSorcerer, newRock, newPawn, newChecker]
 var childPiece = null
 
 var type = "Changeling"

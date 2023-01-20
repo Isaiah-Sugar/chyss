@@ -6,6 +6,8 @@
 
 extends Spatial
 
+#script to handle the main game state, runs a big ol while loop for everything
+
 #team stores whose turn it is
 var turn = "white"
 var turnNumber = 0
@@ -16,35 +18,33 @@ onready var board = get_node("chyss table bits/Board")
 #function to start the board being set up
 func _ready():
 	randomize()
-	board.connect("game_setup", self, "_on_game_setup")
 	board.setup_game()
-
-#once the board is set up, queue dialogue
-func _on_game_setup():
 	gameRunning = true
 	run_game()
 
 
+#main loop that runs the game
 func run_game():
 	while gameRunning == true:
+		#queue the dialogue
 		board.pieceParent.tell_pieces_turn(turn)
 		Dialogue.append_queue(["turnNumber"], [turnNumber])
 		Dialogue.queue_dialogue()
-		
+		#play dialogue, yield until finished
 		if Dialogue.dialogueQueue.size() > 0:
 			Dialogue.play_queue()
-			yield (Dialogue, "dialogue_finished")
-		
+			yield (Dialogue, "all_dialogue_finished")
+		#start the turn, yield until finished
 		if turn == "white":
 			board.whitePlayer.play_turn()
 		else:
 			board.blackPlayer.play_turn()
-		
 		yield (board, "move_made")
-		
+		#increment the turn number, toggle whose turn it is
 		turnNumber += 1
 		toggle_turn()
 
+#toggles which teams turn it is
 func toggle_turn():
 	if turn == "white":
 		turn = "black"

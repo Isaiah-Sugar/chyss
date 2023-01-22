@@ -8,6 +8,9 @@ onready var mesh = get_child(0)
 #material preloads
 onready var whiteTeamMaterial = load("res://materials/white-team.material")
 onready var blackTeamMaterial = load("res://materials/black-team.material")
+#normal map texture, can be set by a subclass or left as null
+#to set normal map, assign the var to the path to an image.
+var normalMap = null setget set_normal_map
 
 #piece parameters
 #setget allows a function to be called whenever team is modified (include self.)
@@ -131,10 +134,22 @@ func set_team(newTeam):
 	
 	#set material based on team
 	if team == "white":
-		mesh.material_override = whiteTeamMaterial 
+		mesh.material_override = whiteTeamMaterial.duplicate()
 	elif team == "black":
-		mesh.material_override = blackTeamMaterial
+		mesh.material_override = blackTeamMaterial.duplicate()
+	set_normal_map(normalMap)
 	individual_set_team()
 #function for individual pieces to react to their team being set
 func individual_set_team():
 	pass
+
+#normalMap setget
+func set_normal_map(pathToMap):
+	normalMap = pathToMap #actually set the variable (should be a string)
+	#yield until we're in the tree
+	if not is_inside_tree():
+		yield(self, "ready")
+	if normalMap: #path could be null, meaning no normal map
+		mesh.material_override.normal_texture = load(pathToMap) 
+	else:
+		mesh.material_override.normal_texture = null

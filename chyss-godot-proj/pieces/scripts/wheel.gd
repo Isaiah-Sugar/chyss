@@ -26,6 +26,7 @@ var side_y_offset = 0.018
 
 func individual_ready():
 	model_offset = Vector3(0,.06,0)
+	normalMap = "res://textures/wheel-normal.png"
 
 func find_moves():
 	#no valid moves if rolling

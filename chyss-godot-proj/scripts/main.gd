@@ -22,7 +22,6 @@ func _ready():
 	gameRunning = true
 	run_game()
 
-
 #main loop that runs the game
 func run_game():
 	while gameRunning == true:

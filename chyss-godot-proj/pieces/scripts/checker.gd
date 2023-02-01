@@ -69,6 +69,8 @@ func get_kinged():
 	get_node("collision-checker").visible = false
 	get_node("checker-kinged").visible = true
 	get_node("collision-kinged").visible = true
+	for vector in moveVectors:
+		moveVectors.append(vector * -1)
 
 
 

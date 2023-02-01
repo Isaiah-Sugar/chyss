@@ -29,7 +29,7 @@ func make_move(move):
 	#move the piece
 	move.piece.move(move.vector+move.piece.boardPosition)
 	#capture the captures
-	if move.captures && move.captures[0] != null:
+	if move.doesCapture:
 		for capture in move.captures:
 			capture.get_captured()
 	#pass vars into Dialogue

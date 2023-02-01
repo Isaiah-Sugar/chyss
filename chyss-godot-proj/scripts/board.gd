@@ -31,8 +31,8 @@ var teams = ["white", "black"]
 func setup_game():
 	#instance all the pieces
 	setup_pieces()
-	instance_piece(newChecker, Vector2(3, 5), teams[0])
-	instance_piece(newPawn, Vector2(4, 4), teams[1])
+	#instance_piece(newChecker, Vector2(3, 5), teams[0])
+	#instance_piece(newPawn, Vector2(4, 4), teams[1])
 	
 	#instance player for white team
 	whitePlayer = newPlayer.instance()

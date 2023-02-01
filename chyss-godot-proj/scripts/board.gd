@@ -3,7 +3,7 @@ extends Position3D
 #Parent of everything on the board, instances all the pieces, and instances players as children of itself
 #signals to main
 signal game_setup
-signal move_made(move)
+signal move_made
 #preloads of every piece
 var newHat = preload("res://pieces/scenes/Hat.tscn")
 var newFrog = preload("res://pieces/scenes/Frog.tscn")

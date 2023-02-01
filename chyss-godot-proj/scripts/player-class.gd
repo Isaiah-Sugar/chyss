@@ -36,7 +36,7 @@ func make_move(move):
 	#pass vars into Dialogue
 	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
 	#tell main the move is made
-	board.emit_signal("move_made", move)
+	board.call_deferred("emit_signal", "move_made")
 
 #old ai algorithm stuff, going to be replaced but for now there isnt a new one
 

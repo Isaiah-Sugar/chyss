@@ -3,7 +3,7 @@ extends Position3D
 #Parent of everything on the board, instances all the pieces, and instances players as children of itself
 #signals to main
 signal game_setup
-signal move_made(move)
+signal move_made
 #preloads of every piece
 var newHat = preload("res://pieces/scenes/Hat.tscn")
 var newFrog = preload("res://pieces/scenes/Frog.tscn")
@@ -31,8 +31,8 @@ var teams = ["white", "black"]
 func setup_game():
 	#instance all the pieces
 	setup_pieces()
-	instance_piece(newChecker, Vector2(3, 5), teams[0])
-	instance_piece(newPawn, Vector2(4, 4), teams[1])
+	#instance_piece(newChecker, Vector2(3, 5), teams[0])
+	#instance_piece(newPawn, Vector2(4, 4), teams[1])
 	
 	#instance player for white team
 	whitePlayer = newPlayer.instance()

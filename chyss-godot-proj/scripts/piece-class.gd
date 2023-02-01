@@ -2,6 +2,8 @@ class_name piece extends Spatial
 
 #Base class for all pieces
 
+#signals
+signal animation_finished
 #other nodes
 var pieceParent = null
 onready var mesh = get_child(0)
@@ -116,6 +118,9 @@ func translate_tweened(newPosition):
 	tween = get_tree().create_tween().set_parallel(true)
 	tween.parallel().tween_property(self, "translation:x", newPosition.x, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(self, "translation:z", newPosition.z, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	
+	yield(tween, "finished")
+	emit_signal("animation_finished")
 
 #function called at the start of every turn
 func next_turn(_currentTurn):

@@ -27,15 +27,16 @@ func find_moves():
 #function to make a move
 func make_move(move):
 	#move the piece
-	move.piece.move(move.vector+move.piece.boardPosition)
+	move.piece.move(move.vectors[-1]+move.piece.boardPosition)
+	yield (move.piece, "animation_finished")
 	#capture the captures
-	if move.captures && move.captures[0] != null:
+	if move.doesCapture:
 		for capture in move.captures:
 			capture.get_captured()
 	#pass vars into Dialogue
 	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
 	#tell main the move is made
-	board.emit_signal("move_made", move)
+	board.call_deferred("emit_signal", "move_made")
 
 #old ai algorithm stuff, going to be replaced but for now there isnt a new one
 
@@ -45,7 +46,7 @@ func find_danger():
 	for move in opponent.find_moves():
 		#ignore pawns because cant capture forward, ignore changeling because cant know
 		if ignoredEnemies.find(move.piece.type) == -1:
-			dangerArray.append(move.vector + move.piece.boardPosition)
+			dangerArray.append(move.vectors[-1] + move.piece.boardPosition)
 	return dangerArray
 #function to score an array of moves
 func score_move(move, dangerArray):
@@ -53,12 +54,8 @@ func score_move(move, dangerArray):
 	#+score of taking enemy piece if there is one
 	#-score of current piece if it is put into danger
 	#+score of current piece if it moves out of danger
-	var movePosition = move.piece.boardPosition + move.vector
+	var movePosition = move.piece.boardPosition + move.vectors[-1]
 	
-	#+1 for each move towards enemy (positive y)
-	move.score += (move.vector.y * enemyDirection)/8
-	
-
 	if move.captures && move.captures[0] != null:
 		for capture in move.captures:
 			if capture.team != self.team:

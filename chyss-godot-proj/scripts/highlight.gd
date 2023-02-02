@@ -16,7 +16,7 @@ var move = null
 
 #function to update material based on if capture
 func _ready():
-	boardPosition = move.piece.boardPosition + move.vector
+	boardPosition = move.piece.boardPosition + move.vectors[-1]
 	update_position()
 	if move.captures && move.captures != [null]:
 		mesh.set_surface_material(0, highlightCaptureMat)

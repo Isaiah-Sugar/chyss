@@ -16,6 +16,7 @@ var flatMoveVectors = [Vector2(0, 1),
 var facingVector = Vector2(1, 0)
 var velocity = Vector2(0, 0)
 var type = "Wheel"
+var firstRoll = true
 
 
 var prevFacingVector = Vector2(1,0) #needed by animations, because facing vector is set before animations run
@@ -38,15 +39,20 @@ func find_moves():
 	if facingVector != Vector2(0, 0):
 		var standingMoveVectors = [facingVector, facingVector*-1, facingVector.rotated(PI/2), facingVector.rotated(-PI/2)]
 		for vector in standingMoveVectors:
+			#round vector because rotation is imprecice
 			vector = vector.snapped(Vector2(1, 1))
 			if can_move(vector) || can_take_teamless(vector):
 				var capture = pieceParent.find_piece(vector+boardPosition)
-				validMoves.append({team = team, piece = self, vector = vector, captures = [capture], score = 0})
+				validMoves.append({team = team, piece = self, vectors = [vector], 
+										doesCapture = false, captures = [capture], score = 0})
+				if capture:
+					validMoves[-1].doesCapture = true
 	#flat find moves
 	else:
 		for vector in flatMoveVectors:
 			if can_move(vector):
-				validMoves.append({team = team, piece = self, vector = vector, captures = [], score = 0})
+				validMoves.append({team = team, piece = self, vectors = [vector], 
+									doesCapture = false, captures = [], score = 0})
 	return validMoves
 	
 
@@ -56,10 +62,11 @@ func move(movePosition):
 	
 	if moveVector == facingVector || moveVector == (facingVector * -1):
 		velocity = moveVector
+		#first roll doesnt move, because the move moved it
+		firstRoll = true
 		animFlag = animFlags.ROLL_START
-		return
 	#laying -> standing
-	if facingVector == Vector2(0, 0):
+	elif facingVector == Vector2(0, 0):
 		facingVector = moveVector.rotated(PI/2)
 		facingVector = facingVector.snapped(Vector2(1, 1))
 		animFlag = animFlags.STAND
@@ -76,8 +83,12 @@ func next_turn(_currentTurn):
 
 #function for the wheel to roll
 func roll():
-	#look for a piece to capture
+	#first roll doesnt move because move moved it
+	if firstRoll:
+		firstRoll = false
+		return
 	var rollPosition = velocity + boardPosition
+	#look for a piece to capture
 	var capturePiece = pieceParent.find_piece(rollPosition)
 	#must say self for setget to work
 	self.boardPosition = rollPosition
@@ -113,6 +124,10 @@ func anim_fall(oldPosition: Vector3, newPosition: Vector3) -> void:
 	tween.parallel().tween_property(self, "translation:z", lerp(oldPosition.z, newPosition.z, slide_percentage), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self, "rotation:x", rotation.x -(PI/2), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.chain().tween_property(self, "translation", newPosition,1.52).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	yield(tween, "finished")
+	emit_signal("animation_finished")
+
 
 func anim_stand(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	rotation.y = _min_angle(-facingVector.angle())
@@ -120,6 +135,9 @@ func anim_stand(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	var tween = get_tree().create_tween().set_parallel(true)
 	tween.parallel().tween_property(self, "translation", newPosition, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, "rotation:x", rotation.x - (PI/2), 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	yield(tween, "finished")
+	emit_signal("animation_finished")
+
 
 func anim_roll_start(_oldPosition: Vector3, newPosition: Vector3) -> void:
 	#the . at the beginning tells it to use the base class's version

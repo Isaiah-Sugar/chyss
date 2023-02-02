@@ -8,9 +8,13 @@ signal all_dialogue_finished
 #dialogue file
 var dialogue = preload("res://dialogue/test dialogue.tres")
 
+
 #variables to be used for dialogue queueing
 var queuedVariableNames = []
 var queuedVariableValues = []
+
+#debug bool to turn off dialogue (its annoying)
+var doDialogue = false
 
 #queued dialogue nodes
 var dialogueQueue = []
@@ -59,11 +63,14 @@ func queue_dialogue():
 func play_queue():
 	if dialogueQueue.size() > 0:
 		for node in dialogueQueue:
+			if !doDialogue:
+				print("Dialogue node skipped: ", node)
+				continue
 			DialogueManager.show_balloon(node, dialogue)
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
 	#signal main that dialogue is finished
-	emit_signal("all_dialogue_finished")
+	call_deferred("emit_signal", "all_dialogue_finished")
 
 #function to evaluate dialogue "function strings"
 func evaluate(command, variableNames = [], variableValues = []):

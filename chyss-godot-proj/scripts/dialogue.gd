@@ -16,10 +16,10 @@ var queuedVariableValues = []
 #debug bool to turn off dialogue (its annoying)
 var doDialogue = true
 
-var randFloat = 0 setget , set_rand_float
+var randFloat = 0 setget , get_rand_float
 var tmp_store = 0
 
-func set_rand_float():
+func get_rand_float():
 	return randf()
 
 

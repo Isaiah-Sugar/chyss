@@ -66,7 +66,7 @@ func play_queue():
 			if !doDialogue:
 				print("Dialogue node skipped: ", node)
 				continue
-			DialogueManager.show_example_dialogue_balloon(node, dialogue)
+			DialogueManager.show_balloon(node, dialogue)
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
 	#signal main that dialogue is finished

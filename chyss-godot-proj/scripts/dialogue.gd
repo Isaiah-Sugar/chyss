@@ -59,7 +59,7 @@ func queue_dialogue():
 func play_queue():
 	if dialogueQueue.size() > 0:
 		for node in dialogueQueue:
-			DialogueManager.show_example_dialogue_balloon(node, dialogue)
+			DialogueManager.show_balloon(node, dialogue)
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
 	#signal main that dialogue is finished

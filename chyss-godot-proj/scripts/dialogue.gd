@@ -14,7 +14,14 @@ var queuedVariableNames = []
 var queuedVariableValues = []
 
 #debug bool to turn off dialogue (its annoying)
-var doDialogue = false
+var doDialogue = true
+
+var randFloat = 0 setget , set_rand_float
+var tmp_store = 0
+
+func set_rand_float():
+	return randf()
+
 
 #queued dialogue nodes
 var dialogueQueue = []
@@ -119,3 +126,5 @@ func uses_both(movePiece : Object, turnNumber : int) -> bool:
 	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false
+
+

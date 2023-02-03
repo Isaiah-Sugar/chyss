@@ -50,8 +50,12 @@ func new_child_piece():
 	piece.pieceParent = pieceParent
 	
 	add_child(piece)
-
+	
 	childPiece = piece
+	childPiece.connect("animation_finished", self, "_on_childPiece_animation_finished")
+
+func _on_childPiece_animation_finished():
+	emit_signal("animation_finished")
 
 func set_team(newTeam):
 	team = newTeam

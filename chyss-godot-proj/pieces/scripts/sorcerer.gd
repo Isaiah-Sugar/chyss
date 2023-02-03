@@ -18,9 +18,11 @@ func reroll():
 	moveVector = randomPosition - boardPosition
 
 func find_moves():
-	var capture = pieceParent.find_piece(moveVector+boardPosition)
+				#handle finding captures
+	var capturePiece = pieceParent.find_piece(moveVector+boardPosition)
+	var captures = []
+	if capturePiece:
+		captures.append(capturePiece)
 	var validMoves = [{team = team, piece = self, vectors = [moveVector], 
-						doesCapture = false, captures = [capture], score = 0}]
-	if capture:
-		validMoves[-1].doesCapture = true
+						doesCapture = false, captures = captures, score = 0}]
 	return validMoves

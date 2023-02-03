@@ -21,12 +21,16 @@ var type = "Hat"
 func find_moves():
 	var validMoves = []
 	for vector in moveVectors:
+		#handle finding captures
 		if can_move(vector) || can_take(vector):
-			var capture = pieceParent.find_piece(vector+boardPosition)
+			var capturePiece = pieceParent.find_piece(vector+boardPosition)
+			var captures = []
+			if capturePiece:
+				captures.append(capturePiece)
+			
+			#append the move to the array
 			validMoves.append({team = team, piece = self, vectors = [vector],
-								doesCapture = false, captures = [capture], score = 0})
-			if capture:
-				validMoves[-1].doesCapture = true
+								doesCapture = false, captures = captures, score = 0})
 	return validMoves
 
 func individual_get_captured():

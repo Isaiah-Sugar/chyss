@@ -26,15 +26,17 @@ func find_moves():
 	return movesArray
 #function to make a move
 func make_move(move):
-	#move the piece
-	move.piece.move(move.vectors[-1]+move.piece.boardPosition)
-	yield (move.piece, "animation_finished")
-	#capture the captures
-	if move.doesCapture:
-		for capture in move.captures:
-			capture.get_captured()
 	#pass vars into Dialogue
 	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
+	#loop to animate piece moving and captures happening
+	while (move.vectors.size() > 0 || move.captures.size() > 0):
+		if move.vectors.size() > 0:
+			move.piece.move(move.vectors[0]+move.piece.boardPosition)
+			move.vectors.pop_at(0)
+			yield (move.piece, "animation_finished")
+		if move.captures.size() > 0:
+			move.captures[0].get_captured()
+			move.captures.pop_at(0)
 	#tell main the move is made
 	board.call_deferred("emit_signal", "move_made")
 

@@ -17,7 +17,7 @@ func find_moves():
 	for vector in moveVectors:
 		if  can_move(vector):
 			validMoves.append({team = team, piece = self, vectors = [vector], 
-								doesCapture = false, captures = null, score = 0})
+								doesCapture = false, captures = [], score = 0})
 		elif can_move(vector*2) && can_take(vector):
 			var capture = pieceParent.find_piece(vector + boardPosition)
 			validMoves.append({team = team, piece = self, vectors = [vector*2], 

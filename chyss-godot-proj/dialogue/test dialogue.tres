@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 63
+resource_version = 67
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -40,7 +40,7 @@ Guy: I promise I won't cheat this time.
 	Guy: I might cheat.
 
 ~ opening_2
-Guy: ready to play some chyss?? [next=4]
+Guy: ready to play some chyss?? [next=2]
 Guy: [speed=100]ready to play some chyss??
 - yes
 	
@@ -66,7 +66,7 @@ Guy: oh, you're finally awake!
 Guy: Didn't see you come in, did you finish with that offshore bank account?
 - Henry says we need to wait another week...
 	Guy: unfortunate. In the meantime, wanna play some Chyss?
-- yeah
+- yep
 	Guy: WELL, then why did HENRY tell me we'll need to wait ANOTHER WEEK????
 	- Henry told you that??
 		Guy: YES
@@ -347,8 +347,8 @@ lines = {
 "character_replacements": [  ],
 "next_id": "35",
 "replacements": [  ],
-"text": "ready to play some chyss?? [next=4]",
-"translation_key": "ready to play some chyss?? [next=4]",
+"text": "ready to play some chyss?? [next=2]",
+"translation_key": "ready to play some chyss?? [next=2]",
 "type": "dialogue"
 },
 "35": {
@@ -509,8 +509,8 @@ lines = {
 "next_id": "61",
 "next_id_after": "end!",
 "replacements": [  ],
-"text": "yeah",
-"translation_key": "yeah",
+"text": "yep",
+"translation_key": "yep",
 "type": "response"
 },
 "61": {

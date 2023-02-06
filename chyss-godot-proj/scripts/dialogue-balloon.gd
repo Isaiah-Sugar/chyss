@@ -34,30 +34,10 @@ func _ready() -> void:
 	dialogue_label.dialogue_line = dialogue_line
 	yield(dialogue_label.reset_height(), "completed")
 	
-	# Show any responses we have
-	if dialogue_line.responses.size() > 0:
-		for response in dialogue_line.responses:
-			# Duplicate the template so we can grab the fonts, sizing, etc
-			var item: RichTextLabel = response_template.duplicate(0)
-			item.name = "Response" + str(responses_menu.get_child_count())
-			if not response.is_allowed:
-				item.name += "Disallowed"
-			item.bbcode_text = response.text
-			item.connect("mouse_entered", self, "_on_response_mouse_entered", [item])
-			item.connect("gui_input", self, "_on_response_gui_input", [item])
-			item.show()
-			responses_menu.add_child(item)
 	
-	# Make sure our responses get included in the height reset
+	# Make sure our responses are included in the height reset
 	responses_menu.visible = true
-	margin.rect_size = Vector2(0, 0)
-	
-	yield(get_tree(), "idle_frame")
-	
-	balloon.rect_min_size = margin.rect_size
-	balloon.rect_size = Vector2(0, 0)
-	balloon.rect_global_position = Vector2((viewport_size.x - balloon.rect_size.x) * 0.5, viewport_size.y - balloon.rect_size.y - viewport_size.y * 0.02)
-	
+	height_reset()
 	# Ok, we can hide it now. It will come back later if we have any responses
 	responses_menu.visible = false
 	
@@ -67,11 +47,14 @@ func _ready() -> void:
 	if dialogue_line.text != "":
 		dialogue_label.type_out()
 		yield(dialogue_label, "finished")
+		
 	
 	# Wait for input
 	if dialogue_line.responses.size() > 0:
-		responses_menu.visible = true
+		show_responses()
+		height_reset()
 		configure_focus()
+		responses_menu.visible = true
 	elif dialogue_line.time != null:
 		var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 		yield(get_tree().create_timer(time), "timeout")
@@ -155,3 +138,33 @@ func _on_Balloon_gui_input(event):
 		next(dialogue_line.next_id)
 	elif event.is_action_pressed("ui_accept") and balloon.get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
+
+
+
+# Show any responses we have
+func show_responses():
+	for response in dialogue_line.responses:
+		# Duplicate the template so we can grab the fonts, sizing, etc
+		var item: RichTextLabel = response_template.duplicate(0)
+		item.name = "Response" + str(responses_menu.get_child_count())
+		if not response.is_allowed:
+			item.name += "Disallowed"
+		item.bbcode_text = response.text
+		item.connect("mouse_entered", self, "_on_response_mouse_entered", [item])
+		item.connect("gui_input", self, "_on_response_gui_input", [item])
+		item.show()
+		responses_menu.add_child(item)
+
+func height_reset():
+	var viewport_size = balloon.get_viewport_rect().size
+	
+	# set the margin to the smallest allowed size
+	margin.rect_size = Vector2(0, 0)
+	
+	yield(get_tree(), "idle_frame")
+	
+	#balloon's minimum is the margin's current size
+	balloon.rect_min_size = margin.rect_size
+	# smallest allowed balloon
+	balloon.rect_size = Vector2(0, 0) 
+	balloon.rect_global_position = Vector2((viewport_size.x - balloon.rect_size.x) * 0.5, viewport_size.y - balloon.rect_size.y - viewport_size.y * 0.02)

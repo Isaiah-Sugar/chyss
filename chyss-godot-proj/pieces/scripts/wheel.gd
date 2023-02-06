@@ -41,20 +41,20 @@ func find_moves():
 		for vector in standingMoveVectors:
 			#round vector because rotation is imprecice
 			vector = vector.snapped(Vector2(1, 1))
-			if can_move(vector) || can_take_teamless(vector):
+			if can_move(vector + boardPosition) || can_take_teamless(vector + boardPosition):
 				#handle finding captures
 				var capturePiece = pieceParent.find_piece(vector+boardPosition)
 				var captures = []
 				if capturePiece:
 					captures.append(capturePiece)
 				#append the move to the array
-				validMoves.append({team = team, piece = self, vectors = [vector], 
+				validMoves.append({team = team, piece = self, vectors = [vector + boardPosition], 
 										doesCapture = false, captures = captures, score = 0})
 	#flat find moves
 	else:
 		for vector in flatMoveVectors:
-			if can_move(vector):
-				validMoves.append({team = team, piece = self, vectors = [vector], 
+			if can_move(vector + boardPosition):
+				validMoves.append({team = team, piece = self, vectors = [vector + boardPosition], 
 									doesCapture = false, captures = [], score = 0})
 	return validMoves
 	

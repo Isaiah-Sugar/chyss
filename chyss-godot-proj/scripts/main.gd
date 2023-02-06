@@ -32,12 +32,14 @@ func run_game():
 		#play dialogue, yield until finished
 		if Dialogue.dialogueQueue.size() > 0:
 			Dialogue.play_queue()
+			print("yielding until all_dialogue_finished")
 			yield (Dialogue, "all_dialogue_finished")
 		#start the turn, yield until finished
 		if turn == "white":
 			board.whitePlayer.play_turn()
 		else:
 			board.blackPlayer.play_turn()
+		print("yielding until move_made")
 		yield (board, "move_made")
 		#increment the turn number, toggle whose turn it is
 		turnNumber += 1

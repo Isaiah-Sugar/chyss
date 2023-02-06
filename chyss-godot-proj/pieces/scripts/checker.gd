@@ -15,15 +15,18 @@ func find_moves():
 	
 	#check space ahead
 	for vector in moveVectors:
-		if  can_move(vector):
-			validMoves.append({team = team, piece = self, vectors = [vector], 
+		#non-capture diagonal move
+		if  can_move(vector + boardPosition):
+			validMoves.append({team = team, piece = self, vectors = [vector + boardPosition], 
 								doesCapture = false, captures = [], score = 0})
-		elif can_move(vector*2) && can_take(vector):
+		#capture move, jump over capture
+		elif can_move(vector*2 + boardPosition) && can_take(vector + boardPosition):
 			var capture = pieceParent.find_piece(vector + boardPosition)
-			validMoves.append({team = team, piece = self, vectors = [vector*2], 
+			validMoves.append({team = team, piece = self, vectors = [vector*2 + boardPosition], 
 								doesCapture = true, captures = [capture], score = 0})
 			#append chain moves to validMoves
 			validMoves.append_array(find_chains(validMoves[-1]))
+	
 	return validMoves
 
 #function to check if another take can be chained after a take
@@ -31,17 +34,22 @@ func find_chains(move):
 	var chainMoves = []
 	#instance a checker at movePosition
 	var chainPiece = newChecker.instance()
-	chainPiece.boardPosition = move.vectors[-1] + boardPosition
+	chainPiece.boardPosition = move.vectors[-1]
 	chainPiece.team = team
 	chainPiece.kinged = kinged
 	chainPiece.pieceParent = pieceParent
+	chainPiece.visible = false
 	add_child(chainPiece)
 	
+	#for every move the chain piece can make
 	for chainMove in chainPiece.find_moves():
-		if chainMove.captures:
+		#if it captures anything
+		if chainMove.captures.size() > 0:
+			#append chain move to our array of chain moves
 			chainMoves.append(chainMove)
+			#append the initial move's captures to the chain move
 			chainMove.captures.append_array(move.captures)
-			chainMove.vectors[-1] += move.vectors[-1]
+			
 			for vector in move.vectors:
 				chainMove.vectors.insert(0, vector)
 			chainMove.piece = self

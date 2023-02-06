@@ -54,28 +54,28 @@ func find_moves():
 	var validMoves = []
 	return validMoves
 
-#return true if space a passed in vector away is valid and empty
-func can_move(target):
-	if pieceParent.out_of_bounds(boardPosition + target):
+#return true if space a passed position is valid and empty
+func can_move(position):
+	if pieceParent.out_of_bounds(position):
 		return false
-	if pieceParent.find_piece(boardPosition + target):
+	if pieceParent.find_piece(position):
 		return false
 	return true
 
 #return true if a space a passed in vector away is valid and has an enemy
-func can_take(target):
-	if pieceParent.out_of_bounds(boardPosition + target):
+func can_take(position):
+	if pieceParent.out_of_bounds(position):
 		return false
-	var targetPiece = pieceParent.find_piece(boardPosition + target)
+	var targetPiece = pieceParent.find_piece(position)
 	if targetPiece:
 		if targetPiece.team != team:
 			return true
 
 #returns true if a space is valid and has any piece
-func can_take_teamless(target):
-	if pieceParent.out_of_bounds(boardPosition + target):
+func can_take_teamless(position):
+	if pieceParent.out_of_bounds(position):
 		return false
-	var targetPiece = pieceParent.find_piece(boardPosition + target)
+	var targetPiece = pieceParent.find_piece(position)
 	if targetPiece:
 		return true
 
@@ -88,7 +88,7 @@ func random_move():
 	var validMoves = find_moves()
 	var randomChoice = randi() % validMoves.size()
 	var move = validMoves[randomChoice]
-	move(move.vectors[-1] + boardPosition)
+	move(move.vectors[-1])
 	if move.captures && move.captures[0] != null:
 		for capture in move.captures:
 			capture.get_captured()

@@ -8,6 +8,6 @@ func individual_ready():
 	blackTeamMaterial = load("res://materials/rock.material")
 
 func find_moves():
-	var validMoves = [{team = team, piece = self, vectors = [moveVector], 
+	var validMoves = [{team = team, piece = self, vectors = [moveVector + boardPosition], 
 						doesCapture = false, captures = [], score = 0}]
 	return validMoves

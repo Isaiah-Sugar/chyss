@@ -31,7 +31,7 @@ func make_move(move):
 	#loop to animate piece moving and captures happening
 	while (move.vectors.size() > 0 || move.captures.size() > 0):
 		if move.vectors.size() > 0:
-			move.piece.move(move.vectors[0]+move.piece.boardPosition)
+			move.piece.move(move.vectors[0])
 			move.vectors.pop_at(0)
 			yield (move.piece, "animation_finished")
 		if move.captures.size() > 0:

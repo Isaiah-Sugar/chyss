@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/tileable-dialogue-tex.png-c8dcd85b776d98191613aff2e82cfd95.image"
+
+[deps]
+
+source_file="res://textures/tileable-dialogue-tex.png"
+dest_files=[ "res://.import/tileable-dialogue-tex.png-c8dcd85b776d98191613aff2e82cfd95.image" ]
+
+[params]
+

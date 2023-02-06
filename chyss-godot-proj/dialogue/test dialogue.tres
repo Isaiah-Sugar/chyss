@@ -4,9 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 50
+resource_version = 67
 syntax_version = 2
 raw_text = "~ opening_dialogue
+set tmp_store = randFloat
+if tmp_store < 0.4
+	=> opening_1
+else if tmp_store < 0.7
+	=> opening_2
+else if tmp_store < 0.95
+	=> opening_3
+else if tmp_store < 0.975
+	=> opening_4
+else
+	=> opening_5
+
+~ opening_1
 Guy: Ready to play some [wait=.3][speed=0.1][shake rate=10 level=15]CHYSS[/shake]?
 Guy: I promise I won't cheat this time.
 - I don't know the rules.
@@ -26,6 +39,45 @@ Guy: I promise I won't cheat this time.
 - Okay! Good thing I know how to play.
 	Guy: I might cheat.
 
+~ opening_2
+Guy: ready to play some chyss?? [next=2]
+Guy: [speed=100]ready to play some chyss??
+- yes
+	
+- yes
+	
+- yes
+	
+- yes
+	
+- yes
+	
+
+~ opening_3
+Guy: [shake rate=10 level=15]I CHALLENGE YOU TO A GAME OF CHYSS[/shake]
+Guy: [shake rate=10 level=15]DO YOU ACCEPT MY CHALLENGE[/shake]
+- YES
+- yes
+
+~ opening_4
+Guy: oh, you're finally awake!
+
+~ opening_5
+Guy: Didn't see you come in, did you finish with that offshore bank account?
+- Henry says we need to wait another week...
+	Guy: unfortunate. In the meantime, wanna play some Chyss?
+- yep
+	Guy: WELL, then why did HENRY tell me we'll need to wait ANOTHER WEEK????
+	- Henry told you that??
+		Guy: YES
+		Guy: We're going to have to play this shitty board game ALL WEEK
+		
+	- Who is Henry
+		Guy: You're AVOIDING the QUESTION!!!
+		- let's just play chyss already, ok?
+
+
+
 ~ frog_reveal
 Guy: From beneath the Hat emerges a Frog.
 
@@ -39,11 +91,16 @@ Guy: I [wave amp=50 freq=5]funced ur mom[/wave] last night!
 Guy: You moved your hat on turn 3."
 errors = [  ]
 titles = {
-"frog_reveal": "21",
-"good_move": "24",
+"frog_reveal": "73",
+"good_move": "76",
+"opening_1": "14",
+"opening_2": "34",
+"opening_3": "48",
+"opening_4": "54",
+"opening_5": "57",
 "opening_dialogue": "1",
-"ur_mom": "27",
-"uses_both": "30"
+"ur_mom": "79",
+"uses_both": "82"
 }
 lines = {
 "0": {
@@ -52,116 +109,490 @@ lines = {
 "type": "title"
 },
 "1": {
+"mutation": {
+"expression": [ {
+"type": "variable",
+"value": "tmp_store"
+}, {
+"type": "assignment",
+"value": "="
+}, {
+"type": "variable",
+"value": "randFloat"
+} ]
+},
+"next_id": "2",
+"type": "mutation"
+},
+"10": {
+"next_conditional_id": "end!",
+"next_id": "11",
+"next_id_after": "end!",
+"type": "condition"
+},
+"11": {
+"next_id": "57",
+"parent_id": "10",
+"type": "goto"
+},
+"13": {
+"next_id": "14",
+"text": "opening_1",
+"type": "title"
+},
+"14": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "2",
+"next_id": "15",
 "replacements": [  ],
 "text": "Ready to play some [wait=.3][speed=0.1][shake rate=10 level=15]CHYSS[/shake]?",
 "translation_key": "Ready to play some [wait=.3][speed=0.1][shake rate=10 level=15]CHYSS[/shake]?",
 "type": "dialogue"
 },
-"10": {
+"15": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "11",
-"parent_id": "3",
+"next_id": "16",
+"replacements": [  ],
+"text": "I promise I won't cheat this time.",
+"translation_key": "I promise I won't cheat this time.",
+"type": "dialogue"
+},
+"16": {
+"next_id": "17",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "16", "30" ),
+"text": "I don't know the rules.",
+"translation_key": "I don't know the rules.",
+"type": "response"
+},
+"17": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "18",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=.3]Okay so basically, [wait=.5][speed=3]the goal of the game is to win and the only way to do that is by accumulating enough points.",
+"translation_key": "[next=.3]Okay so basically, [wait=.5][speed=3]the goal of the game is to win and the only way to do that is by accumulating enough points.",
+"type": "dialogue"
+},
+"18": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "19",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=.3][speed=3]So starting with the rock (which is obviously the best piece) it does nothing, which is really important sometimes because nothing is everything.",
+"translation_key": "[next=.3][speed=3]So starting with the rock (which is obviously the best piece) it does nothing, which is really important sometimes because nothing is everything.",
+"type": "dialogue"
+},
+"19": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "20",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=.3][speed=3]I found some of these pieces in the boxes of other games, so I'm not quite sure what they do, but I'm sure it doesn't matter.",
+"translation_key": "[next=.3][speed=3]I found some of these pieces in the boxes of other games, so I'm not quite sure what they do, but I'm sure it doesn't matter.",
+"type": "dialogue"
+},
+"2": {
+"condition": {
+"expression": [ {
+"type": "variable",
+"value": "tmp_store"
+}, {
+"type": "comparison",
+"value": "<"
+}, {
+"type": "number",
+"value": 0.4
+} ]
+},
+"next_conditional_id": "4",
+"next_id": "3",
+"next_id_after": "end!",
+"type": "condition"
+},
+"20": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "21",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=.3][speed=3]I need more words to put in this explaination, and its unlikely anybody's gonna manage to read it so I can kinda do whatever I want.",
+"translation_key": "[next=.3][speed=3]I need more words to put in this explaination, and its unlikely anybody's gonna manage to read it so I can kinda do whatever I want.",
+"type": "dialogue"
+},
+"21": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "22",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=auto]But then this is the complicated part:",
+"translation_key": "[next=auto]But then this is the complicated part:",
+"type": "dialogue"
+},
+"22": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "23",
+"parent_id": "16",
+"replacements": [  ],
+"text": "[next=.3][speed=3]So when you put the pieces in the places they move there and then the other pieces move and the pieces are just an extension of us if you think about it.",
+"translation_key": "[next=.3][speed=3]So when you put the pieces in the places they move there and then the other pieces move and the pieces are just an extension of us if you think about it.",
+"type": "dialogue"
+},
+"23": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "24",
+"parent_id": "16",
 "replacements": [  ],
 "text": "[next=.3][speed=3]And so like we're really the Chyss pieces and the Chyss pieces are us its so interesting.",
 "translation_key": "[next=.3][speed=3]And so like we're really the Chyss pieces and the Chyss pieces are us its so interesting.",
 "type": "dialogue"
 },
-"11": {
+"24": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "12",
-"parent_id": "3",
+"next_id": "25",
+"parent_id": "16",
 "replacements": [  ],
 "text": "[next=.3][speed=3]And if you really think about it the whole world is Chyss and nothing is real and the image outside that window is just a flat texture.",
 "translation_key": "[next=.3][speed=3]And if you really think about it the whole world is Chyss and nothing is real and the image outside that window is just a flat texture.",
 "type": "dialogue"
 },
-"12": {
+"25": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "13",
-"parent_id": "3",
+"next_id": "26",
+"parent_id": "16",
 "replacements": [  ],
 "text": "Got that?",
 "translation_key": "Got that?",
 "type": "dialogue"
 },
-"13": {
-"next_id": "14",
+"26": {
+"next_id": "27",
 "next_id_after": "end!",
-"parent_id": "3",
+"parent_id": "16",
 "replacements": [  ],
-"responses": PoolStringArray( "13", "15" ),
+"responses": PoolStringArray( "26", "28" ),
 "text": "No",
 "translation_key": "No",
 "type": "response"
 },
-"14": {
+"27": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "end!",
-"parent_id": "13",
+"parent_id": "26",
 "replacements": [  ],
 "text": "Good.",
 "translation_key": "Good.",
 "type": "dialogue"
 },
-"15": {
-"next_id": "16",
+"28": {
+"next_id": "29",
 "next_id_after": "end!",
-"parent_id": "3",
+"parent_id": "16",
 "replacements": [  ],
 "text": "Yeah, I think so.",
 "translation_key": "Yeah, I think so.",
 "type": "response"
 },
-"16": {
+"29": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "end!",
-"parent_id": "15",
+"parent_id": "28",
 "replacements": [  ],
 "text": "I might cheat.",
 "translation_key": "I might cheat.",
 "type": "dialogue"
 },
-"17": {
-"next_id": "18",
+"3": {
+"next_id": "14",
+"parent_id": "2",
+"type": "goto"
+},
+"30": {
+"next_id": "31",
 "next_id_after": "end!",
 "replacements": [  ],
 "text": "Okay! Good thing I know how to play.",
 "translation_key": "Okay! Good thing I know how to play.",
 "type": "response"
 },
-"18": {
+"31": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "end!",
-"parent_id": "17",
+"parent_id": "30",
 "replacements": [  ],
 "text": "I might cheat.",
 "translation_key": "I might cheat.",
 "type": "dialogue"
 },
-"2": {
+"33": {
+"next_id": "34",
+"text": "opening_2",
+"type": "title"
+},
+"34": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "3",
+"next_id": "35",
 "replacements": [  ],
-"text": "I promise I won't cheat this time.",
-"translation_key": "I promise I won't cheat this time.",
+"text": "ready to play some chyss?? [next=2]",
+"translation_key": "ready to play some chyss?? [next=2]",
 "type": "dialogue"
 },
-"20": {
-"next_id": "21",
+"35": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "36",
+"replacements": [  ],
+"text": "[speed=100]ready to play some chyss??",
+"translation_key": "[speed=100]ready to play some chyss??",
+"type": "dialogue"
+},
+"36": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "36", "38", "40", "42", "44" ),
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"38": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"4": {
+"next_conditional_id": "end!",
+"next_id": "5",
+"next_id_after": "end!",
+"type": "condition"
+},
+"40": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"42": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"44": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"47": {
+"next_id": "48",
+"text": "opening_3",
+"type": "title"
+},
+"48": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "49",
+"replacements": [  ],
+"text": "[shake rate=10 level=15]I CHALLENGE YOU TO A GAME OF CHYSS[/shake]",
+"translation_key": "[shake rate=10 level=15]I CHALLENGE YOU TO A GAME OF CHYSS[/shake]",
+"type": "dialogue"
+},
+"49": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "50",
+"replacements": [  ],
+"text": "[shake rate=10 level=15]DO YOU ACCEPT MY CHALLENGE[/shake]",
+"translation_key": "[shake rate=10 level=15]DO YOU ACCEPT MY CHALLENGE[/shake]",
+"type": "dialogue"
+},
+"5": {
+"next_id": "34",
+"parent_id": "4",
+"type": "goto"
+},
+"50": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "50", "51" ),
+"text": "YES",
+"translation_key": "YES",
+"type": "response"
+},
+"51": {
+"next_id": "end!",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yes",
+"translation_key": "yes",
+"type": "response"
+},
+"53": {
+"next_id": "54",
+"text": "opening_4",
+"type": "title"
+},
+"54": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "oh, you're finally awake!",
+"translation_key": "oh, you're finally awake!",
+"type": "dialogue"
+},
+"56": {
+"next_id": "57",
+"text": "opening_5",
+"type": "title"
+},
+"57": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "58",
+"replacements": [  ],
+"text": "Didn't see you come in, did you finish with that offshore bank account?",
+"translation_key": "Didn't see you come in, did you finish with that offshore bank account?",
+"type": "dialogue"
+},
+"58": {
+"next_id": "59",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "58", "60" ),
+"text": "Henry says we need to wait another week...",
+"translation_key": "Henry says we need to wait another week...",
+"type": "response"
+},
+"59": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "58",
+"replacements": [  ],
+"text": "unfortunate. In the meantime, wanna play some Chyss?",
+"translation_key": "unfortunate. In the meantime, wanna play some Chyss?",
+"type": "dialogue"
+},
+"6": {
+"next_conditional_id": "end!",
+"next_id": "7",
+"next_id_after": "end!",
+"type": "condition"
+},
+"60": {
+"next_id": "61",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "yep",
+"translation_key": "yep",
+"type": "response"
+},
+"61": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "62",
+"parent_id": "60",
+"replacements": [  ],
+"text": "WELL, then why did HENRY tell me we'll need to wait ANOTHER WEEK????",
+"translation_key": "WELL, then why did HENRY tell me we'll need to wait ANOTHER WEEK????",
+"type": "dialogue"
+},
+"62": {
+"next_id": "63",
+"next_id_after": "end!",
+"parent_id": "60",
+"replacements": [  ],
+"responses": PoolStringArray( "62", "66" ),
+"text": "Henry told you that??",
+"translation_key": "Henry told you that??",
+"type": "response"
+},
+"63": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "64",
+"parent_id": "62",
+"replacements": [  ],
+"text": "YES",
+"translation_key": "YES",
+"type": "dialogue"
+},
+"64": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "62",
+"replacements": [  ],
+"text": "We're going to have to play this shitty board game ALL WEEK",
+"translation_key": "We're going to have to play this shitty board game ALL WEEK",
+"type": "dialogue"
+},
+"66": {
+"next_id": "67",
+"next_id_after": "end!",
+"parent_id": "60",
+"replacements": [  ],
+"text": "Who is Henry",
+"translation_key": "Who is Henry",
+"type": "response"
+},
+"67": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "68",
+"parent_id": "66",
+"replacements": [  ],
+"text": "You're AVOIDING the QUESTION!!!",
+"translation_key": "You're AVOIDING the QUESTION!!!",
+"type": "dialogue"
+},
+"68": {
+"next_id": "end!",
+"next_id_after": "end!",
+"parent_id": "66",
+"replacements": [  ],
+"responses": PoolStringArray( "68" ),
+"text": "let's just play chyss already, ok?",
+"translation_key": "let's just play chyss already, ok?",
+"type": "response"
+},
+"7": {
+"next_id": "48",
+"parent_id": "6",
+"type": "goto"
+},
+"72": {
+"next_id": "73",
 "text": "frog_reveal",
 "type": "title"
 },
-"21": {
+"73": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -170,12 +601,12 @@ lines = {
 "translation_key": "From beneath the Hat emerges a Frog.",
 "type": "dialogue"
 },
-"23": {
-"next_id": "24",
+"75": {
+"next_id": "76",
 "text": "good_move",
 "type": "title"
 },
-"24": {
+"76": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -184,12 +615,12 @@ lines = {
 "translation_key": "How do you like them apples!",
 "type": "dialogue"
 },
-"26": {
-"next_id": "27",
+"78": {
+"next_id": "79",
 "text": "ur_mom",
 "type": "title"
 },
-"27": {
+"79": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -198,21 +629,18 @@ lines = {
 "translation_key": "I [wave amp=50 freq=5]funced ur mom[/wave] last night!",
 "type": "dialogue"
 },
-"29": {
-"next_id": "30",
+"8": {
+"next_conditional_id": "end!",
+"next_id": "9",
+"next_id_after": "end!",
+"type": "condition"
+},
+"81": {
+"next_id": "82",
 "text": "uses_both",
 "type": "title"
 },
-"3": {
-"next_id": "4",
-"next_id_after": "end!",
-"replacements": [  ],
-"responses": PoolStringArray( "3", "17" ),
-"text": "I don't know the rules.",
-"translation_key": "I don't know the rules.",
-"type": "response"
-},
-"30": {
+"82": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -221,64 +649,9 @@ lines = {
 "translation_key": "You moved your hat on turn 3.",
 "type": "dialogue"
 },
-"4": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "5",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=.3]Okay so basically, [wait=.5][speed=3]the goal of the game is to win and the only way to do that is by accumulating enough points.",
-"translation_key": "[next=.3]Okay so basically, [wait=.5][speed=3]the goal of the game is to win and the only way to do that is by accumulating enough points.",
-"type": "dialogue"
-},
-"5": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "6",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=.3][speed=3]So starting with the rock (which is obviously the best piece) it does nothing, which is really important sometimes because nothing is everything.",
-"translation_key": "[next=.3][speed=3]So starting with the rock (which is obviously the best piece) it does nothing, which is really important sometimes because nothing is everything.",
-"type": "dialogue"
-},
-"6": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "7",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=.3][speed=3]I found some of these pieces in the boxes of other games, so I'm not quite sure what they do, but I'm sure it doesn't matter.",
-"translation_key": "[next=.3][speed=3]I found some of these pieces in the boxes of other games, so I'm not quite sure what they do, but I'm sure it doesn't matter.",
-"type": "dialogue"
-},
-"7": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "8",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=.3][speed=3]I need more words to put in this explaination, and its unlikely anybody's gonna manage to read it so I can kinda do whatever I want.",
-"translation_key": "[next=.3][speed=3]I need more words to put in this explaination, and its unlikely anybody's gonna manage to read it so I can kinda do whatever I want.",
-"type": "dialogue"
-},
-"8": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "9",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=auto]But then this is the complicated part:",
-"translation_key": "[next=auto]But then this is the complicated part:",
-"type": "dialogue"
-},
 "9": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "10",
-"parent_id": "3",
-"replacements": [  ],
-"text": "[next=.3][speed=3]So when you put the pieces in the places they move there and then the other pieces move and the pieces are just an extension of us if you think about it.",
-"translation_key": "[next=.3][speed=3]So when you put the pieces in the places they move there and then the other pieces move and the pieces are just an extension of us if you think about it.",
-"type": "dialogue"
+"next_id": "54",
+"parent_id": "8",
+"type": "goto"
 }
 }

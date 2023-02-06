@@ -14,7 +14,14 @@ var queuedVariableNames = []
 var queuedVariableValues = []
 
 #debug bool to turn off dialogue (its annoying)
-var doDialogue = false
+var doDialogue = true
+
+var randFloat = 0 setget , get_rand_float
+var tmp_store = 0
+
+func get_rand_float():
+	return randf()
+
 
 #queued dialogue nodes
 var dialogueQueue = []
@@ -66,7 +73,7 @@ func play_queue():
 			if !doDialogue:
 				print("Dialogue node skipped: ", node)
 				continue
-			DialogueManager.show_example_dialogue_balloon(node, dialogue)
+			DialogueManager.show_balloon(node, dialogue)
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
 	#signal main that dialogue is finished
@@ -119,3 +126,5 @@ func uses_both(movePiece : Object, turnNumber : int) -> bool:
 	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false
+
+

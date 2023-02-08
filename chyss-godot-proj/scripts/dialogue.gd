@@ -77,7 +77,7 @@ func play_queue():
 			yield(DialogueManager, "dialogue_finished")
 	dialogueQueue.clear()
 	#signal main that dialogue is finished
-	call_deferred("emit_signal", "all_dialogue_finished")
+	emit_signal("all_dialogue_finished")
 
 #function to evaluate dialogue "function strings"
 func evaluate(command, variableNames = [], variableValues = []):

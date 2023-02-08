@@ -52,7 +52,7 @@ func find_danger():
 	for move in opponent.find_moves():
 		#ignore pawns because cant capture forward, ignore changeling because cant know
 		if ignoredEnemies.find(move.piece.type) == -1:
-			dangerArray.append(move.vectors[-1] + move.piece.boardPosition)
+			dangerArray.append(move.vectors[-1])
 	return dangerArray
 #function to score an array of moves
 func score_move(move, dangerArray):
@@ -60,15 +60,15 @@ func score_move(move, dangerArray):
 	#+score of taking enemy piece if there is one
 	#-score of current piece if it is put into danger
 	#+score of current piece if it moves out of danger
-	var movePosition = move.piece.boardPosition + move.vectors[-1]
+	var movePosition = move.vectors[-1]
 	
-	if move.captures && move.captures[0] != null:
+	if move.captures.size() > 0:
 		for capture in move.captures:
 			if capture.team != self.team:
 				move.score += capture.scoreValue
 			else:
 				move.score -= capture.scoreValue
-	
+
 	#subtract score if dangerous
 	if dangerArray.find(movePosition) != -1:
 		move.score -= move.piece.scoreValue

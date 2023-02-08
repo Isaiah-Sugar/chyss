@@ -24,11 +24,12 @@ func find_moves():
 			var capture = pieceParent.find_piece(vector + boardPosition)
 			validMoves.append({team = team, piece = self, vectors = [vector*2 + boardPosition], 
 								doesCapture = true, captures = [capture], score = 0})
+			#append chain moves to validMoves
+			validMoves.append_array(find_chains(validMoves[-1]))
 		elif can_move(vector*2 + boardPosition):
 			validMoves.append({team = team, piece = self, vectors = [vector*2 + boardPosition], 
 								doesCapture = false, captures = [], score = 0})
-			#append chain moves to validMoves
-			validMoves.append_array(find_chains(validMoves[-1]))
+	
 	return validMoves
 
 #function to check if another take can be chained after a take

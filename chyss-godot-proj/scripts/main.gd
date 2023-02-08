@@ -14,6 +14,7 @@ var turnNumber = 0
 var gameRunning
 
 onready var board = get_node("chyss table bits/Board")
+onready var pieceParent = board.get_node("PieceParent")
 
 #function to start the board being set up
 func _ready():
@@ -24,7 +25,7 @@ func _ready():
 
 #main loop that runs the game
 func run_game():
-	while gameRunning == true:
+	while !isGameLost():
 		#queue the dialogue
 		board.pieceParent.tell_pieces_turn(turn)
 		Dialogue.append_queue(["turnNumber"], [turnNumber])
@@ -51,3 +52,16 @@ func toggle_turn():
 		turn = "black"
 	else:
 		turn = "white"
+#checks if a player has lost
+func isGameLost():
+	var whiteLost = true
+	var blackLost = true
+	#check if teams have their checkers
+	for piece in pieceParent.get_children():
+		if piece.type == "Checker":
+			if piece.team == "white":
+				whiteLost = false
+			if piece.team == "black":
+				blackLost = false
+	
+	return (whiteLost || blackLost)

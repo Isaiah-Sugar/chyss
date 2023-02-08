@@ -29,14 +29,14 @@ func make_move(move):
 	#pass vars into Dialogue
 	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
 	#loop to animate piece moving and captures happening
-	while (move.vectors.size() > 0 || move.captures.size() > 0):
-		if move.vectors.size() > 0:
-			move.piece.move(move.vectors[0])
-			move.vectors.pop_at(0)
+	var index = 0
+	while (move.vectors.size() > index || move.captures.size() > index):
+		if move.vectors.size() > index:
+			move.piece.move(move.vectors[index])
 			yield (move.piece, "animation_finished")
-		if move.captures.size() > 0:
-			move.captures[0].get_captured()
-			move.captures.pop_at(0)
+		if move.captures.size() > index:
+			move.captures[index].get_captured()
+		index += 1
 	#tell main the move is made
 	board.call_deferred("emit_signal", "move_made")
 

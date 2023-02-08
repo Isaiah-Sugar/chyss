@@ -109,10 +109,9 @@ func opening_dialogue(turnNumber : int) -> bool:
 		return true
 	return false
 func frog_reveal(moveCaptures : Array) -> bool:
-	if moveCaptures && moveCaptures[0] != null:
-		for capture in moveCaptures:
-			if capture.type == "Hat":
-				return true
+	if moveCaptures.size() > 0:
+		if moveCaptures[-1].type == "Hat":
+			return true
 	return false
 func good_move(moveTeam : String, moveScore : float) -> bool:
 	if moveTeam == oppenentTeam && moveScore > 15:

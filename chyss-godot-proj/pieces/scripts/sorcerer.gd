@@ -13,14 +13,16 @@ func next_turn(currentTurn):
 func reroll():
 	#roll a random position that doesnt point to a spot occupied by your team
 	var randomPosition = Vector2(randi() % 8, randi() % 8)
-	while !can_move(randomPosition - boardPosition) && !can_take(randomPosition - boardPosition):
+	while !can_move(randomPosition) && !can_take(randomPosition):
 		randomPosition = Vector2(randi() % 8, randi() % 8)
 	moveVector = randomPosition - boardPosition
 
 func find_moves():
-	var capture = pieceParent.find_piece(moveVector+boardPosition)
-	var validMoves = [{team = team, piece = self, vectors = [moveVector], 
-						doesCapture = false, captures = [capture], score = 0}]
-	if capture:
-		validMoves[-1].doesCapture = true
+				#handle finding captures
+	var capturePiece = pieceParent.find_piece(moveVector+boardPosition)
+	var captures = []
+	if capturePiece:
+		captures.append(capturePiece)
+	var validMoves = [{team = team, piece = self, vectors = [moveVector + boardPosition], 
+						doesCapture = false, captures = captures, score = 0}]
 	return validMoves

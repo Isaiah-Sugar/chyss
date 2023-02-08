@@ -21,6 +21,8 @@ func find_moves():
 		#if they're not on our team continue
 		if piece.team != self.team:
 			continue
+		if piece.jailed == true:
+			continue
 		#store the piece's moves
 		movesArray.append_array(piece.find_moves())
 	return movesArray

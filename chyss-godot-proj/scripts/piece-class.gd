@@ -18,6 +18,7 @@ var normalMap = null setget set_normal_map
 #setget allows a function to be called whenever team is modified (include self.)
 var boardPosition = null setget update_position
 var team = null setget set_team
+var jailed = false
 var scoreValue = 0
 var scoreArray = [
 					{type = "Bishop", score = 5},

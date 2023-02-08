@@ -101,7 +101,10 @@ var caseArray = [
 					{function = "frog_reveal(moveCaptures)", variableNames = ["moveCaptures"], dialogueNode = "frog_reveal", alreadyHappened = false},
 					{function = "good_move(moveTeam, moveScore)", variableNames = ["moveTeam", "moveScore"], dialogueNode = "good_move", alreadyHappened = null},
 					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
-					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false}
+					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false},
+					{function = "white_lost(loser)", variableNames = ["loser"], dialogueNode = "white_lost", alreadyHappened = null},
+					{function = "black_lost(loser)", variableNames = ["loser"], dialogueNode = "black_lost", alreadyHappened = null},
+					{function = "draw(loser)", variableNames = ["loser"], dialogueNode = "draw", alreadyHappened = null}
 																																]
 #special case bool functions
 func opening_dialogue(turnNumber : int) -> bool:
@@ -125,5 +128,15 @@ func uses_both(movePiece : Object, turnNumber : int) -> bool:
 	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false
-
-
+func white_lost(loser):
+	if loser == "white":
+		return true
+	return false
+func black_lost(loser):
+	if loser == "black":
+		return true
+	return false
+func draw(loser):
+	if loser == "draw":
+		return true
+	return false

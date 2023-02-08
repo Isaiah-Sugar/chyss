@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 67
+resource_version = 69
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -88,9 +88,18 @@ Guy: How do you like them apples!
 Guy: I [wave amp=50 freq=5]funced ur mom[/wave] last night!
 
 ~ uses_both
-Guy: You moved your hat on turn 3."
+Guy: You moved your hat on turn 3.
+
+~ white_lost
+Guy: lmao loser
+~ black_lost
+Guy: oops
+~ draw
+Guy: Hi this is abby i made this game how did you do this"
 errors = [  ]
 titles = {
+"black_lost": "87",
+"draw": "89",
 "frog_reveal": "73",
 "good_move": "76",
 "opening_1": "14",
@@ -100,7 +109,8 @@ titles = {
 "opening_5": "57",
 "opening_dialogue": "1",
 "ur_mom": "79",
-"uses_both": "82"
+"uses_both": "82",
+"white_lost": "85"
 }
 lines = {
 "0": {
@@ -647,6 +657,48 @@ lines = {
 "replacements": [  ],
 "text": "You moved your hat on turn 3.",
 "translation_key": "You moved your hat on turn 3.",
+"type": "dialogue"
+},
+"84": {
+"next_id": "85",
+"text": "white_lost",
+"type": "title"
+},
+"85": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "lmao loser",
+"translation_key": "lmao loser",
+"type": "dialogue"
+},
+"86": {
+"next_id": "87",
+"text": "black_lost",
+"type": "title"
+},
+"87": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "oops",
+"translation_key": "oops",
+"type": "dialogue"
+},
+"88": {
+"next_id": "89",
+"text": "draw",
+"type": "title"
+},
+"89": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "Hi this is abby i made this game how did you do this",
+"translation_key": "Hi this is abby i made this game how did you do this",
 "type": "dialogue"
 },
 "9": {

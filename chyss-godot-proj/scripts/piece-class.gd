@@ -25,10 +25,10 @@ var scoreArray = [
 					{type = "Frog", score = 10},
 					{type = "Hat", score = 7},
 					{type = "Pawn", score = 2},
-					{type = "Rock", score = 1000},
+					{type = "Rock", score = 999},
 					{type = "Sorcerer", score = 5},
 					{type = "Wheel", score = 7},
-					{type = "Checker", score = 5}
+					{type = "Checker", score = 100000}
 														]
 var model_offset = Vector3(0,0,0)
 

@@ -25,7 +25,7 @@ func _ready():
 
 #main loop that runs the game
 func run_game():
-	while !isGameLost():
+	while !is_game_lost():
 		#queue the dialogue
 		board.pieceParent.tell_pieces_turn(turn)
 		Dialogue.append_queue(["turnNumber"], [turnNumber])
@@ -45,6 +45,9 @@ func run_game():
 		#increment the turn number, toggle whose turn it is
 		turnNumber += 1
 		toggle_turn()
+	Dialogue.append_queue(["loser"], [identify_loser()])
+	Dialogue.queue_dialogue()
+	Dialogue.play_queue()
 
 #toggles which teams turn it is
 func toggle_turn():
@@ -53,7 +56,7 @@ func toggle_turn():
 	else:
 		turn = "white"
 #checks if a player has lost
-func isGameLost():
+func is_game_lost():
 	var whiteLost = true
 	var blackLost = true
 	#check if teams have their checkers
@@ -65,3 +68,19 @@ func isGameLost():
 				blackLost = false
 	
 	return (whiteLost || blackLost)
+#returns who lost
+func identify_loser():
+	var whiteLost = true
+	var blackLost = true
+	#check if teams have their checkers
+	for piece in pieceParent.get_children():
+		if piece.type == "Checker":
+			if piece.team == "white":
+				whiteLost = false
+			if piece.team == "black":
+				blackLost = false
+	if whiteLost && blackLost:
+		return "draw"
+	if whiteLost:
+		return "white"
+	return "black"

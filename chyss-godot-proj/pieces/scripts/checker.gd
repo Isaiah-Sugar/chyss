@@ -26,8 +26,6 @@ func find_moves():
 								doesCapture = true, captures = [capture], score = 0})
 			#append chain moves to validMoves
 			validMoves.append_array(find_chains(validMoves[-1]))
-	for move in validMoves:
-		move.captures.invert()
 	return validMoves
 
 #function to check if another take can be chained after a take

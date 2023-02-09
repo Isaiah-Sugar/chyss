@@ -48,6 +48,9 @@ node_connections = [ "output", 0, "StateMachine" ]
 
 [node name="opponent" instance=ExtResource( 1 )]
 
+[node name="opponent" parent="rig/Skeleton" index="0"]
+cast_shadow = 0
+
 [node name="shirt" parent="rig/Skeleton" index="1"]
 cast_shadow = 0
 

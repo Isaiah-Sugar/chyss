@@ -11,16 +11,16 @@ extends Spatial
 #team stores whose turn it is
 var turn = "white"
 var turnNumber = 0
-var gameRunning
 
-onready var board = get_node("chyss table bits/Board")
-onready var pieceParent = board.get_node("PieceParent")
+onready var board = get_node("/root/Main/chyss table bits/Board")
+var pieceParent
 
 #function to start the board being set up
 func _ready():
 	randomize()
+	yield(board, "ready")
+	pieceParent = board.pieceParent
 	board.setup_game()
-	gameRunning = true
 	run_game()
 
 #main loop that runs the game
@@ -48,6 +48,10 @@ func run_game():
 	Dialogue.append_queue(["loser"], [identify_loser()])
 	Dialogue.queue_dialogue()
 	Dialogue.play_queue()
+	print("yielding until all_dialogue_finished")
+	yield (Dialogue, "all_dialogue_finished")
+	
+	DialogueManager.show_balloon("again_query", Dialogue.dialogue)
 
 #toggles which teams turn it is
 func toggle_turn():
@@ -84,3 +88,9 @@ func identify_loser():
 	if whiteLost:
 		return "white"
 	return "black"
+#function to restart the game
+func reset_game():
+	turn = "white"
+	board.clear_pieces()
+	board.setup_pieces()
+	run_game()

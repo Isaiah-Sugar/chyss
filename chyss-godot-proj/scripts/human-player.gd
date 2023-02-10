@@ -3,7 +3,7 @@ extends Player
 #script for a human player to play as one of the teams, instanced by board
 
 #other nodes
-onready var camera = get_node("/root/Main Scene/Camera")
+onready var camera = get_node("/root/Main/Camera")
 onready var rayCast = camera.get_node("RayCast")
 #highlight preload
 var newHighlight = preload("res://scenes/Highlight.tscn")

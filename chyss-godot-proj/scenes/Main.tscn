@@ -8,7 +8,15 @@
 [ext_resource path="res://scripts/rayCast.gd" type="Script" id=7]
 [ext_resource path="res://scripts/pieceParent.gd" type="Script" id=8]
 
+[sub_resource type="Environment" id=1]
+background_mode = 1
+background_color = Color( 0.180392, 0.180392, 0.180392, 1 )
+background_energy = 1.36
+ambient_light_color = Color( 0.27451, 0.27451, 0.27451, 1 )
+ambient_light_energy = 0.4
+
 [node name="Main Scene" type="Spatial"]
+script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.956402, 0.292055, 0, -0.292055, 0.956402, 0, 1.472, 1.715 )
@@ -24,14 +32,27 @@ collide_with_areas = true
 script = ExtResource( 7 )
 
 [node name="DirectionalLight" type="SpotLight" parent="."]
-transform = Transform( 0.797533, -0.382977, 0.466122, -0.489959, 0.0395902, 0.870846, -0.351968, -0.922909, -0.156069, 1.16667, 2.26239, -0.32317 )
+transform = Transform( 0.875048, -0.383629, 0.295163, -0.332281, -0.0326796, 0.942614, -0.351968, -0.922909, -0.156069, 0.847447, 2.3345, -0.32317 )
 light_energy = 3.256
 light_indirect_energy = 0.0
 light_specular = 1.068
 shadow_enabled = true
+shadow_bias = 0.02
 spot_range = 3.059
 spot_attenuation = 1.31951
-spot_angle = 67.56
+spot_angle = 43.76
+spot_angle_attenuation = 0.757858
+
+[node name="DirectionalLight2" type="SpotLight" parent="."]
+transform = Transform( 0.861738, -0.0619091, -0.503562, 0.461608, -0.316199, 0.828816, -0.210537, -0.946671, -0.243903, -1.1406, 2.40542, -0.502006 )
+light_energy = 0.5
+light_indirect_energy = 0.0
+light_specular = 1.068
+shadow_enabled = true
+shadow_bias = 0.02
+spot_range = 3.059
+spot_attenuation = 1.31951
+spot_angle = 35.06
 spot_angle_attenuation = 0.757858
 
 [node name="chyss table bits" parent="." instance=ExtResource( 1 )]
@@ -46,3 +67,6 @@ script = ExtResource( 8 )
 [node name="opponent" parent="." instance=ExtResource( 5 )]
 
 [node name="lowpoly-bg" parent="." instance=ExtResource( 3 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )

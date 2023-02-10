@@ -73,7 +73,10 @@ func setup_pieces():
 	instance_piece(newRock, Vector2(2, 7), teams[0])
 	instance_piece(newBishop, Vector2(1, 7), teams[0])
 	instance_piece(newChangeling, Vector2(0, 7), teams[0])
-
+#function to clear all the pieces on the board
+func clear_pieces():
+	for piece in pieceParent.get_children():
+		piece.queue_free()
 #function to instance an individual piece
 func instance_piece(type, boardPosition, team):
 	var piece = type.instance()

@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/chyss-table-bits.glb" type="PackedScene" id=1]
-[ext_resource path="res://scripts/main.gd" type="Script" id=2]
 [ext_resource path="res://assets/lowpoly-bg.glb" type="PackedScene" id=3]
 [ext_resource path="res://scripts/board.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Opponent.tscn" type="PackedScene" id=5]
@@ -9,8 +8,7 @@
 [ext_resource path="res://scripts/rayCast.gd" type="Script" id=7]
 [ext_resource path="res://scripts/pieceParent.gd" type="Script" id=8]
 
-[node name="Main" type="Spatial"]
-script = ExtResource( 2 )
+[node name="Main Scene" type="Spatial"]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.956402, 0.292055, 0, -0.292055, 0.956402, 0, 1.472, 1.715 )

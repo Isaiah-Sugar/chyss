@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 69
+resource_version = 70
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -95,9 +95,16 @@ Guy: lmao loser
 ~ black_lost
 Guy: oops
 ~ draw
-Guy: Hi this is abby i made this game how did you do this"
+Guy: Hi this is abby i made this game how did you do this
+
+~ again_query
+Guy: Do you wanna play another?
+- Okay
+	Guy: Ok
+	do reset_game()"
 errors = [  ]
 titles = {
+"again_query": "92",
 "black_lost": "87",
 "draw": "89",
 "frog_reveal": "73",
@@ -705,5 +712,50 @@ lines = {
 "next_id": "54",
 "parent_id": "8",
 "type": "goto"
+},
+"91": {
+"next_id": "92",
+"text": "again_query",
+"type": "title"
+},
+"92": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "93",
+"replacements": [  ],
+"text": "Do you wanna play another?",
+"translation_key": "Do you wanna play another?",
+"type": "dialogue"
+},
+"93": {
+"next_id": "94",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "93" ),
+"text": "Okay",
+"translation_key": "Okay",
+"type": "response"
+},
+"94": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "95",
+"parent_id": "93",
+"replacements": [  ],
+"text": "Ok",
+"translation_key": "Ok",
+"type": "dialogue"
+},
+"95": {
+"mutation": {
+"expression": [ {
+"function": "reset_game",
+"type": "function",
+"value": [  ]
+} ]
+},
+"next_id": "end!",
+"parent_id": "93",
+"type": "mutation"
 }
 }

@@ -19,9 +19,11 @@ var doDialogue = true
 var randFloat = 0 setget , get_rand_float
 var tmp_store = 0
 
+#vars to store dialogue info
+var jailedAlready = false
+
 func get_rand_float():
 	return randf()
-
 
 #queued dialogue nodes
 var dialogueQueue = []
@@ -104,7 +106,8 @@ var caseArray = [
 					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false},
 					{function = "white_lost(loser)", variableNames = ["loser"], dialogueNode = "white_lost", alreadyHappened = null},
 					{function = "black_lost(loser)", variableNames = ["loser"], dialogueNode = "black_lost", alreadyHappened = null},
-					{function = "draw(loser)", variableNames = ["loser"], dialogueNode = "draw", alreadyHappened = null}
+					{function = "draw(loser)", variableNames = ["loser"], dialogueNode = "draw", alreadyHappened = null},
+					{function = "jail_dialogue(jailedPiece)", variableNames = ["jailedPiece"], dialogueNode = "jail_dialogue", alreadyHappened = null}
 																																]
 #special case bool functions
 func opening_dialogue(turnNumber : int) -> bool:
@@ -128,6 +131,8 @@ func uses_both(movePiece : Object, turnNumber : int) -> bool:
 	if movePiece.type == "Hat" && turnNumber == 3:
 		return true
 	return false
+func jail_dialogue(_jailedPiece):
+	return true
 func white_lost(loser):
 	if loser == "white":
 		return true

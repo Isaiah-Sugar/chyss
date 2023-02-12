@@ -23,7 +23,7 @@ func play_turn():
 	#pick a move and make it
 	var move = pick_move(movesArray)
 	#90% chance to make move, or if a move scores over 100 always make a move
-	if (move.score > 100) || (randi() % 10 > 0):
+	if (move.score > 100) || (randi() % 10 > 100):
 		make_move(move)
 	#10% chance to jail a piece
 	else:
@@ -68,4 +68,5 @@ func jail_piece(piece):
 		piece.velocity = Vector2(0, 0)
 	#append dialogue and emit signal
 	Dialogue.append_queue(["jailedPiece"], [piece])
+	yield(piece, "animation_finished")
 	board.call_deferred("emit_signal", "move_made")

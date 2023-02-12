@@ -75,13 +75,14 @@ func individual_set_position():
 		get_kinged()
 
 func get_kinged():
+	yield(self, "animation_finished")
 	kinged = true
 	get_node("checker").visible = false
 	get_node("collision-checker").visible = false
 	get_node("checker-kinged").visible = true
 	get_node("collision-kinged").visible = true
-	for vector in moveVectors:
-		moveVectors.append(vector * -1)
+	moveVectors.append(moveVectors[0]*-1)
+	moveVectors.append(moveVectors[1]*-1)
 
 
 

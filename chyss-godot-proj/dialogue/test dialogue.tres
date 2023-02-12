@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 71
+resource_version = 74
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -90,6 +90,42 @@ Guy: I [wave amp=50 freq=5]funced ur mom[/wave] last night!
 ~ uses_both
 Guy: You moved your hat on turn 3.
 
+~ jail_dialogue
+if !jailedAlready
+	set jailedAlready = true
+	=> jail_first
+else
+	set tmp_store = randFloat
+	if tmp_store < 0.2
+		=> jail_1
+	else if tmp_store < 0.4
+		=> jail_2
+	else if tmp_store < 0.6
+		=> jail_3
+	else if tmp_store < 0.8
+		=> jail_4
+	else
+		=> jail_5
+
+~ jail_first
+Guy: To jail with you!!
+- What? You can't do that!
+	Guy: What do you mean?
+- That's my favorite game mechanic that is completely allowed.
+	Guy: I know, right? I love not breaking the rules.
+~ jail_1
+Guy: This one's off to the slammer.
+~ jail_2
+Guy: You're under arrest!!
+- What did that one do?
+	Guy: Illegal move.
+~ jail_3
+Guy: I like putting the pieces in the little box.
+~ jail_4
+Guy: The constable will have a word with you!!
+~ jail_5
+Guy: Jail.
+
 ~ white_lost
 Guy: lmao loser
 ~ black_lost
@@ -98,16 +134,26 @@ Guy: oops
 Guy: Hi this is abby i made this game how did you do this
 ~ again_query
 Guy: Do you wanna play again?
-- sure
-	Guy: ok
+- Sure!
+	Guy: Ok.
+	do reset_game()
+- Not really.
+	Guy: Well I do.
 	do reset_game()"
 errors = [  ]
 titles = {
-"again_query": "91",
-"black_lost": "87",
-"draw": "89",
+"again_query": "127",
+"black_lost": "123",
+"draw": "125",
 "frog_reveal": "73",
 "good_move": "76",
+"jail_1": "108",
+"jail_2": "110",
+"jail_3": "114",
+"jail_4": "116",
+"jail_5": "118",
+"jail_dialogue": "85",
+"jail_first": "102",
 "opening_1": "14",
 "opening_2": "34",
 "opening_3": "48",
@@ -116,7 +162,7 @@ titles = {
 "opening_dialogue": "1",
 "ur_mom": "79",
 "uses_both": "82",
-"white_lost": "85"
+"white_lost": "121"
 }
 lines = {
 "0": {
@@ -146,15 +192,272 @@ lines = {
 "next_id_after": "end!",
 "type": "condition"
 },
+"101": {
+"next_id": "102",
+"text": "jail_first",
+"type": "title"
+},
+"102": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "103",
+"replacements": [  ],
+"text": "To jail with you!!",
+"translation_key": "To jail with you!!",
+"type": "dialogue"
+},
+"103": {
+"next_id": "104",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "103", "105" ),
+"text": "What? You can't do that!",
+"translation_key": "What? You can't do that!",
+"type": "response"
+},
+"104": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "103",
+"replacements": [  ],
+"text": "What do you mean?",
+"translation_key": "What do you mean?",
+"type": "dialogue"
+},
+"105": {
+"next_id": "106",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "That's my favorite game mechanic that is completely allowed.",
+"translation_key": "That's my favorite game mechanic that is completely allowed.",
+"type": "response"
+},
+"106": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "105",
+"replacements": [  ],
+"text": "I know, right? I love not breaking the rules.",
+"translation_key": "I know, right? I love not breaking the rules.",
+"type": "dialogue"
+},
+"107": {
+"next_id": "108",
+"text": "jail_1",
+"type": "title"
+},
+"108": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "This one's off to the slammer.",
+"translation_key": "This one's off to the slammer.",
+"type": "dialogue"
+},
+"109": {
+"next_id": "110",
+"text": "jail_2",
+"type": "title"
+},
 "11": {
 "next_id": "57",
 "parent_id": "10",
 "type": "goto"
 },
+"110": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "111",
+"replacements": [  ],
+"text": "You're under arrest!!",
+"translation_key": "You're under arrest!!",
+"type": "dialogue"
+},
+"111": {
+"next_id": "112",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "111" ),
+"text": "What did that one do?",
+"translation_key": "What did that one do?",
+"type": "response"
+},
+"112": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "end!",
+"parent_id": "111",
+"replacements": [  ],
+"text": "Illegal move.",
+"translation_key": "Illegal move.",
+"type": "dialogue"
+},
+"113": {
+"next_id": "114",
+"text": "jail_3",
+"type": "title"
+},
+"114": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "I like putting the pieces in the little box.",
+"translation_key": "I like putting the pieces in the little box.",
+"type": "dialogue"
+},
+"115": {
+"next_id": "116",
+"text": "jail_4",
+"type": "title"
+},
+"116": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "The constable will have a word with you!!",
+"translation_key": "The constable will have a word with you!!",
+"type": "dialogue"
+},
+"117": {
+"next_id": "118",
+"text": "jail_5",
+"type": "title"
+},
+"118": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "Jail.",
+"translation_key": "Jail.",
+"type": "dialogue"
+},
+"120": {
+"next_id": "121",
+"text": "white_lost",
+"type": "title"
+},
+"121": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "lmao loser",
+"translation_key": "lmao loser",
+"type": "dialogue"
+},
+"122": {
+"next_id": "123",
+"text": "black_lost",
+"type": "title"
+},
+"123": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "oops",
+"translation_key": "oops",
+"type": "dialogue"
+},
+"124": {
+"next_id": "125",
+"text": "draw",
+"type": "title"
+},
+"125": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "Hi this is abby i made this game how did you do this",
+"translation_key": "Hi this is abby i made this game how did you do this",
+"type": "dialogue"
+},
+"126": {
+"next_id": "127",
+"text": "again_query",
+"type": "title"
+},
+"127": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "128",
+"replacements": [  ],
+"text": "Do you wanna play again?",
+"translation_key": "Do you wanna play again?",
+"type": "dialogue"
+},
+"128": {
+"next_id": "129",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "128", "131" ),
+"text": "Sure!",
+"translation_key": "Sure!",
+"type": "response"
+},
+"129": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "130",
+"parent_id": "128",
+"replacements": [  ],
+"text": "Ok.",
+"translation_key": "Ok.",
+"type": "dialogue"
+},
 "13": {
 "next_id": "14",
 "text": "opening_1",
 "type": "title"
+},
+"130": {
+"mutation": {
+"expression": [ {
+"function": "reset_game",
+"type": "function",
+"value": [  ]
+} ]
+},
+"next_id": "end!",
+"parent_id": "128",
+"type": "mutation"
+},
+"131": {
+"next_id": "132",
+"next_id_after": "end!",
+"replacements": [  ],
+"text": "Not really.",
+"translation_key": "Not really.",
+"type": "response"
+},
+"132": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "133",
+"parent_id": "131",
+"replacements": [  ],
+"text": "Well I do.",
+"translation_key": "Well I do.",
+"type": "dialogue"
+},
+"133": {
+"mutation": {
+"expression": [ {
+"function": "reset_game",
+"type": "function",
+"value": [  ]
+} ]
+},
+"next_id": "end!",
+"parent_id": "131",
+"type": "mutation"
 },
 "14": {
 "character": "Guy",
@@ -667,45 +970,67 @@ lines = {
 },
 "84": {
 "next_id": "85",
-"text": "white_lost",
+"text": "jail_dialogue",
 "type": "title"
 },
 "85": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "",
-"replacements": [  ],
-"text": "lmao loser",
-"translation_key": "lmao loser",
-"type": "dialogue"
+"condition": {
+"expression": [ {
+"type": "not"
+}, {
+"type": "variable",
+"value": "jailedAlready"
+} ]
+},
+"next_conditional_id": "88",
+"next_id": "86",
+"next_id_after": "end!",
+"type": "condition"
 },
 "86": {
+"mutation": {
+"expression": [ {
+"type": "variable",
+"value": "jailedAlready"
+}, {
+"type": "assignment",
+"value": "="
+}, {
+"type": "bool",
+"value": true
+} ]
+},
 "next_id": "87",
-"text": "black_lost",
-"type": "title"
+"parent_id": "85",
+"type": "mutation"
 },
 "87": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "",
-"replacements": [  ],
-"text": "oops",
-"translation_key": "oops",
-"type": "dialogue"
+"next_id": "102",
+"parent_id": "85",
+"type": "goto"
 },
 "88": {
+"next_conditional_id": "end!",
 "next_id": "89",
-"text": "draw",
-"type": "title"
+"next_id_after": "end!",
+"type": "condition"
 },
 "89": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "",
-"replacements": [  ],
-"text": "Hi this is abby i made this game how did you do this",
-"translation_key": "Hi this is abby i made this game how did you do this",
-"type": "dialogue"
+"mutation": {
+"expression": [ {
+"type": "variable",
+"value": "tmp_store"
+}, {
+"type": "assignment",
+"value": "="
+}, {
+"type": "variable",
+"value": "randFloat"
+} ]
+},
+"next_id": "90",
+"parent_id": "88",
+"type": "mutation"
 },
 "9": {
 "next_id": "54",
@@ -713,48 +1038,75 @@ lines = {
 "type": "goto"
 },
 "90": {
-"next_id": "91",
-"text": "again_query",
-"type": "title"
-},
-"91": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "92",
-"replacements": [  ],
-"text": "Do you wanna play again?",
-"translation_key": "Do you wanna play again?",
-"type": "dialogue"
-},
-"92": {
-"next_id": "93",
-"next_id_after": "end!",
-"replacements": [  ],
-"responses": PoolStringArray( "92" ),
-"text": "sure",
-"translation_key": "sure",
-"type": "response"
-},
-"93": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "94",
-"parent_id": "92",
-"replacements": [  ],
-"text": "ok",
-"translation_key": "ok",
-"type": "dialogue"
-},
-"94": {
-"mutation": {
+"condition": {
 "expression": [ {
-"function": "reset_game",
-"type": "function",
-"value": [  ]
+"type": "variable",
+"value": "tmp_store"
+}, {
+"type": "comparison",
+"value": "<"
+}, {
+"type": "number",
+"value": 0.2
 } ]
 },
-"next_id": "end!",
+"next_conditional_id": "92",
+"next_id": "91",
+"next_id_after": "end!",
+"parent_id": "88",
+"type": "condition"
+},
+"91": {
+"next_id": "108",
+"parent_id": "90",
+"type": "goto"
+},
+"92": {
+"next_conditional_id": "end!",
+"next_id": "93",
+"next_id_after": "end!",
+"parent_id": "88",
+"type": "condition"
+},
+"93": {
+"next_id": "110",
 "parent_id": "92",
-"type": "mutation"
+"type": "goto"
+},
+"94": {
+"next_conditional_id": "end!",
+"next_id": "95",
+"next_id_after": "end!",
+"parent_id": "88",
+"type": "condition"
+},
+"95": {
+"next_id": "114",
+"parent_id": "94",
+"type": "goto"
+},
+"96": {
+"next_conditional_id": "end!",
+"next_id": "97",
+"next_id_after": "end!",
+"parent_id": "88",
+"type": "condition"
+},
+"97": {
+"next_id": "116",
+"parent_id": "96",
+"type": "goto"
+},
+"98": {
+"next_conditional_id": "end!",
+"next_id": "99",
+"next_id_after": "end!",
+"parent_id": "88",
+"type": "condition"
+},
+"99": {
+"next_id": "118",
+"parent_id": "98",
+"type": "goto"
 }
 }

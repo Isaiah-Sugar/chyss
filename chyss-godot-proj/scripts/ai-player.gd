@@ -13,16 +13,17 @@ func play_turn():
 	thinkTimer.start()
 	yield(thinkTimer, "timeout")
 	
-	#90% chance to make a normal move
-	if randi() % 10 > 0:
-		#find all your moves
-		var movesArray = find_moves()
-		#score the moves
-		var dangerArray = find_danger()
-		for move in movesArray:
-			score_move(move, dangerArray)
-		#pick a move and make it
-		var move = pick_move(movesArray)
+	
+	#find all your moves
+	var movesArray = find_moves()
+	#score the moves
+	var dangerArray = find_danger()
+	for move in movesArray:
+		score_move(move, dangerArray)
+	#pick a move and make it
+	var move = pick_move(movesArray)
+	#90% chance to make move, or if a move scores over 100 always make a move
+	if (move.score > 100) || (randi() % 10 > 0):
 		make_move(move)
 	#10% chance to jail a piece
 	else:
@@ -31,6 +32,7 @@ func play_turn():
 		var jailPiece = pieces[randi() % pieces.size()]
 		#send it to jail
 		jail_piece(jailPiece)
+
 
 #fancy custom sorter
 class ScoreSorter:

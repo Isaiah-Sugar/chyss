@@ -63,7 +63,9 @@ func find_chains(move):
 
 #invert move vectors depending on team
 func individual_set_team():
-	if team == "white":
+	if kinged:
+		moveVectors = [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]
+	elif team == "white":
 		moveVectors = [Vector2(-1, -1), Vector2(1, -1)]
 	else:
 		moveVectors = [Vector2(-1, 1), Vector2(1, 1)]
@@ -75,13 +77,14 @@ func individual_set_position():
 		get_kinged()
 
 func get_kinged():
+	yield(self, "animation_finished")
 	kinged = true
 	get_node("checker").visible = false
 	get_node("collision-checker").visible = false
 	get_node("checker-kinged").visible = true
 	get_node("collision-kinged").visible = true
-	for vector in moveVectors:
-		moveVectors.append(vector * -1)
+	mesh = get_node("checker-kinged")
+	self.team = team
 
 
 

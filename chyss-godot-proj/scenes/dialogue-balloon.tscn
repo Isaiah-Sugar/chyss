@@ -67,7 +67,6 @@ margin_left = 30.0
 margin_top = 20.0
 margin_right = 770.0
 margin_bottom = 780.0
-rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 5

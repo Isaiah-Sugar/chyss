@@ -79,6 +79,7 @@ func setup_pieces():
 #function to remove every piece
 func clear_pieces():
 	for piece in pieceParent.get_children():
+		pieceParent.remove_child(piece)
 		piece.queue_free()
 #function to instance an individual piece
 func instance_piece(type, boardPosition, team):

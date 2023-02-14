@@ -91,6 +91,8 @@ func identify_loser():
 #function to restart the game
 func reset_game():
 	turn = "white"
-	board.clear_pieces()
-	board.setup_pieces()
+	board.clear_game()
+	board.setup_game()
+	board.blackPlayer.jailedPiece = null
+	
 	run_game()

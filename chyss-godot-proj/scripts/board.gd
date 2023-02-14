@@ -46,7 +46,10 @@ func setup_game():
 	whitePlayer.opponent = blackPlayer
 	#signal main that its done
 	emit_signal("game_setup")
-
+func clear_game():
+	whitePlayer.queue_free()
+	blackPlayer.queue_free()
+	clear_pieces()
 #function to give each team a set of pieces
 func setup_pieces():
 	for piece in pieceParent.get_children():

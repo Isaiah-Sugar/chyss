@@ -25,7 +25,7 @@ func find_moves():
 			validMoves.append({team = team, piece = self, vectors = [vector*2 + boardPosition], 
 								doesCapture = true, captures = [capture], score = 0})
 			#append chain moves to validMoves
-			validMoves.append_array(find_chains(validMoves[-1]))
+			validMoves.append_array(find_chains(validMoves[-1], vector*-1))
 		elif can_move(vector*2 + boardPosition):
 			validMoves.append({team = team, piece = self, vectors = [vector*2 + boardPosition], 
 								doesCapture = false, captures = [], score = 0})
@@ -33,33 +33,19 @@ func find_moves():
 	return validMoves
 
 #function to check if another take can be chained after a take
-func find_chains(move):
+func find_chains(move, ignoreVector):
 	var chainMoves = []
-	#instance a checker at movePosition
-	var chainPiece = newChecker.instance()
-	chainPiece.boardPosition = move.vectors[-1]
-	chainPiece.team = team
-	chainPiece.kinged = kinged
-	chainPiece.pieceParent = pieceParent
-	chainPiece.visible = false
-	add_child(chainPiece)
-	
-	#for every move the chain piece can make
-	for chainMove in chainPiece.find_moves():
-		#if it captures anything
-		if chainMove.captures.size() > 0:
-			#append chain move to our array of chain moves
-			chainMoves.append(chainMove)
-			#append the initial move's captures to the chain move
-			chainMove.captures.append_array(move.captures)
-			
-			for vector in move.vectors:
-				chainMove.vectors.insert(0, vector)
-			chainMove.piece = self
-	
-	remove_child(chainPiece)
-	chainPiece.queue_free()
+	for vector in moveVectors:
+		if vector == ignoreVector:
+			continue
+		if can_move(vector*2 + move.vectors[-1]) && can_take(vector + move.vectors[-1]):
+			var capture = pieceParent.find_piece(vector + move.vectors[-1])
+			chainMoves.append(move.duplicate(true))
+			chainMoves[-1].vectors.append(vector*2 + move.vectors[-1])
+			chainMoves[-1].captures.append(capture)
+			chainMoves.append_array(find_chains(chainMoves[-1], vector*-1))
 	return chainMoves
+			
 
 #invert move vectors depending on team
 func individual_set_team():

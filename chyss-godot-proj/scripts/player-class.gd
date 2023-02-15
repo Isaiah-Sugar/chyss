@@ -32,8 +32,6 @@ func make_move(move):
 	Dialogue.append_queue(["movePiece", "moveCaptures", "moveScore", "moveTeam"], [move.piece, move.captures, move.score, move.team])
 	#loop to animate piece moving and captures happening
 	var index = 0
-	#invert captures array because checker is backwards
-	move.captures.invert()
 	while (move.vectors.size() > index || move.captures.size() > index):
 		if move.vectors.size() > index:
 			move.piece.move(move.vectors[index])

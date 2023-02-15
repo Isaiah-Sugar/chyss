@@ -23,7 +23,7 @@ func play_turn():
 	#pick a move and make it
 	var move = pick_move(movesArray)
 	#90% chance to make move, or if a move scores over 100 always make a move
-	if (move.score > 100) || (randi() % 10 > 100):
+	if (move.score > 100) || (randi() % 10 > 1):
 		make_move(move)
 	#10% chance to jail a piece
 	else:

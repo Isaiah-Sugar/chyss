@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 74
+resource_version = 75
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -132,6 +132,7 @@ Guy: lmao loser
 Guy: oops
 ~ draw
 Guy: Hi this is abby i made this game how did you do this
+isaiah: abby!! you can't write that!! ur breaking the immersion!!
 ~ again_query
 Guy: Do you wanna play again?
 - Sure!
@@ -142,7 +143,7 @@ Guy: Do you wanna play again?
 	do reset_game()"
 errors = [  ]
 titles = {
-"again_query": "127",
+"again_query": "128",
 "black_lost": "123",
 "draw": "125",
 "frog_reveal": "73",
@@ -373,44 +374,43 @@ lines = {
 "125": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "",
+"next_id": "126",
 "replacements": [  ],
 "text": "Hi this is abby i made this game how did you do this",
 "translation_key": "Hi this is abby i made this game how did you do this",
 "type": "dialogue"
 },
 "126": {
-"next_id": "127",
+"character": "isaiah",
+"character_replacements": [  ],
+"next_id": "",
+"replacements": [  ],
+"text": "abby!! you can't write that!! ur breaking the immersion!!",
+"translation_key": "abby!! you can't write that!! ur breaking the immersion!!",
+"type": "dialogue"
+},
+"127": {
+"next_id": "128",
 "text": "again_query",
 "type": "title"
 },
-"127": {
+"128": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "128",
+"next_id": "129",
 "replacements": [  ],
 "text": "Do you wanna play again?",
 "translation_key": "Do you wanna play again?",
 "type": "dialogue"
 },
-"128": {
-"next_id": "129",
+"129": {
+"next_id": "130",
 "next_id_after": "end!",
 "replacements": [  ],
-"responses": PoolStringArray( "128", "131" ),
+"responses": PoolStringArray( "129", "132" ),
 "text": "Sure!",
 "translation_key": "Sure!",
 "type": "response"
-},
-"129": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "130",
-"parent_id": "128",
-"replacements": [  ],
-"text": "Ok.",
-"translation_key": "Ok.",
-"type": "dialogue"
 },
 "13": {
 "next_id": "14",
@@ -418,6 +418,16 @@ lines = {
 "type": "title"
 },
 "130": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "131",
+"parent_id": "129",
+"replacements": [  ],
+"text": "Ok.",
+"translation_key": "Ok.",
+"type": "dialogue"
+},
+"131": {
 "mutation": {
 "expression": [ {
 "function": "reset_game",
@@ -426,28 +436,28 @@ lines = {
 } ]
 },
 "next_id": "end!",
-"parent_id": "128",
+"parent_id": "129",
 "type": "mutation"
 },
-"131": {
-"next_id": "132",
+"132": {
+"next_id": "133",
 "next_id_after": "end!",
 "replacements": [  ],
 "text": "Not really.",
 "translation_key": "Not really.",
 "type": "response"
 },
-"132": {
+"133": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "133",
-"parent_id": "131",
+"next_id": "134",
+"parent_id": "132",
 "replacements": [  ],
 "text": "Well I do.",
 "translation_key": "Well I do.",
 "type": "dialogue"
 },
-"133": {
+"134": {
 "mutation": {
 "expression": [ {
 "function": "reset_game",
@@ -456,7 +466,7 @@ lines = {
 } ]
 },
 "next_id": "end!",
-"parent_id": "131",
+"parent_id": "132",
 "type": "mutation"
 },
 "14": {

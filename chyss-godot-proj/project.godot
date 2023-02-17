@@ -40,6 +40,7 @@ run/main_scene="res://scenes/Main.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Dialogue="*res://scripts/dialogue.gd"
 GameState="*res://scripts/gameState.gd"
+Sfx="*res://scripts/sfx.gd"
 
 [editor_plugins]
 

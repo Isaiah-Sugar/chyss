@@ -42,6 +42,7 @@ func run_game():
 			board.blackPlayer.play_turn()
 		print("yielding until move_made")
 		yield (board, "move_made")
+		Sfx.play_badunk(randf())
 		#increment the turn number, toggle whose turn it is
 		turnNumber += 1
 		toggle_turn()

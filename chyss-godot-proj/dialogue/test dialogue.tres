@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-resource_version = 75
+resource_version = 77
 syntax_version = 2
 raw_text = "~ opening_dialogue
 set tmp_store = randFloat
@@ -84,8 +84,6 @@ Guy: From beneath the Hat emerges a Frog.
 ~ good_move
 Guy: How do you like them apples!
 
-~ ur_mom
-Guy: I [wave amp=50 freq=5]funced ur mom[/wave] last night!
 
 ~ uses_both
 Guy: You moved your hat on turn 3.
@@ -143,27 +141,26 @@ Guy: Do you wanna play again?
 	do reset_game()"
 errors = [  ]
 titles = {
-"again_query": "128",
-"black_lost": "123",
-"draw": "125",
+"again_query": "126",
+"black_lost": "121",
+"draw": "123",
 "frog_reveal": "73",
 "good_move": "76",
-"jail_1": "108",
-"jail_2": "110",
-"jail_3": "114",
-"jail_4": "116",
-"jail_5": "118",
-"jail_dialogue": "85",
-"jail_first": "102",
+"jail_1": "106",
+"jail_2": "108",
+"jail_3": "112",
+"jail_4": "114",
+"jail_5": "116",
+"jail_dialogue": "83",
+"jail_first": "100",
 "opening_1": "14",
 "opening_2": "34",
 "opening_3": "48",
 "opening_4": "54",
 "opening_5": "57",
 "opening_dialogue": "1",
-"ur_mom": "79",
-"uses_both": "82",
-"white_lost": "121"
+"uses_both": "80",
+"white_lost": "119"
 }
 lines = {
 "0": {
@@ -193,27 +190,40 @@ lines = {
 "next_id_after": "end!",
 "type": "condition"
 },
+"100": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "101",
+"replacements": [  ],
+"text": "To jail with you!!",
+"translation_key": "To jail with you!!",
+"type": "dialogue"
+},
 "101": {
 "next_id": "102",
-"text": "jail_first",
-"type": "title"
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "101", "103" ),
+"text": "What? You can't do that!",
+"translation_key": "What? You can't do that!",
+"type": "response"
 },
 "102": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "103",
+"next_id": "end!",
+"parent_id": "101",
 "replacements": [  ],
-"text": "To jail with you!!",
-"translation_key": "To jail with you!!",
+"text": "What do you mean?",
+"translation_key": "What do you mean?",
 "type": "dialogue"
 },
 "103": {
 "next_id": "104",
 "next_id_after": "end!",
 "replacements": [  ],
-"responses": PoolStringArray( "103", "105" ),
-"text": "What? You can't do that!",
-"translation_key": "What? You can't do that!",
+"text": "That's my favorite game mechanic that is completely allowed.",
+"translation_key": "That's my favorite game mechanic that is completely allowed.",
 "type": "response"
 },
 "104": {
@@ -222,34 +232,16 @@ lines = {
 "next_id": "end!",
 "parent_id": "103",
 "replacements": [  ],
-"text": "What do you mean?",
-"translation_key": "What do you mean?",
-"type": "dialogue"
-},
-"105": {
-"next_id": "106",
-"next_id_after": "end!",
-"replacements": [  ],
-"text": "That's my favorite game mechanic that is completely allowed.",
-"translation_key": "That's my favorite game mechanic that is completely allowed.",
-"type": "response"
-},
-"106": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "end!",
-"parent_id": "105",
-"replacements": [  ],
 "text": "I know, right? I love not breaking the rules.",
 "translation_key": "I know, right? I love not breaking the rules.",
 "type": "dialogue"
 },
-"107": {
-"next_id": "108",
+"105": {
+"next_id": "106",
 "text": "jail_1",
 "type": "title"
 },
-"108": {
+"106": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -258,10 +250,28 @@ lines = {
 "translation_key": "This one's off to the slammer.",
 "type": "dialogue"
 },
-"109": {
-"next_id": "110",
+"107": {
+"next_id": "108",
 "text": "jail_2",
 "type": "title"
+},
+"108": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "109",
+"replacements": [  ],
+"text": "You're under arrest!!",
+"translation_key": "You're under arrest!!",
+"type": "dialogue"
+},
+"109": {
+"next_id": "110",
+"next_id_after": "end!",
+"replacements": [  ],
+"responses": PoolStringArray( "109" ),
+"text": "What did that one do?",
+"translation_key": "What did that one do?",
+"type": "response"
 },
 "11": {
 "next_id": "57",
@@ -271,37 +281,19 @@ lines = {
 "110": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "111",
-"replacements": [  ],
-"text": "You're under arrest!!",
-"translation_key": "You're under arrest!!",
-"type": "dialogue"
-},
-"111": {
-"next_id": "112",
-"next_id_after": "end!",
-"replacements": [  ],
-"responses": PoolStringArray( "111" ),
-"text": "What did that one do?",
-"translation_key": "What did that one do?",
-"type": "response"
-},
-"112": {
-"character": "Guy",
-"character_replacements": [  ],
 "next_id": "end!",
-"parent_id": "111",
+"parent_id": "109",
 "replacements": [  ],
 "text": "Illegal move.",
 "translation_key": "Illegal move.",
 "type": "dialogue"
 },
-"113": {
-"next_id": "114",
+"111": {
+"next_id": "112",
 "text": "jail_3",
 "type": "title"
 },
-"114": {
+"112": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -310,12 +302,12 @@ lines = {
 "translation_key": "I like putting the pieces in the little box.",
 "type": "dialogue"
 },
-"115": {
-"next_id": "116",
+"113": {
+"next_id": "114",
 "text": "jail_4",
 "type": "title"
 },
-"116": {
+"114": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -324,12 +316,12 @@ lines = {
 "translation_key": "The constable will have a word with you!!",
 "type": "dialogue"
 },
-"117": {
-"next_id": "118",
+"115": {
+"next_id": "116",
 "text": "jail_5",
 "type": "title"
 },
-"118": {
+"116": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -338,12 +330,12 @@ lines = {
 "translation_key": "Jail.",
 "type": "dialogue"
 },
-"120": {
-"next_id": "121",
+"118": {
+"next_id": "119",
 "text": "white_lost",
 "type": "title"
 },
-"121": {
+"119": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -352,12 +344,12 @@ lines = {
 "translation_key": "lmao loser",
 "type": "dialogue"
 },
-"122": {
-"next_id": "123",
+"120": {
+"next_id": "121",
 "text": "black_lost",
 "type": "title"
 },
-"123": {
+"121": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -366,21 +358,21 @@ lines = {
 "translation_key": "oops",
 "type": "dialogue"
 },
-"124": {
-"next_id": "125",
+"122": {
+"next_id": "123",
 "text": "draw",
 "type": "title"
 },
-"125": {
+"123": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "126",
+"next_id": "124",
 "replacements": [  ],
 "text": "Hi this is abby i made this game how did you do this",
 "translation_key": "Hi this is abby i made this game how did you do this",
 "type": "dialogue"
 },
-"126": {
+"124": {
 "character": "isaiah",
 "character_replacements": [  ],
 "next_id": "",
@@ -389,28 +381,50 @@ lines = {
 "translation_key": "abby!! you can't write that!! ur breaking the immersion!!",
 "type": "dialogue"
 },
-"127": {
-"next_id": "128",
+"125": {
+"next_id": "126",
 "text": "again_query",
 "type": "title"
 },
-"128": {
+"126": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "129",
+"next_id": "127",
 "replacements": [  ],
 "text": "Do you wanna play again?",
 "translation_key": "Do you wanna play again?",
 "type": "dialogue"
 },
-"129": {
-"next_id": "130",
+"127": {
+"next_id": "128",
 "next_id_after": "end!",
 "replacements": [  ],
-"responses": PoolStringArray( "129", "132" ),
+"responses": PoolStringArray( "127", "130" ),
 "text": "Sure!",
 "translation_key": "Sure!",
 "type": "response"
+},
+"128": {
+"character": "Guy",
+"character_replacements": [  ],
+"next_id": "129",
+"parent_id": "127",
+"replacements": [  ],
+"text": "Ok.",
+"translation_key": "Ok.",
+"type": "dialogue"
+},
+"129": {
+"mutation": {
+"expression": [ {
+"function": "reset_game",
+"type": "function",
+"value": [  ]
+} ]
+},
+"next_id": "end!",
+"parent_id": "127",
+"type": "mutation"
 },
 "13": {
 "next_id": "14",
@@ -418,46 +432,24 @@ lines = {
 "type": "title"
 },
 "130": {
-"character": "Guy",
-"character_replacements": [  ],
 "next_id": "131",
-"parent_id": "129",
-"replacements": [  ],
-"text": "Ok.",
-"translation_key": "Ok.",
-"type": "dialogue"
-},
-"131": {
-"mutation": {
-"expression": [ {
-"function": "reset_game",
-"type": "function",
-"value": [  ]
-} ]
-},
-"next_id": "end!",
-"parent_id": "129",
-"type": "mutation"
-},
-"132": {
-"next_id": "133",
 "next_id_after": "end!",
 "replacements": [  ],
 "text": "Not really.",
 "translation_key": "Not really.",
 "type": "response"
 },
-"133": {
+"131": {
 "character": "Guy",
 "character_replacements": [  ],
-"next_id": "134",
-"parent_id": "132",
+"next_id": "132",
+"parent_id": "130",
 "replacements": [  ],
 "text": "Well I do.",
 "translation_key": "Well I do.",
 "type": "dialogue"
 },
-"134": {
+"132": {
 "mutation": {
 "expression": [ {
 "function": "reset_game",
@@ -466,7 +458,7 @@ lines = {
 } ]
 },
 "next_id": "end!",
-"parent_id": "132",
+"parent_id": "130",
 "type": "mutation"
 },
 "14": {
@@ -944,19 +936,10 @@ lines = {
 "translation_key": "How do you like them apples!",
 "type": "dialogue"
 },
-"78": {
-"next_id": "79",
-"text": "ur_mom",
-"type": "title"
-},
 "79": {
-"character": "Guy",
-"character_replacements": [  ],
-"next_id": "",
-"replacements": [  ],
-"text": "I [wave amp=50 freq=5]funced ur mom[/wave] last night!",
-"translation_key": "I [wave amp=50 freq=5]funced ur mom[/wave] last night!",
-"type": "dialogue"
+"next_id": "80",
+"text": "uses_both",
+"type": "title"
 },
 "8": {
 "next_conditional_id": "end!",
@@ -964,12 +947,7 @@ lines = {
 "next_id_after": "end!",
 "type": "condition"
 },
-"81": {
-"next_id": "82",
-"text": "uses_both",
-"type": "title"
-},
-"82": {
+"80": {
 "character": "Guy",
 "character_replacements": [  ],
 "next_id": "",
@@ -978,12 +956,12 @@ lines = {
 "translation_key": "You moved your hat on turn 3.",
 "type": "dialogue"
 },
-"84": {
-"next_id": "85",
+"82": {
+"next_id": "83",
 "text": "jail_dialogue",
 "type": "title"
 },
-"85": {
+"83": {
 "condition": {
 "expression": [ {
 "type": "not"
@@ -992,12 +970,12 @@ lines = {
 "value": "jailedAlready"
 } ]
 },
-"next_conditional_id": "88",
-"next_id": "86",
+"next_conditional_id": "86",
+"next_id": "84",
 "next_id_after": "end!",
 "type": "condition"
 },
-"86": {
+"84": {
 "mutation": {
 "expression": [ {
 "type": "variable",
@@ -1010,22 +988,22 @@ lines = {
 "value": true
 } ]
 },
-"next_id": "87",
-"parent_id": "85",
+"next_id": "85",
+"parent_id": "83",
 "type": "mutation"
 },
-"87": {
-"next_id": "102",
-"parent_id": "85",
+"85": {
+"next_id": "100",
+"parent_id": "83",
 "type": "goto"
 },
-"88": {
+"86": {
 "next_conditional_id": "end!",
-"next_id": "89",
+"next_id": "87",
 "next_id_after": "end!",
 "type": "condition"
 },
-"89": {
+"87": {
 "mutation": {
 "expression": [ {
 "type": "variable",
@@ -1038,16 +1016,11 @@ lines = {
 "value": "randFloat"
 } ]
 },
-"next_id": "90",
-"parent_id": "88",
+"next_id": "88",
+"parent_id": "86",
 "type": "mutation"
 },
-"9": {
-"next_id": "54",
-"parent_id": "8",
-"type": "goto"
-},
-"90": {
+"88": {
 "condition": {
 "expression": [ {
 "type": "variable",
@@ -1060,10 +1033,27 @@ lines = {
 "value": 0.2
 } ]
 },
-"next_conditional_id": "92",
+"next_conditional_id": "90",
+"next_id": "89",
+"next_id_after": "end!",
+"parent_id": "86",
+"type": "condition"
+},
+"89": {
+"next_id": "106",
+"parent_id": "88",
+"type": "goto"
+},
+"9": {
+"next_id": "54",
+"parent_id": "8",
+"type": "goto"
+},
+"90": {
+"next_conditional_id": "end!",
 "next_id": "91",
 "next_id_after": "end!",
-"parent_id": "88",
+"parent_id": "86",
 "type": "condition"
 },
 "91": {
@@ -1075,11 +1065,11 @@ lines = {
 "next_conditional_id": "end!",
 "next_id": "93",
 "next_id_after": "end!",
-"parent_id": "88",
+"parent_id": "86",
 "type": "condition"
 },
 "93": {
-"next_id": "110",
+"next_id": "112",
 "parent_id": "92",
 "type": "goto"
 },
@@ -1087,7 +1077,7 @@ lines = {
 "next_conditional_id": "end!",
 "next_id": "95",
 "next_id_after": "end!",
-"parent_id": "88",
+"parent_id": "86",
 "type": "condition"
 },
 "95": {
@@ -1099,7 +1089,7 @@ lines = {
 "next_conditional_id": "end!",
 "next_id": "97",
 "next_id_after": "end!",
-"parent_id": "88",
+"parent_id": "86",
 "type": "condition"
 },
 "97": {
@@ -1107,16 +1097,9 @@ lines = {
 "parent_id": "96",
 "type": "goto"
 },
-"98": {
-"next_conditional_id": "end!",
-"next_id": "99",
-"next_id_after": "end!",
-"parent_id": "88",
-"type": "condition"
-},
 "99": {
-"next_id": "118",
-"parent_id": "98",
-"type": "goto"
+"next_id": "100",
+"text": "jail_first",
+"type": "title"
 }
 }

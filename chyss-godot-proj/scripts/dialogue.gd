@@ -102,7 +102,6 @@ var caseArray = [
 					{function = "opening_dialogue(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "opening_dialogue", alreadyHappened = false},
 					{function = "frog_reveal(moveCaptures)", variableNames = ["moveCaptures"], dialogueNode = "frog_reveal", alreadyHappened = false},
 					{function = "good_move(moveTeam, moveScore)", variableNames = ["moveTeam", "moveScore"], dialogueNode = "good_move", alreadyHappened = null},
-					{function = "ur_mom(turnNumber)", variableNames = ["turnNumber"], dialogueNode = "ur_mom", alreadyHappened = false},
 					{function = "uses_both(movePiece, turnNumber)", variableNames = ["movePiece", "turnNumber"], dialogueNode = "uses_both", alreadyHappened = false},
 					{function = "white_lost(loser)", variableNames = ["loser"], dialogueNode = "white_lost", alreadyHappened = null},
 					{function = "black_lost(loser)", variableNames = ["loser"], dialogueNode = "black_lost", alreadyHappened = null},
